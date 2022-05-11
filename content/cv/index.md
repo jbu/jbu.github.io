@@ -10,17 +10,17 @@ james.uther at gmail.com | [@hemul](https://twitter.com/hemul)
 
 The 1-powerpoint-slide version from work: 
 <br>
-<blockquote>
-James is a senior engineering lead in our Digital practice where he specializes in leading solutions to the most complex technical challenges. With over 25 years of technical and leadership experience across industries, technologies, and cultures, he is able to offer valuable insights to clients. 
 
-"Technology is changing so fast and the part of my job I enjoy the most is tackling complex problems for clients. Sometimes optimizing the software can improve performance by 1000 percent, or other times we help businesses enable scale through a cloud migration, or improve performance through culture and process insights. Above all, we help our clients to find the best path that is right for them."
+> James is a senior engineering lead in our Digital practice where he specializes in leading solutions to the most complex technical challenges. With over 25 years of technical and leadership experience across industries, technologies, and cultures, he is able to offer valuable insights to clients. 
+
+> "Technology is changing so fast and the part of my job I enjoy the most is tackling complex problems for clients. Sometimes optimizing the software can improve performance by 1000 percent, or other times we help businesses enable scale through a cloud migration, or improve performance through culture and process insights. Above all, we help our clients to find the best path that is right for them."
  
-James has worked across a broad range of projects at <work>. To help clients work more efficiently and innovatively, he often encourages clients to think beyond the technology itself. For example, he recently helped an insurer improve their data engineering culture, so their business teams could collaborate better with their data scientists, which resulted in significant performance improvements within their financial software projects.
+> James has worked across a broad range of projects at \<work\>. To help clients work more efficiently and innovatively, he often encourages clients to think beyond the technology itself. For example, he recently helped an insurer improve their data engineering culture, so their business teams could collaborate better with their data scientists, which resulted in significant performance improvements within their financial software projects.
  
-“It’s easy to fall into technology cargo cults and misapply technical and organizational trends. It takes the experience gained by using a wide variety of tools in many disparate situations to be able to quickly identify how best to use the resources you have for your project”
+> “It’s easy to fall into technology cargo cults and misapply technical and organizational trends. It takes the experience gained by using a wide variety of tools in many disparate situations to be able to quickly identify how best to use the resources you have for your project”
  
-James arrived in the UK from Australia many years ago, via a detour for a few years in Finland. He can often be found wandering the hills of some random wilderness, or helping his son with redstone machines in Minecraft. He holds a PhD in Computer Science from the University of Sydney.
-</blockquote>
+> James arrived in the UK from Australia many years ago, via a detour for a few years in Finland. He can often be found wandering the hills of some random wilderness, or helping his son with redstone machines in Minecraft. He holds a PhD in Computer Science from the University of Sydney.
+
 More info:
 
 ## Key Skills
@@ -34,6 +34,12 @@ Software development, strategy, architecture & management. Ability to influence 
 ### Dec 2016 - now.
 
 LShift was acquired by Oliver Wyman to form the core of their technology delivery capability. Since then I've been involved in various projects, mostly in the financial space.
+
+- A leader of the evolution of the internal cloud practices from VMs to serverless. Lots of terraform on AWS, some on Azure. Kubernetes in various forms. Communication and consensus building around solutions and best practices.
+- Helped a large insurer find a better pattern of work between Data Engineering and Data Science teams. Developed principles and practices to ease interaction, along with code examples. Spark/Databricks.
+- Helped a bank keep to time by reducing a loan book calculation from 24 hours to 30 minues by distributeing a previously monolithic process. python/docker/rabbitmq
+- Initial architecture and walking skeleton for a tool to help industries identify actions to mitigate carbon emissions.
+- 
 <br>
 <hr>
 <br>
@@ -43,12 +49,13 @@ LShift was acquired by Oliver Wyman to form the core of their technology deliver
 ### [LShift](https://web.archive.org/web/20160220123718/http://www.lshift.net/) | London, UK
 ### Nov 2012 – Dec 2016
 
-"LShift is a hi-tech software development company. It is small but, we like to think, close to perfectly formed. Our company is home to some of the best developers in the UK - not only in our opinion, but in the opinion of a number of international blue chip companies who use our development and research skills."
+> "LShift is a hi-tech software development company. It is small but, we like to think, close to perfectly formed. Our company is home to some of the best developers in the UK - not only in our opinion, but in the opinion of a number of international blue chip companies who use our development and research skills."
 
 LShift has been successfully delivering agile projects for blue-chip clients for more than 10 years. They are technology agnostic, preferring to use whatever best delivers business benefit.
 Senior Developer is the only developer/architect role in the company, and is unique in that enormous freedom is given to own and direct all aspects of a project (from technical to client relationship), along with enormous responsibility to deliver. Given the exceptional caliber of the staff, this works well. Projects have ranged from data-mining open NHS data to building highly secure messaging platforms.
 I joined LShift for the chance to work with such talent (and humour). I did learn a lot of technology, but the most important secret I learned was how to reliably deliver complex projects.
 Technologies used so far: Clojure, Go, BigQuery, Scala, JavaScript, TypeScript, C#, F#, Docker & Kubernetes, AWS, GCE/GKE, Hadoop, Spark, ElasticSearch, and many more.
+<br>
 Trained in [DSDM](http://www.dsdm.org/) agile project management.
 <br>
 <hr>

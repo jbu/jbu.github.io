@@ -1,6 +1,6 @@
 ---
-heading: "Hi, I'm Codex"
-subheading: "A minimal blog theme for hugo."
-handle: "hugo-theme-codex"
+heading: "Hi, I'm James"
+subheading: "I do engineering."
+handle: "hemul"
 ---
 
