@@ -37,7 +37,7 @@ LShift was acquired by Oliver Wyman to form the core of their technology deliver
 
 - A leader of the evolution of the internal cloud practices from VMs to serverless. Lots of terraform on AWS, some on Azure. Kubernetes in various forms. Communication and consensus building around solutions and best practices.
 - Helped a large insurer find a better pattern of work between Data Engineering and Data Science teams. Developed principles and practices to ease interaction, along with code examples. Spark/Databricks.
-- Helped a bank keep to time by reducing a loan book calculation from 24 hours to 30 minues by distributeing a previously monolithic process. python/docker/rabbitmq
+- Helped a bank keep to time by reducing a loan book calculation from 24 hours to 30 minues by distributing a previously monolithic process. python/docker/rabbitmq
 - Initial architecture and walking skeleton for a tool to help industries identify actions to mitigate carbon emissions.
 
 <br>
