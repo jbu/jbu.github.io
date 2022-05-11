@@ -39,7 +39,7 @@ LShift was acquired by Oliver Wyman to form the core of their technology deliver
 - Helped a large insurer find a better pattern of work between Data Engineering and Data Science teams. Developed principles and practices to ease interaction, along with code examples. Spark/Databricks.
 - Helped a bank keep to time by reducing a loan book calculation from 24 hours to 30 minues by distributeing a previously monolithic process. python/docker/rabbitmq
 - Initial architecture and walking skeleton for a tool to help industries identify actions to mitigate carbon emissions.
-- 
+
 <br>
 <hr>
 <br>
@@ -52,11 +52,12 @@ LShift was acquired by Oliver Wyman to form the core of their technology deliver
 > "LShift is a hi-tech software development company. It is small but, we like to think, close to perfectly formed. Our company is home to some of the best developers in the UK - not only in our opinion, but in the opinion of a number of international blue chip companies who use our development and research skills."
 
 LShift has been successfully delivering agile projects for blue-chip clients for more than 10 years. They are technology agnostic, preferring to use whatever best delivers business benefit.
-Senior Developer is the only developer/architect role in the company, and is unique in that enormous freedom is given to own and direct all aspects of a project (from technical to client relationship), along with enormous responsibility to deliver. Given the exceptional caliber of the staff, this works well. Projects have ranged from data-mining open NHS data to building highly secure messaging platforms.
+Senior Developer is the only developer/architect role in the company, and is unique in that enormous freedom is given to own and direct all aspects of a project (from technical to client relationship), along with enormous responsibility to deliver. Given the exceptional caliber of the staff, this works well.
+
 I joined LShift for the chance to work with such talent (and humour). I did learn a lot of technology, but the most important secret I learned was how to reliably deliver complex projects.
 Technologies used so far: Clojure, Go, BigQuery, Scala, JavaScript, TypeScript, C#, F#, Docker & Kubernetes, AWS, GCE/GKE, Hadoop, Spark, ElasticSearch, and many more.
-<br>
-Trained in [DSDM](http://www.dsdm.org/) agile project management.
+- Projects have ranged from data-mining open NHS data to building highly secure messaging platforms.
+- Trained in [DSDM](http://www.dsdm.org/) agile project management.
 <br>
 <hr>
 <br>
