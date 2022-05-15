@@ -1,0 +1,72 @@
+<!doctype html><html lang=en-us><head><title>Expanding Reducers | Dr James Uther</title><meta charset=utf-8><meta name=language content="en"><meta name=description content><meta name=keywords content><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=twitter:card content="summary"><meta name=twitter:title content="Expanding Reducers"><meta name=twitter:description content><meta name=twitter:site content="https://twitter.com/hemul"><meta name=twitter:creator content="https://twitter.com/hemul"><link rel="shortcut icon" type=image/png href=/favicon.ico><link type=text/css rel=stylesheet href=/css/post.min.86d1effd4c412b85ac13db53a90c473a0f256f789b821e131125c9aa25cb6a6d.css integrity="sha256-htHv/UxBK4WsE9tTqQxHOg8lb3ibgh4TESXJqiXLam0="><link type=text/css rel=stylesheet href=/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css integrity="sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/uther.wtf"},"articleSection":"blog","name":"Expanding Reducers","headline":"Expanding Reducers","description":"","inLanguage":"en-US","author":"","creator":"","publisher":"","accountablePerson":"","copyrightHolder":"","copyrightYear":"2013","datePublished":"2013-07-31 00:00:00 \u002b0000 UTC","dateModified":"2013-07-31 00:00:00 \u002b0000 UTC","url":"https:\/\/uther.wtf\/blog\/expanding-reducers\/","wordCount":"800","keywords":["Blog"]}</script></head><body><div class=burger__container><div class=burger aria-controls=navigation aria-label=Menu><div class="burger__meat burger__meat--1"></div><div class="burger__meat burger__meat--2"></div><div class="burger__meat burger__meat--3"></div></div></div><nav class=nav id=navigation><ul class=nav__list><li><a href=/>about</a></li><li><a class=active href=/blog>blog</a></li><li><a href=/cv>CV</a></li></ul></nav><main><div class=flex-wrapper><div class=post__container><div class=post><header class=post__header><h1 id=post__title>Expanding Reducers</h1><time datetime="2013-07-31 00:00:00 +0000 UTC" class=post__date>2013-07-31</time></header><article class=post__content><p>When playing with a new bit of language, it can be helpful to restrict the problem space to an old, well understood algorithm. For me at least, learning one thing at a time is easier! For this post, It’ll be prime sieves, and I’ll be exploring clojure reducers.</p><p>A quick recap, the sieve of eratosthenes is a not-maximally-non-optimal way of finding primes. It’s usually expressed as follows:</p><p>To find primes below n: generate a list of n integers greater than 1</p><pre><code>while the list is not empty: 
+  take the head of the list: 
+    add it to the output 
+    remove all numbers evenly divisible by it from the list
+</code></pre><p>In clojure, something like:</p><pre><code class=language-clojure>(defn sieve 
+    ([n] (sieve [] (range 2 n))) 
+    ([primes xs]
+        (if-let [prime (first xs)] 
+            (recur (conj primes prime)
+                   (remove #(zero? (mod % prime)) xs))
+            primes
+        )
+    )
+) 
+
+(sieve 10)
+;= [2 3 5 7]
+</code></pre><p>Which is fine, but I’d like it lazy so I only pay for what I use, and I can use as much as I’m willing to pay for. Let’s look at lazy sequences. Luckily for us, there is an example of exactly this on the lazy-seq documentation, which we slightly modify like so:</p><pre><code class=language-clojure>(defn lazy-sieve [s] 
+  (cons (first s) 
+    (lazy-seq 
+      (lazy-sieve (remove #(zero? (mod % (first s))) (rest s))))))
+(defn primes [] 
+  (lazy-seq (lazy-sieve (iterate inc 2))))
+
+(take 5 (primes)) 
+;= (2 3 5 7)
+</code></pre><p>So now we have a nice generic source of primes that grows only as we take more. But is there another way?</p><p>A few months ago Rich Hickey introduced reducers. By turning the concept of ‘reducing’ inside out the new framework allows a parallel reduce (fold) in some circumstances. Which doesn’t apply here. But let’s see if we can build a different form of sieve using the new framework. First a quick overview (cribbing from the original blog post):</p><blockquote><p>Collections are now <em>reducible</em>, in that they implement a <code>reduce</code> protocol. <code>Filter</code>, <code>map</code>, etc are implemented as functions that
+can be applied by a reducible to itself to return another reducible, but lazily, and possibly in parallel. So in the example
+below we have a reducible (a vector), that maps inc to itself to return a reducible that is then wrapped with a filter on
+<code>even?</code> which returns a further reducible, that reduce then collects with <code>+</code>.</p></blockquote><pre><code class=language-clojure>(require '[clojure.core.reducers :as r])
+; We’ll be referring to r here and there – just remember it’s the clojure.core.reducers namespace
+
+(reduce + (r/filter even? (r/map inc [1 1 1 2])))
+;= 6
+</code></pre><p>These are composable, so we can build ‘recipes’.</p><pre><code class=language-clojure>;;red is a reducer awaiting a collection
+(def red (comp (r/filter even?) (r/map inc)))
+(reduce + (red [1 1 1 2]))
+;= 6
+</code></pre><p><code>into</code> uses reduce internally, so we can use it to build collections instead of reducing:</p><pre><code class=language-clojure>(into [] (r/filter even? (r/map inc [1 1 1 2])))
+;= [2 2 2]
+</code></pre><p>So here’s the core of ‘reducer’, which</p><blockquote><p>Given a reducible collection, and a transformation function <code>xf</code>, returns a reducible collection, where any supplied reducing <strong>fn</strong> will be transformed by <code>xf</code>. <code>xf</code> is a function of reducing <strong>fn</strong> to reducing <strong>fn</strong>.</p></blockquote><pre><code class=language-clojure>(defn reducer ([coll xf] 
+  (reify clojure.core.protocols/CollReduce 
+    (coll-reduce [_ f1 init] (clojure.core.protocols/coll-reduce coll (xf f1) init)))))
+</code></pre><p>And we can then use that to implement mapping as so:</p><pre><code class=language-clojure>(defn mapping [f] 
+  (fn [f1] (fn [result input] (f1 result (f input))))) 
+  
+(defn rmap [f coll] (reducer coll (mapping f))) 
+(reduce + 0 (rmap inc [1 2 3 4]))
+;= 14
+</code></pre><p>Fine. So what about sieves? One thought is we could build up a list of composed filters, built as new primes are found (see the <code>lazy-seq</code> example above). But there’s no obvious place to do the building, as applying the reducing functions is left to the reducible implementation. Another possibility is to introduce a new type of reducing function, the ‘progressive-filter’, which keeps track of past finds and can filter against them.</p><pre><code class=language-clojure>(defn prog-filter [f] 
+    (let [flt (atom [])] 
+        (fn [f1] (fn [result input]
+            (if (not-any? #(f input %) @flt)
+                (do (swap! flt conj input) 
+                    (f1 result input))
+                result)))))
+
+(defn progressive-filter [f coll] 
+    (reducer coll (prog-filter f)))
+</code></pre><p>And we then reduce with a filtering function that is a function of the current candidate and one of the list of found primes (see the <code>#(f input %)</code> bit above)</p><pre><code class=language-clojure>(into [] (progressive-filter #(zero? (mod %1 %2)) (range 2 10)))
+;= [2 3 5 7]
+</code></pre><p>It’s nicely lazy, so we can use iterate to generate integers, and take only a few (<code>r/take</code>, as it’s operating on a reducer):</p><pre><code class=language-clojure>(into [] (r/take 5 (progressive-filter #(zero? (mod %1 %2)) (iterate inc 2)))) 
+;= [2 3 5 7 11]
+</code></pre><p>Or even</p><pre><code class=language-clojure>(def primes 
+    (progressive-filter #(zero? (mod %1 %2)) (iterate inc 2)))
+
+(into [] (r/take 5 primes))
+;= [2 3 5 7 11]
+</code></pre><p>You get the idea.</p><p>(Originally <a href=http://web.archive.org/web/20161006154511/http://www.lshift.net/blog/2013/07/31/expanding-reducers/ target=_blank rel="noreferrer noopener">http://web.archive.org/web/20161006154511/http://www.lshift.net/blog/2013/07/31/expanding-reducers/</a>)</p></article><div class=pagination><a class=pagination__item href=https://uther.wtf/blog/codemesh-day-1/><span class=pagination__label>Next Post</span>
+<span class=pagination__title>Codemesh Day 1</span></a></div><footer class=post__footer><div class=social-icons><a class=social-icons__link title=Twitter href=https://twitter.com/hemul target=_blank rel="me noopener"><div class=social-icons__icon style=background-image:url(https://uther.wtf/svg/twitter.svg)></div></a><a class=social-icons__link title=GitHub href=https://github.com/jbu target=_blank rel="me noopener"><div class=social-icons__icon style=background-image:url(https://uther.wtf/svg/github.svg)></div></a><a class=social-icons__link title=Email href=mailto:j@uther.wtf target=_blank rel="me noopener"><div class=social-icons__icon style=background-image:url(https://uther.wtf/svg/email.svg)></div></a><a class=social-icons__link title=LinkedIn href=https://www.linkedin.com/in/jamesuther/ target=_blank rel="me noopener"><div class=social-icons__icon style=background-image:url(https://uther.wtf/svg/linkedin.svg)></div></a></div><p>© 2022</p></footer></div></div></div></main><script src=/js/index.min.301a8b0870381bf76b3b5182e8966d363a0474281183439beb024d8b8228fc66.js integrity="sha256-MBqLCHA4G/drO1GC6JZtNjoEdCgRg0Ob6wJNi4Io/GY=" crossorigin=anonymous></script>
+<script src=https://unpkg.com/prismjs@1.20.0/components/prism-core.min.js></script>
+<script src=https://unpkg.com/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js data-autoloader-path=https://unpkg.com/prismjs@1.20.0/components/></script></body></html>
