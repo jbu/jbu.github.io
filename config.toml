@@ -8,7 +8,7 @@ theme = "hugo-theme-codex"
 # Override these settings with your own
 title = "Dr James Uther"
 languageCode = "en-us"
-baseURL = "https://jbu.github.io"
+baseURL = "https://uther.wtf"
 copyright = "© {year}"
 
 # Add your Disqus shortname here.

@@ -1,0 +1,38 @@
+---
+title: "Playing with open NHS data, and a rant"
+date: 2014-12-24
+slug: ""
+description: ""
+keywords: []
+draft: false
+tags: []
+math: false
+toc: false
+---
+
+Open Data™ is being pushed quite heavily by the powers that be, which is mostly a good thing because It’s useful information that I want to use, and I’ve already paid taxes for it. Also, this is a democracy dammit. Can Haz Sunlight!. The NHS is part of this. For most of this post we will look at the published sets of prescription data, but see <rant> below. And we’re going to look at how to use some open information about U.K. postcodes to homogenise the data across a big reorganisation of the NHS.
+
+[The data](http://www.hscic.gov.uk/gpprescribingdata), published monthly, is a list what drugs each GP practice has prescribed that month. So when you are prescribed your Penicillin by your GP, that goes into the list that says, at the end of the month, your GPs practice prescribed 57 courses of Foo-brand penicillin capsules at a cost to the NHS of £120 (or whatever).
+
+* Each practice has a Practice ID. An ancillary .csv file published with the main data links each practice ID that is contained in the month’s data to a practice name and address including postcode. The IDs seem to be pretty stable across name changes and small office moves.
+* The medicines are coded according the [British National Formulary](http://www.bnf.org/bnf/index.htm) (BNF). The codes in these files are at the ‘presentation’ level, which is the most specific. So if we wanted to find out about just ‘penicillin’ we roll up all the different brands and packagings of penicillin to the ‘chemical’ level of the BNF.
+* Each practice is also part of a regional grouping. Before about April 2013, this was the ‘Primary Care Trust’ (PCT). Now it’s the [‘Clinical Commissioning Group (CCG)](http://www.england.nhs.uk/resources/ccg-directory/‘).
+
+So, let’s say you want to look at how much penicillin was prescribed in CCG Ealing as far back as we have data. How do we convert those old PCT groupings into CCGs?
+
+Getting most of the way there is not so hard. Start with the data we have that uses CCGs, and for each practice ID we have with a CCG, use that in the old PCT data. But there are practices that don’t appear in the new data (they might have been closed before then for instance). Now things get a bit more tricky, and we have to start playing around.
+
+It might be tempting to find a map of the [CCG boundaries](http://www.england.nhs.uk/resources/ccg-maps/), use some geolocation service to find a latitude and longitude of all practices (over a period of a few days because we don’t want to pay for a commercial API key), and convert accordingly. But that’s harder than necessary. What sort of idiot would do that? he asks rhetorically, particularly when it turns out that the Office of National Statistics publishes, among a whole pile of other handy things, a little data set called the [ONS Postcode Directory](http://www.ons.gov.uk/ons/guide-method/geography/products/postcode-directories/-nspp-/index.html) that links all these things together. It’s actually a list of all the sub-regions used by the ONS, mapped to their postcode and bunch of other administrative regions, which happen to include, if you find the right file, both the current CCG and the old PCT. And a practice has a postcode, so we now have a postcode/CCG/PCT mapping. yay!
+
+It doesn’t get us all the way there, because postcodes seem to change more regularly than you’d think, and the post office is the canonical owner of postcodes, not the ONS, and some organisations (like CCGs and PCTs) have weird off-map postcodes. But we’ve achieved a good balance between 100% and done.
+
+<rant>
+
+We’re straying into uncharted social waters with some of this data, and we really don’t know what we’re doing. This particular dataset is probably ok, in that it’s to do with the finances of a public body on the one hand (transparency) but doesn’t betray the confidences of that same public. Unless of course you’re the only person at a GP that takes a rare prescription, and people can guess that from your address and some public knowledge about your health.
+
+As for how this data set is collected, I really don’t know. It’s drawn from the whole prescription payment system which is labyrinthine. I’ve no idea if there is a point in the chain where my entire prescription history is stored. If so, I’ve no idea how it’s stored, or whether it might be [accidentally released in an FOI request](hhttps://www.mysociety.org/2014/12/20/another-private-data-leak-this-time-by-hackney-council/), or how likely a Sony Pictures-like scenario is. And this is the underbelly of centralisation of data. Yes, you can do big-data analysis of whatever which might help with medical research or spotting public health trends. But it’s easier to compromise a single system than all the massively heterogenous GP systems. Apparently the ONS has this in hand, so things like census data are well cared for. They tend towards the ‘Tower of London’ approach of keeping all the eggs in one basket and then guarding the basket well. Other researchers can still use the data, but there’s an ethics system in place to vet the analyses and use.
+
+But more than this, [apparently](http://theodi.org/lunchtime-lectures/friday-lunchtime-lecture-why-selling-peoples-medicaltaxschool-records-isnt-open-data) some are still thinking that identifiable medical records might be a revenue stream. Sort of the NHS taking on the Facebook business model. Let’s not do that.
+
+
+(Originally http://web.archive.org/web/20160319092856/http://www.lshift.net/blog/2014/12/24/playing-with-open-nhs-data-and-a-rant/)

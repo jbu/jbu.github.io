@@ -6,7 +6,10 @@ draft: false
 
 # Dr James Uther
 
-james.uther at gmail.com | [@hemul](https://twitter.com/hemul)
+* james.uther at gmail.com
+* https://uther.wtf
+* https://www.linkedin.com/in/jamesuther/
+* [@hemul](https://twitter.com/hemul)
 
 The 1-powerpoint-slide version from work: 
 <br>
@@ -24,7 +27,7 @@ The 1-powerpoint-slide version from work:
 More info:
 
 ## Key Skills
-Software development, strategy, architecture & management. Ability to influence and coordinate across expertise boundaries. Development methods, including scrum/agile. Coding. UI & visualisation design. Product prototyping and iteration. Team leadership. A variety of programming languages ranging from object-oriented to functional, and proven ability to rapidly become productive in new technologies. Recently used languages include [Python](http://xkcd.com/353/), Java, Scala, Clojure, C++, TypeScript, JavaScript, Rust, F# and C#, and they have been used in a range of environments. I have contributed to and initiated open source projects. Also lots of infrastructure and DevOps (I've lived the Kubernetes dream)
+Software development, strategy, architecture & management. Ability to influence and coordinate across expertise boundaries. Development methods, including scrum/agile. Coding. UI & visualisation design. Product prototyping and iteration. Team leadership. A variety of programming languages ranging from object-oriented to functional, and proven ability to rapidly become productive in new technologies. Recently used languages include [Python](http://xkcd.com/353/), Java, Scala, Clojure, C++, TypeScript, JavaScript, Rust, F# and C#, and they have been used in a range of environments. I have contributed to and initiated open source projects. Also lots of infrastructure and DevOps (Kubernetes, Terraform, etc.)
 
 # Work History
 <br>
@@ -33,10 +36,11 @@ Software development, strategy, architecture & management. Ability to influence 
 ## Senior Lead Engineer | [Oliver Wyman](https://www.oliverwyman.com) | London, UK
 ### Dec 2016 - now.
 
-LShift was acquired by Oliver Wyman to form the core of their technology delivery capability. Since then I've been involved in various projects, mostly in the financial space.
+LShift (see below) was acquired by Oliver Wyman to form the core of their technology delivery capability. Since then I've been involved in various projects, mostly in the financial space.
 
 - A leader of the evolution of the internal cloud practices from VMs to serverless. Lots of terraform on AWS, some on Azure. Kubernetes in various forms. Communication and consensus building around solutions and best practices.
 - Helped a large insurer find a better pattern of work between Data Engineering and Data Science teams. Developed principles and practices to ease interaction, along with code examples. Spark/Databricks.
+- Optimised a financial process implemented in python, improving processing time by 800%.
 - Helped a bank keep to time by reducing a loan book calculation from 24 hours to 30 minues by distributing a previously monolithic process. python/docker/rabbitmq
 - Initial architecture and walking skeleton for a tool to help industries identify actions to mitigate carbon emissions.
 
@@ -152,7 +156,7 @@ Hons thesis in Digital Signal Processing
 
 [Google Scholar](https://scholar.google.com/citations?user=AquEEvUAAAAJ)
 
-See also writings listed in [my github page](https://github.com/jbu)
+See also writings listed in [my blog](https://uther.wtf/blog)
 
 - Uther M, Zipitria I, Uther J & Singh P. (2005). Mobile Adaptive CALL (MAC): A case-study in developing a mobile learning application for speech/audio language training. IEEE Workshop on Mobile Technologies in Education, November 2005. [link](https://ieeexplore.ieee.org/abstract/document/1579262)
 - Uther M, Singh P, Zipitria I & Uther J. MAC: An adaptive, perception-based speech remediation s/w for mobile devices. Artificial Intelligence in Education (AIED) workshop on language tutoring, July 2005.
