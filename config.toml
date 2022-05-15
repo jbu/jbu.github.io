@@ -3,12 +3,15 @@ resourceDir = "../resources"
 DefaultContentLanguage = "en"
 
 # DO NOT REMOVE THIS
-theme = "hugo-theme-codex" 
+#theme = "hugo-theme-codex" 
+theme = "hugo-tufte"
+#theme = "HugoTeX"
 
 # Override these settings with your own
-title = "Dr James Uther"
+title = "James Uther"
 languageCode = "en-us"
 baseURL = "https://uther.wtf"
+#baseURL = "http://localhost"
 copyright = "© {year}"
 
 # Add your Disqus shortname here.
@@ -19,28 +22,48 @@ copyright = "© {year}"
 
 #staticDir = ['static']
 
-
+pygmentsUseClasses = true
+canonifyurls = true
 # Optional params
+
+[author]
+  name = "James Uther"
+  abstract = "Musings mostly on software engineering."
+
+
 [params]
+
+  subtitle = "Musings mostly on software engineering."
+  # Your name or the name of you company
+  copyrightHolder = "James Uther"
+  # Show the "Powered by Hugo-Tufte and Hugo." 
+  showPoweredBy = false
+  # Site wide kill switch
+  hidedate = false
+
+  github = "jbu"
+  twitter = "hemul"
+  google_scholar = "AquEEvUAAAAJ"
+
   # Follow the Hugo date/time format reference here: 
   # https://gohugo.io/functions/format/#gos-layout-string
   dateFormat = "2006-01-02"
 
   # Links to your social accounts, comment/uncomment as needed. Icons will be displayed for those specified.
-  twitter = "https://twitter.com/hemul"
-  github = "https://github.com/jbu"
-  email = "mailto:j@uther.wtf"
+  #twitter = "https://twitter.com/hemul"
+  #github = "https://github.com/jbu"
+  #email = "mailto:j@uther.wtf"
   # mastodon = "https://mastodon.social/@nickname"
   # facebook = "https://facebook.com/<your handle>"
   # gitlab = "https://gitlab.com/<your handle>"
   # instagram = "https://instagram.com/<your handle>"
-  linkedin = "https://www.linkedin.com/in/jamesuther/"
+  #linkedin = "https://www.linkedin.com/in/jamesuther/"
   # youtube = "https://www.youtube.com/channel/<your channel>"
   
   # Titles for your icons (shown as tooltips), and also their display order.
   # Currently, these icons are supported: 
   #   "Twitter", "GitHub", "Email", "Mastodon", "Facebook", "GitLab", "Instagram", "LinkedIn", "YouTube"
-  iconOrder = ["Twitter", "GitHub", "Email", "LinkedIn"]
+  #iconOrder = ["Twitter", "GitHub", "Email", "LinkedIn"]
 
   # Metadata for Twitter cards, defaults to params.twitter
   # twitterSite = "@<your handle>"
@@ -61,21 +84,33 @@ copyright = "© {year}"
   [markup.goldmark.renderer]
       unsafe = true
 
-# Controls the navigation
-[[menu.main]]
-  identifier = "about"
-  name = "about"
-  title = "About"
-  url = "/"
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
 
-[[menu.main]]
+# Controls the navigation
+[[menu.nav]]
+  identifier = "Home"
+  name = "Home"
+  title = "Home"
+  url = "/"
+  pre = "<i class='fas fa-home la-lg'></i>"
+  weight = -110 
+
+[[menu.nav]]
+  identifier = "CV"
+  name = "Curriculum vitae"
+  title = "Curriculum vitae"
+  url = "/cv"
+  pre = "<i class='fas fa-info-circle  fa-lg'></i> "
+  weight = -80 
+
+[[menu.nav]]
   identifier = "blog"
   name = "blog"
   title = "Blog"
   url = "/blog"
+  pre = "<i class='fas fa-book fa-lg'></i> "
+  weight = -100 
 
-[[menu.main]]
-    identifier = "CV"
-    name = "CV"
-    title = "CV"
-    url = "/cv"
