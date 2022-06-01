@@ -42,6 +42,7 @@ LShift (see below) was acquired by Oliver Wyman to form the core of their techno
 - Optimised a financial process implemented in python, improving processing time by 800%.
 - Helped a bank keep to time by reducing a loan book calculation from 24 hours to 30 minues by distributing a previously monolithic process. python/docker/rabbitmq
 - Initial architecture and walking skeleton for a tool to help industries identify actions to mitigate carbon emissions.
+- Working to integrate sustainability as an architectural and operational consideration in all software development. Currently evangelising cloud carbon trackers and right-sized infrastructure.
 
 <br>
 <hr>
