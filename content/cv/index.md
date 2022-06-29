@@ -43,6 +43,7 @@ LShift (see below) was acquired by Oliver Wyman to form the core of their techno
 - Helped a bank keep to time by reducing a loan book calculation from 24 hours to 30 minues by distributing a previously monolithic process. python/docker/rabbitmq
 - Initial architecture and walking skeleton for a tool to help industries identify actions to mitigate carbon emissions.
 - Working to integrate sustainability as an architectural and operational consideration in all software development. Currently evangelising cloud carbon trackers and right-sized infrastructure.
+- Tech Lead/Architect etc on [Enki](https://www.oliverwyman.com/our-expertise/industries/financial-services/retail-and-business-banking/enki.html) - "A data sharing technology with security in its DNA."
 
 <br>
 <hr>
