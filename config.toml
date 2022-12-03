@@ -53,10 +53,10 @@ canonifyurls = true
   twitter = "https://twitter.com/hemul"
   github = "https://github.com/jbu"
   #email = "mailto:j@uther.wtf"
-  # mastodon = "https://mastodon.social/@nickname"
+  mastodon = "https://fosstodon.org/@jbu"
   # facebook = "https://facebook.com/<your handle>"
   # gitlab = "https://gitlab.com/<your handle>"
-  # instagram = "https://instagram.com/<your handle>"
+  instagram = "https://instagram.com/jimbarama"
   linkedin = "https://www.linkedin.com/in/jamesuther/"
   # youtube = "https://www.youtube.com/channel/<your channel>"
   
