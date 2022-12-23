@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://latex.now.sh/style.css" />
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  </head>
+
+  <body class="libertinus latex-dark-auto">
+
+    <h1>
+      Codemesh Day 1
+    </h1>
+    <p class="author">James Uther <br>2014-11-28</p>
+
+    <p>
+      I was at day 1 of CodeMesh this year (you can see Tim's report on day 2
+      <a
+        href="http://web.archive.org/web/20161006151917/http://www.lshift.net/blog/2014/11/06/codemesh-2014-day-2/">here</a>.
+      A quick recap:
+    </p>
+    <blockquote>
+      <b>QOTD</b>: There are 3 fire exits as marked, but we're confident that
+      Erlang programmers who die will be restarted.
+    </blockquote>
+
+    <h2>Keynote: complexity is outside the code</h2>
+    <h3>Jessica Kerr & Dan North</h3>
+    <p>
+      A good, entertaining talk that covered a lot of ground (and thankfully,
+      someone else has a gist of better notes, so you can read
+      <a href="https://gist.github.com/philandstuff/f9f95030acff9a14fa76">them</a>),
+      But my
+      main takeaways were:
+      <p></p>
+      We have architectures, Boxes and arrows, or layering, messaging,
+      modularity
+      but complexity is never defeated because it arises from difficult
+      cross-cutting problems like performance, security, monitoring, etc. Each
+      requires a different skill set. A Solution: Master a few, hope the broader
+      team cover the rest.
+      <p></p>
+      Research is different from a spike. Cost of a bad design is a long-tail
+      distribution (unbounded). A spike leads to the choice of
+      quickest-to-hello-world solution. Research can be bounded (spend 2 days,
+      or
+      fund a research star and team) but has long-tail payoff.
+      <p></p>
+      Lots of ground on estimation and how underestimating accumulates debt
+      which
+      conflicts with the overall the goal to “sustainably minimize lead time to
+      business impact” and it's the sustainably that brings in the harder to
+      sell
+      aspects of a solid development approach.
+      <p></p>
+      And a lot more, but probably the best thing to do is read [the
+      <a
+        href="https://www.slideshare.net/jessitron/complexity-is-outside-the-code">slides</a>.
+      <a href="https://www.infoq.com/presentations/complexity-simplicity-esb/">video</a>]
+    </p>
+
+    <h2>The F♯ approach to relaxation</h2>
+    <h3>Don Syme</h3>
+    <p>
+      This sold F# really well.
+    </p><p>
+      The great disputes of computer science should be struggled with. They are
+      chances to make a better, simpler, more relaxed world as much as create
+      opposing camps. thesis, antithesis, synthesis. but you can take it too
+      far,
+      e.g [Integrating time and food with a mustard
+      watch](http://girard.perso.math.cnrs.fr/mustard/article.html)
+    </p><p>
+      F# has a history of trying to integrate things
+    </p><p>
+      Functional languages ⇔ interop.
+      <ul>
+        <li> FN languages used to have standalone vms and relied on com, corba,
+          etc for
+          interop.</li>
+        <li> New approach (also scala, swift, clojure, etc) => embrace runtime
+          and
+          extend with FP needs so language can run on them. F# type providers do
+          even
+          better by making the language extensible. &dash; Not everything is
+          perfect cf
+          higher kinded type parameters, functors, … </li>
+      </ul>
+
+    </p><p>
+      Enterprise ⇔ Openness.
+      <ul>
+        <li>F# is open, cross platform, independent, accepting contributions. F#
+          foundation non-profit fsharp.org. Cross platform is with mono/xamarin.
+          Community very 'self-empowered'</li>
+        <li>Different from 'usual windows/ms communities'. Codeplex and github
+          repos
+          will be merged but right now codeplex is used by ms to feed into their
+          industrial strength release process.</li>
+        <li>F# compiler service (sf IFSharp, emacs, vim plugins)</li>
+        <li>Language design at fslang.uservoice.com</li>
+        <li>Enterprise quality + openness + community + tooling + ecosystem =
+          goodness</li>
+      </ul>
+    </p><p>
+      Functional ⇔ Objects
+
+      <ul>
+        <li>
+          Embrace objects. Not full object-orientation, but functional first.
+        </li><li>
+          Data point. same app, 350k lines C# vs 30K F#. Faster and more
+          features
+          (parallel etc) with F#
+        </li><li>
+          So Hindley-Milner type inference sort of clashes a bit with OO, but F#
+          gets quite a long way. You have to resort to type annotations at some
+          point.
+          Currying and method overloading clash.
+        </li><li>
+          Circularities and modularity in the wild. Mixed style languages have
+          won,
+          and swift and Java8 have lambdas and function types. But, Inheritance
+          is
+          everywhere, nulls are everywhere, circularities are everywhere (cyclic
+          dependencies). Files in C# assembly are mutually referential. F# has a
+          file
+          ordering (with breakout within object system if needed). In the wild
+          F#
+          inter component dependencies are fewer. Circular dependencies are
+          virtually
+          nil. Microsoft Entity Framework called out as particularly frightening
+          anti-example.
+        </li>
+      </ul>
+
+    </p><p>
+      Pattern matching ⇔ Abstraction.
+      <ul>
+        <li>
+          Pattern matching everywhere in F#. But patterns have their problems.
+          You
+          really want to name, abstract and parametrize patterns, otherwise you
+          have
+          to break abstraction boundaries to get the convenience. => Active
+          patterns.
+          Code ⇔ Data
+        </li><li>
+          Type providers. Bring type info into the language. Strongly typed csv
+          file
+          reader FTW.
+        </li>
+      </ul>
+    </p><p>
+      units ⇔ units-of-measure
+      <ul>
+        <li>
+          TIL F# will do unit analysis.
+        </li>
+      </ul>
+    </p><p>
+      gpu ⇔ cpu
+      <ul>
+        <li>
+          Apparently good stuff at alea gpu. F# quotations help here.
+        </li>
+      </ul>
+    </p><p>
+      REPL ⇔ distribution and scale
+      <ul>
+        <li>
+          Unsolved. github.com/nessos/Vagrant mentioned. And mbrace
+          <a href="https://www.codemesh.io/codemesh2014/don-syme">page</a>
+        </li>
+      </ul>
+
+      <h2> Functional programming in data sciences</h2>
+      <h3> Richard Minerich</h3>
+      <p>
+        Richard is from Bayard Rock, an anti-money laundering co. They use a
+        pairwise entity resolution process. (Fellegi-Sunter circa 1969)
+        matching,
+        datasets, customer (10e6) and list (2e6). pairs of somehow similar
+        records,
+        then scoring, then blocking a transaction based on the result. Scoring
+        is
+        done through a big social pagerank of risk. How likely is this person to
+        be
+        laundering money, given their relationships?
+      </p>
+      <p>
+        Some points:
+        <ul>
+          <li>
+            Data science is mostly about data munging.
+          </li><li>
+            Every client (s data) is awful in a completely different way
+          </li><li>
+            Working with bank (systems) is a pain
+          </li><li>
+            Wrote the thing in F#, using quotations
+          </li><li>
+            Produced FSharpWEbIntellisense for Ace
+          </li><li>
+            And IFsharp notebook
+          </li><li>
+            And barb (http://github.com/Rickasarus/barb) which is an end-user
+            data
+            mining language
+          </li><li>
+            Also: MITIE looks interesting (mit) &dash; semantic interpretation
+            of
+            raw text.
+          </li></ul>
+      </p><p>
+        Also, Combined regression and ranking, a paper from Google (D. Sculley).
+        In
+        regression, you're trying to guess a number and only distance matters
+        &dash; may
+        do bad job at ordering. But for ranking, you are trying to figure out
+        order.
+        <a href="https://www.codemesh.io/codemesh2014/richard-minerich">page</a>
+      </p>
+
+
+      <h2> Categories for the working programmer</h2>
+      <h3> Jeremy Gibbons</h3>
+      <p>
+        Jeremy has a <a href="http://patternsinfp.wordpress.com/">blog</a>
+      </p><p></p>
+      Overall point: Category theory is good for library design, and I can't
+      really argue with that. TIL I need to know more about category theory.
+    </p><p>
+      He started with \(sum\), and how it's a generalisation of \(foldr\), and
+      \(foldr\)
+      is nice and generic. In particular you can separate out the data 'shape'
+      from type recursion &dash; eg for list
+
+      <pre>
+        <code class="language-haskell">
+data ListS a b - MilS | ConsS a b
+data Fix s a = In (s a (Fix s a))
+or data Fix s a = In {out :: s a (Fix s a)}
+type List a - Fix ListS a
+bimap :: (a -> a') -> (b -> b') -> ListS a b -> ListS a' b'
+    </code></pre>
+    </p><p>
+      Now we can define \(foldr\) on List
+
+      <pre>
+        <code class="language-haskell">
+foldList :: (ListS a b -> b) List a -> b
+foldList f= f . bimap id (foldList f) . out
+eg foldLIst add :: List Integer -> Integer, where
+add :: ListS Integer Integer -> Integer
+add NilS = 0
+add (ConsS m n) = m + n
+    </code></pre>
+    </p><p>
+      For datatype genericity, a typemap Bifunctor can be used. So, think of a
+      bifunctor, S. It is also a functor in each argument separately.
+      An algebra for functor S A is a pair (B, f) where \(f :: S A B -> B\)
+      A homomorphism between (B, f) and (C,g) is a function \(h :: B -> C\) such
+      that
+      \(h.f=g.bimap id h\)
+      Algebra (B, F) is initial if there is a unique homomorphism to each (C, g)
+      eg, (List Integer, In) and (Integer, add) are both algebras for ListS
+      Integer:
+
+      <pre>
+        <code class="language-haskell">
+In :: ListS Integer (LIst Integer) -> List Integer
+add:: ListS Integer Integer -> Integer
+      </code></pre>
+      and \(sum::List Integer -> Integer]\) is a homomorphism. The initial
+      algebra
+      is
+      (List Integer, In), and the unique homomorphism to (C,G) is \(fold g\).
+    </p><p>
+      I need to meditate on this (or ask someone here to educate me).
+      <a href="https://www.codemesh.io/codemesh2014/jeremy-gibbons">page</a>
+    </p>
+    <h2>Social Code</h2>
+    <h3>Garret Smith</h3>
+    <p>
+      Coding is social (C.F. github).
+      Social coding is a dynamic in programming that respects a communication
+      line
+      from one person to another. The talk became a tutorial in how to write
+      software to express yourself to other coders (or yourself later). Be
+      respectful to the maintainer. I find that my colleges at LShift are
+      already
+      on top of this, so left early and went to:
+      <a href="https://www.codemesh.io/codemesh2014/garrett-smith">page</a>
+    </p>
+
+    <h2>MariaDB</h2>
+    <h3>Michael Widenius</h3>
+    <p>
+      Stuck around long enough to find out that 10.1 has multimaster mesh. And
+      the
+      foundation structure should keep the project in the open regardless of who
+      buys what.
+    </p>
+
+    <h2>Type-directed Development</h2>
+    <h3>Clement Delafargue</h3>
+    <ul>
+      <li>Scala is not really typesafe, or has untypesafe features.</li>
+      <li>But if you don't do anything untypesafe, then if it type checks it's
+        good.</li>
+      <li>Haskell type syntax is the way to talk about types.</li>
+      <li>You can use too many animated gifs in a talk.</li>
+    </ul>
+    <a href="https://www.codemesh.io/codemesh2014/clement-delafargue">page</a>
+    <h2>Lightning fast cluster computing with spark and cassandra</h2>
+    <h3>Pitor Kolaczkowski</h3>
+    <ul>
+      <li>Cassandra stores data in Tables. There is a partition key, a primary
+        key,
+        and data columns
+        <li>Spark model is differently. It uses distributed collections (the
+          Resilient
+          Distributed Dataset) modelled on (similar to?) scala collections so
+          you
+          can
+          map, filter, reduce. Like scala collections they are immutable,
+          iterable,
+          serializable, distributed, parallel. But you don't get random access
+          <li>Pitor had an open source bridge between the two.
+            <a href="https://www.infoq.com/presentations/spark-cassandra/">video</a>
+          </ul>
+          <P>
+            It became a tutorial which was not what I was interested in at that
+            moment,
+            so dropped into:
+          </P>
+          <h2>Beyond Shady AI with OpenCL: Massively Parallel Algorithms on
+            GPGPUs</h2>
+          <h3>Alex Champandard</h3>
+
+          <p>
+            Ideas for doing AI on the GPU. TL;DR you have to rethink your
+            algorithm
+            choice a bit because it's highly parallel and you don't want to
+            coordinate.
+            <a href="https://vimeo.com/113485431">video</a>
+          </p>
+
+          <h2>Programming and testing a distributed database</h2>
+          <h3>Reid Draper</h3>
+          <p>
+            Had to go early but found out that RPC was actually the RFC before
+            TCP!
+            The
+            early thrust of the talk was that we've been trying to figure out
+            distribution for a looong time. Go look at some history and we may
+            learn
+            something. I imagine he got onto what we have learned, so a pity I
+            had to
+            go.
+          </p>
+          <h2> Remarks</h2>
+          <p>
+            Overall a good day. Talks were videoed but most of the ones I went
+            to are
+            not up (yet?). Lunch was great. Perhaps more of those little tables
+            for
+            people to gather and eat at to encourage mingling. Joe Armstrong is
+            not
+            how
+            I imagined him.
+          </p>
+          (Originally
+          <a
+            href="http://web.archive.org/web/20161006151917/http://www.lshift.net/blog/2014/11/28/codemesh-2014-day-1/">
+            http://web.archive.org/web/20161006151917/http://www.lshift.net/blog/2014/11/28/codemesh-2014-day-1/</a>)
