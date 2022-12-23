@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://latex.now.sh/style.css" />
+    <!-- <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+    <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  </head>
+
+  <body class="libertinus latex-dark-auto">
+
+    <h1>
+      Nfrs Considered Harmful
+    </h1>
+    <p class="author">James Uther <br>2020-08-27</p>
+    <div class="abstract">
+
+
+      <a href="https://twitter.com/hemul/status/1365359887996379136">
+        <img src="../static/nfrs-considered-harmful-tweet.png" loading="lazy"
+        title="I'll make this short: Defining Non-Functional Requirements (NFRs) is
+        dangerous. That's the tweet."/>
+      </a>
+    </div>
+    <p>
+      An NFR is broadly defined as a 'quality' of the software, rather than what
+      it 'does'. So 'the software shall add two numbers' is a functional
+      requirement, while 'the software shall run within two minutes' or 'the
+      software shall be maintainable', or 'scalable', or whatever, is deemed
+      'non-functional'. I submit that this is a dangerous distinction to make
+      when running a software project.
+    </p><p>
+      In the large, everything is functional. This has been formalised into <a
+        href="https://www.hyrumslaw.com">Hyrum's Law</a>: <blockquote>“With a sufficient
+      number of users of an API, it does not matter what you promise in the
+      contract: all observable behaviours of your system will be depended on by
+      somebody.”</blockquote>
+    </p><p>
+      <figure>
+      <a href="https://xkcd.com/1172/">
+        <img src="http://imgs.xkcd.com/comics/workflow_2x.png" 
+        loading="lazy"
+        title="There are probably children out there holding down spacebar to stay warm in the winter! YOUR UPDATE MURDERS CHILDREN." 
+        alt="Workflow"
+        width="600"/>
+     </a>
+    </figure>
+    </p><p>
+      I've noticed that if you call something 'non-functional' it immediately
+      becomes deprioritised, a tier two requirement. What people hear is <i>“this
+      would be nice to have but we don't think anyone important actually cares
+      much about it.”</i>
+    </p><p>
+      As an example from <a
+        href="https://en.wikipedia.org/wiki/Non-functional_requirement">Wikipedia</a>,
+      take performance requirements. They say that 'software shall run in time
+      X' is a non-functional requirement. Well, it's not important until it is.
+      If there are no deadlines, there is no problem. Is it even a requirement?
+      But if your software has to process a bank's worth of securities in two
+      hours, it is a requirement. 'Non-functional', my horse.
+    </p><p>
+      The <b>danger</b> of reflexively saying 'it's performance, that's
+      non-functional' is the team doesn't pay attention to it until too late.
+      Just eliminate the category.
+    </p><p>
+      (Originally <a href="http://web.archive.org/web/20201023212029/https://tech.labs.oliverwyman.com/blog/2020/08/27/nfrs-considered-harmful/">
+      http://web.archive.org/web/20201023212029/https://tech.labs.oliverwyman.com/blog/2020/08/27/nfrs-considered-harmful/</a>)
+    </p></body></html>
