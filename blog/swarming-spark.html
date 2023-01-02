@@ -2,20 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://latex.now.sh/style.css" />
+    <link rel="stylesheet" href="../tufte.css" />
     <!-- <script id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>-->
-    <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
-    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script> -->
   </head>
 
-  <body class="libertinus latex-dark-auto">
-
+  <body>
+<article>
     <h1>
       Swarming Spark
     </h1>
-    <p class="author"><a href="../index.html">James Uther</a><br>2015-04-30</p>
-
+    <section>
+    <p><a href="../index.html">James Uther</a><br>2015-04-30</p>
+  </section>
+    <section>
     <p>
       <a href="https://spark.apache.org/">Spark</a> is a useful bunch of stuff
       for processing large amounts of data, offering a friendly and fast
@@ -117,10 +119,10 @@ ports:
 links:
 - master:spark-master
 </code></pre>
-
+<p>
       We use `docker-machine` to start our machines on google compute engine or
       EC2. A simple shell script does for this.
-
+    </p>
       <pre>
   <code class="language-bash">
 docker-machine create -d virtualbox local
@@ -139,20 +141,21 @@ docker-compose scale worker=3
 docker-compose logs
 docker ps
 </code></pre>
-
+<p>
       Then find out the public IP of the host the master is running on, open
       port 7077 to said host (security groups or network config on the cloud
       provider), add the host to your `/etc/hosts` as spark-master (to satisfy
       Akka, which is picky about hostnames), and try something like
-
+    </p>
       <pre>
   <code class="language-bash">
 spark$ ./bin/spark-shell --master spark://spark-master:7077
 </code></pre>
-
+<p>
       See, easy!
-
     </p><p>
       (Originally <a
         href="http://web.archive.org/web/20161006223524/http://www.lshift.net/blog/2015/04/30/swarming-spark/">http://web.archive.org/web/20161006223524/http://www.lshift.net/blog/2015/04/30/swarming-spark/</a>)
-    </p></body></html>
+    </p>
+    </section>
+  </article></body></html>

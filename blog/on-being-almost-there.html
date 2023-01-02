@@ -2,20 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://latex.now.sh/style.css" />
+    <link rel="stylesheet" href="../tufte.css" />
     <!-- <script id="MathJax-script" async
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
-    <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
-    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://latex.now.sh/prism/prism.css">
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script> -->
   </head>
 
   <body class="libertinus latex-dark-auto">
-
+<article>
     <h1>
       On Being Almost There
     </h1>
-    <p class="author"><a href="../index.html">James Uther</a><br>2015-06-30</p>
-
+    <section>
+    <p><a href="../index.html">James Uther</a><br>2015-06-30</p>
+  </section>
+  <section>
     <p>
       <a href="http://chai.it.usyd.edu.au/Projects/Personis">Personis</a> is an
       ongoing line of research projects about how we can store personal data
@@ -34,12 +36,11 @@
       us ownership of that data and the ability to repurpose it. In this case
       location (track.er) and movement (pedomet.er) services are feeding data
       into personis, and HipsterFitnessVisualisat.ion (H25n).
-      <label for="sn-anything" class="sidenote-toggle sidenote-number"/></label>
-      <input type="checkbox" id="sn-anything" class="sidenote-toggle" />
-      <span class="sidenote">I don't know if .er, .ce, .cha or .ion are valid gTLDs but given
+      <label for="sn-anything" class="margin-toggle margin-number"/>&#8853;</label>
+      <input type="checkbox" id="sn-anything" class="margin-toggle" />
+      <span class="marginnote">I don't know if .er, .ce, .cha or .ion are valid gTLDs but given
         that ICANN seem to be just feeding a scrabble dictionary into the root
-        servers, they will be soon.
-      </span>
+        servers, they will be soon.</span>
       Google is using the data to show groovy single-origin-latte-splattered D3 animations of my
       lack of health.
     </p><p>
@@ -79,8 +80,10 @@
           and if it works pulls over the user info and off it goes with a newly
           provisioned user.</li>
       </ul>
+      <p>
       Simple
-    </p><p>
+    </p>
+    <p>
       So that's where it stood. But now we have <a
         href="http://openid.net/connect/">OpenID Connect</a>, with it's fancy <a
         href="https://www.tbray.org/ongoing/When/201x/2013/04/04/ID-Tokens">JWT
@@ -88,12 +91,15 @@
       apparently:
 
       <blockquote>
+        <p>
         One thing that makes ID tokens useful is that fact that you can pass
         them around different components of your app. These components can use
         an ID token as a lightweight authentication mechanism authenticating the
         app and the user.
         <a href="https://developers.google.com/identity/protocols/OpenIDConnect#validatinganidtoken">link</a>
+      </p>
       </blockquote>
+      <p>
       So my question of the day is, can the new OpenID Connect tricks help clean
       up the above flow?
     </p><p>
@@ -123,8 +129,10 @@
             the token is signed by google, has the correct audience and azp, and
             can take that as proof that the user is all good.</li>
           </ul>
+          </p><p>
         Can we use this to clean up the original Personis flow? It might look
         something like:
+      <!-- </p> -->
         <ol><li>
         H25n bounces the browser to google, with a scope that includes the
         client id for the personis service (which would need to be published
@@ -146,6 +154,7 @@
         device might be rooted).
         </li>
       </ol>
+      </p><p>
         And here's where we hit the limits of the spec. Although Google has made
         the Android flow work, extending it to arbitrary web services is
         off-piste. But let's give it a quick go at the Oauth2 playground. Create
@@ -155,6 +164,7 @@
             <code class="language-bash">
 Error, scope unknown.
 </code></pre>
+</p><p>
           So no.
         </p><p>
           <figure>
@@ -169,4 +179,6 @@ Error, scope unknown.
         </p><p>
           (Originally a
           <href="http://web.archive.org/web/20161006152747/http://www.lshift.net/blog/2015/06/30/on-being-almost-there/">http://web.archive.org/web/20161006152747/http://www.lshift.net/blog/2015/06/30/on-being-almost-there/</a>)
-        </p></body></html>
+        </p>
+      </section>
+      </article></body></html>
