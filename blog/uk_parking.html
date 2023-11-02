@@ -75,6 +75,7 @@ p = p[p['id'].str[:4] == 'way/'] # remove stuff we don't need
         <code class="language-python">
 _ = p.plot(figsize=(4, 8))
     </code></pre>
+    <p>[there should be an image here but it didn't survive a move. will try and reproduce one day]</p>
     </p><p>
       So something, but it's a bit hard to see so let's try plotting where they are with big blobs
       <pre>
@@ -85,6 +86,7 @@ p = p.set_geometry('centroids')
 p.plot(figsize=(8,16))
 p = p.set_geometry('borders') # reset geometry
    </code></pre>   
+    <p>[ditto about the image]</p>
     </p><p>
       Now the geometry we have doesn't give us the correct units (we want m²) so change to something else, then add all the areas up and convert to km²
       <pre>
