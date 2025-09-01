@@ -1,38 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <link rel="stylesheet" href="local.css" />
     <link rel="stylesheet" href="tufte.css" />
-    <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
-    <link rel="shortcut icon" 
-      type="image/png" 
-      href="/static/favicon.png">
+    <script
+      src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js"
+      defer
+    ></script>
+    <link rel="shortcut icon" type="image/png" href="/static/favicon.png" />
   </head>
 
   <body>
     <article>
-      <h1>
-        Dr James Uther
-      </h1>
+      <h1>Dr James Uther</h1>
 
       <section>
+        <p>james.uther at gmail</p>
+      </section>
+      <section>
         <p>
-          james.uther at gmail |
-          2024/10/30
+          <emphasis>
+            I am a seasoned software engineer and architect with over 25 years
+            of technical leadership spanning industry and academia. I excel at
+            driving sustainable, high‑performance systems from pioneering
+            serverless infrastructure to building ML‑powered data platforms. As
+            Staff Engineer at Oliver Wyman, I lead projects like a large
+            AI-backed financial signal platform (databricks/spark/AWS), and
+            initiating transformation in everything from serverless
+            infrastructure (AWS/Azure/Kubernetes/Terraform) to LLM usage. I hold
+            a PhD in Computer Science.
+          </emphasis>
         </p>
       </section>
       <section>
-        <p><emphasis>
-          With over 25 years of technical leadership experience across multiple
-          industries, technologies, and cultures, James is able to offer valuable insights to
-          clients. His deep and broad technical skills allow him to lead from the
-          front on the most technically demanding projects.
-        </emphasis></p>
+        <h2>Technical Skills</h2>
+        <dl>
+          <dt>Languages:</dt>
+          Python, TypeScript most recently. Also significant experience in Java,
+          Scala, Clojure, Kotlin, C++, JavaScript, Rust, Go, F#, C#
+          <dt>Data &amp; ML:</dt>
+          Databricks, Spark, Polars, PyTorch, embeddings, transformers, MLOps,
+          Google data platform.
+          <dt>Cloud &amp; DevOps:</dt>
+          AWS, Azure, GCP, Terraform, various CI/CD systems, Kubernetes,
+          serverless.
+          <dt>Methodologies:</dt>
+          Agile/Scrum, DSDM, .*Ops, CI/CD
+        </dl>
       </section>
-
       <section>
-        <h2> Work History</h2>
+        <h2>Experience</h2>
         <br />
         <figure>
           <img src="static/owlogowide.png" loading="lazy" />
@@ -40,184 +58,113 @@
         <h3>Staff Engineer</h3>
         <h4>
           <a href="https://www.oliverwyman.com">Oliver Wyman</a>
-          |
-          London, UK
-          |
-          Dec 2016 - now.
+          | London, UK | Dec 2016 - now.
         </h4>
 
         <p>
-          LShift (see below) was acquired by Oliver Wyman to form the core of
-          their
-          technology delivery capability. Since then I've been involved in
-          various
-          projects, mostly in the financial space.
-
+          Architect &amp; Tech Lead for
+          <a
+            href="https://www.oliverwyman.com/our-expertise/solutions/factiva-sentiment-signals.html"
+            >Factiva Sentiment Signals</a
+          >, scoring the full Dow-Jones feed of English news daily using
+          Databricks/Spark, and transformer‑based ML (huggingface/PyTorch). I
+          transformed a laptop-scale demonstration to a robust product,
+          introducing MLOps, CI/CD, 1000x performance improvement, financial
+          &amp; CO2 optimisation. Worked with Data Science team to build
+          development platform to enable rapid and controlled future work.
         </p>
-        <ul>
-          <li>
-            Working to integrate sustainability as an architectural and
-            operational consideration in all software development. Currently
-            evangelising cloud carbon trackers and right-sized infrastructure.
-          </li>
-          <li>
-          Architect, Lead on 
-          <a href="https://www.oliverwyman.com/our-expertise/solutions/factiva-sentiment-signals.html">Factiva Sentiment Signals</a>. 
-          Developed the system to cheaply score all english news every day. (Databricks, pytorch, etc). 
-          FSS uses some recent ML (embeddings, transformers etc), so I’ve become 
-          conversant with these, and also have some experience of the challenges of training larger models.
-        </li>
-          <li>
-            Instigated and led a move to databricks/spark as a new platform
-            for data science within OW. Built/ran the platform. Trained data
-            scientists and engineers. Optimised pipelines/models from the data
-            science team to run at 1000x lower cost &amp; CO<sub>2</sub>. 
-            Added MLOps and other shiny things.
-            The platform was foundational for FSS.
-          </li>
-          <li>
-            A leader of the evolution of the internal cloud practices from VMs
-            to serverless. Lots of terraform on AWS, some on Azure. Kubernetes
-            in various forms. Communication and consensus building around
-            solutions and best practices.
-          </li>
-          <li>
-            Contributed to a common kubernetes platform used by both internal and
-            client projects. Terraform, helm, AWS, Azure, letsencrypt, DevOps, etc.
-          </li>
-          <li>
-            Helped a large insurer find a better pattern of work between Data
-            Engineering and Data Science teams. Developed principles and
-            practices to
-            ease interaction, along with code examples. Spark/Databricks.
-          </li>
-          <li>
-            Optimised a financial process implemented in python, improving
-            processing
-            time by 800%.
-          </li>
-          <li>
-            Helped a bank keep to time by reducing a loan book calculation
-            from 24 hours to 30 minues by distributing a previously monolithic
-            process. python/docker/rabbitmq
-          </li>
-          <li>
-            Initial architecture and walking skeleton for a tool to help
-            industries identify actions to mitigate carbon emissions.
-          </li>
-          <li>
-            Tech Lead/Architect etc on
-            <a
-              href="https://www.oliverwyman.com/our-expertise/industries/financial-services/retail-and-business-banking/enki.html">Enki</a>
-            - "A data sharing technology with security in its DNA."
-          </li>
-        </ul>
-
+        <p>
+          A leader of the evolution from VMs to serverless; authored Terraform
+          modules for AWS/Azure; contributed to a shared Kubernetes platform.
+          (Terraform/Helm/AWS/Azure/Letsencrypt)
+        </p>
+        <p>
+          Improved the processing time (and compute cost) of a financial process
+          in a bank by 800%. In another bank reduced a calculation on the full
+          loan book from 24 hours to 30 mins, thus enabling the bank to meet
+          data availability deadlines (RabbitMQ/Python)
+        </p>
+        <p>
+          Integrated sustainability as a core architectural principle;
+          evangelised cloud carbon trackers and right‑sized infrastructure.
+          Initiated a ‘tech talk’ series. Initiated a sustainability talk
+          series. Frequent contributor to both.
+        </p>
       </section>
       <section>
         <figure>
           <img src="static/lshiftlogoblack.png" loading="lazy" />
         </figure>
-        <h3> Senior Developer</h3>
+        <h3>Senior Developer</h3>
         <h4>
           <a
-            href="https://web.archive.org/web/20160220123718/http://www.lshift.net/">LShift</a>
-          |
-          London, UK
-          |
-          Nov 2012 &dash; Dec 2016
+            href="https://web.archive.org/web/20160220123718/http://www.lshift.net/"
+            >LShift</a
+          >
+          | London, UK | Nov 2012 &dash; Dec 2016
         </h4>
 
-        <blockquote>
-          <p>
-            LShift is a hi-tech software development company. It is small but,
-            we
-            like to think, close to perfectly formed. Our company is home to
-            some
-            of
-            the best developers in the UK - not only in our opinion, but in the
-            opinion of a number of international blue chip companies who use our
-            development and research skills.
-          </p>
-        </blockquote>
-
         <p>
-          LShift has been successfully delivering agile projects for blue-chip
-          clients for more than 10 years. They are technology agnostic,
-          preferring
-          to use whatever best delivers business benefit.
-          Senior Developer is the only technical role in the company,
-          and
-          is unique in that enormous freedom is given to own and direct all
-          aspects
-          of a project (from technical to client relationship), along with
-          enormous
-          responsibility to deliver. Given the exceptional caliber of the staff,
-          this works well.
-
+          At LShift, a company known for its high-caliber developers and
+          expertise in delivering complex projects for blue-chip clients, I
+          significantly expanded my technical skills and project delivery
+          capabilities. Projects included agile, blue‑chip client projects using
+          Clojure, Go, Scala, TypeScript, C#, F#, Kubernetes, Hadoop, Spark,
+          ElasticSearch. Among many, I led the following;
         </p>
-
-        <p>
-          I learned much, but the most important secret I learned
-          was
-          how to reliably deliver complex projects.
-          Technologies used so far: Clojure, Go, BigQuery, Scala, JavaScript,
-          TypeScript, C#, F#, Docker & Kubernetes, AWS, GCE/GKE, Hadoop, Spark,
-          ElasticSearch, and many more.
-
-        </p>
-        <p>
-	Projects have ranged from data-mining open NHS data to building highly secure messaging platforms. A few of note:
-        </p>
-	<ul>
-		<li>A visualisation of pharmaceuticals prescriptions in the UK based on open NHS data</li>
-		<li>A ‘Facebook for rich people’, for a startup that didn’t launch. The platform itself was deeply secure and interesting in it’s use of event sourcing and encryption (and so much clojure!)</li>
-		<li>A walk-on role in <a href="https://www.bbc.co.uk/weatherwatchers/">BBC Weather Watchers</a></li>
-		<li>Various dashboards and tools in D3.js for retail analysis.</li>
-		<li>Lead of a project to extract a City Guild system from an AS400. Planned and delivered a transition to a more manageable platform (largely written in F#)</li>
-	</ul>
-        <p>
-          Trained in <a href="http://www.dsdm.org/">DSDM</a> agile project
-          management.
-        </p>
+        <ul>
+          <li>
+            a UK pharmaceutical prescriptions visualisation on open NHS data
+            (GCP/go).
+          </li>
+          <li>
+            the extraction and modernisation of an AS400‑based City Guild system
+            into an F# codebase; 3-4 order of magnitude performance improvement.
+          </li>
+          <li>
+            Tech Lead/Architect etc on
+            <a
+              href="https://www.oliverwyman.com/our-expertise/industries/financial-services/retail-and-business-banking/enki.html"
+              >Enki</a
+            >
+            - "A data sharing technology with security in its DNA."
+          </li>
+        </ul>
+        I received formal training in DSDM agile project management. LShift
+        provided a foundational understanding of reliably delivering complex
+        projects, a crucial skill honed through practical application across
+        diverse technical landscapes.
       </section>
       <section>
         <figure>
           <img src="static/USydLogo.svg" loading="lazy" />
         </figure>
-        <h3> Research Fellow</h3>
+        <h3>Research Fellow</h3>
         <h4>
           <a href="http://www.usyd.edu.au">University of Sydney</a>
-          |
-          Sydney, Australia
-          |
-          May 2012 &dash; Nov 2012
+          | Sydney, Australia | May 2012 &dash; Nov 2012
         </h4>
 
         <p>
-          The <a href="http://chai.it.usyd.edu.au/">Computer Human Adapted
-            Interaction</a>
-          lab conducts research in <a
-            href="http://www.ubiq.com/hypertext/weiser/UbiHome.html">ubiquitous
-            computing</a>. "We are
-          exploring the technical means by which people can make sense of what
-          it
-          means to 'own' and visualise their data in a digital world. We
-          currently
-          focus on e-learning and health."
+          In the
+          <a href="http://chai.it.usyd.edu.au/"
+            >Computer Human Adapted Interaction</a
+          >
+          lab, which focusses on
+          <a href="http://www.ubiq.com/hypertext/weiser/UbiHome.html"
+            >ubiquitous computing</a
+          >, e-learning, and health, I served as the lead architect and
+          developer for
+          <a href="http://chai.it.usyd.edu.au/Projects/Personis">Personis</a>.
+          This research system offered innovative methods for users to
+          intelligently manage and utilise their online profiles, supporting
+          <a href="http://chai.it.usyd.edu.au/Projects/LLUM"
+            >Lifelong User Modelling</a
+          >.
         </p>
         <p>
-          Within this role, I was lead architect and developer on a
-          <a href="http://chai.it.usyd.edu.au/Projects/Personis">Personis</a>, a
-          research
-          system offering methods for users to intelligently manage and use
-          their
-          online profile and support <a
-            href="http://chai.it.usyd.edu.au/Projects/LLUM">Lifelong User
-            Modelling</a>. I also led and
-          taught a group of computing science students from one of the most
-          prestigious universities in Australia.
-
+          In this period I implemented an OAuth integration with various 3rd
+          party data sources, and mentored PhD students.
         </p>
       </section>
       <section>
@@ -227,360 +174,338 @@
         <h3>Staff Engineer</h3>
         <h4>
           <a href="https://www.nokia.com">Nokia</a>
-          |
-          Farnborough, UK
-          |
-          Feb 2005 &dash; Sep 2011
+          | Farnborough, UK | Feb 2005 &dash; Sep 2011
         </h4>
         <p>
-          Various roles, including software Team Lead and Software Architect for
-          a number of phone programs, architect for new product ideas, global
-          architect for an important new software technology within a key
-          development team, and member of a global team responsible for a number
-          of high-priority architecture and technology initiatives.
-
+          I held various roles, including Software Team Lead, Software Architect
+          for multiple phone programs, and a member of a global architecture
+          team focused on high-priority technology initiatives.
         </p>
-        <ul>
-          <li>
-            Initiated and delivered a successful cultural change effort in the
-            company to start removing 'technical debt' from a very large C++
-            asset.
-          </li>
-          <li>
-            Helped ensure a global software organisation became fully fluent in
-            Qt, a C++ development framework; training programs, architecture
-            changes, roadmaps, and coding practises. The organisation
-            consistently
-            delivered high quality designs & software in Qt. Also worked with
-            the
-            Qt team to ensure roadmap alignment.
-          </li>
-          <li>
-            Responsible for starting the development of a number of handset
-            features. For example, the FM transmitter involved building
-            consensus
-            between marketing, UI, hardware, system and application teams to
-            deliver the feature within the product schedule. I was also involved
-            in graphics architectures, novel input devices, context awareness
-            and
-            some other smaller projects.
-          </li>
-          <li>
-            Responsible for the architecture of product specific software for
-            some product programs. Released products include
-            <a href="http://en.wikipedia.org/wiki/Nokia_N80">N80</a> and
-            <a href="http://en.wikipedia.org/wiki/Nokia_N78">N78</a>.
-            Contributions
-            were also
-            made to the <a href="http://en.wikipedia.org/wiki/Nokia_N79">N79</a>,
-            <a href="http://en.wikipedia.org/wiki/Nokia_E72">E72</a> and
-            <a href="http://en.wikipedia.org/wiki/Nokia_E6">E6</a> among others.
-          </li>
-          <li>
-            Software Lead for the N80. This involved work allocation, mentoring,
-            reviews for permanent team members, etc. Also responsible for
-            driving
-            software maturity within the product.
-          </li>
-        </ul>
+        <p>
+          I initiated and successfully delivered a cultural change effort within
+          the company aimed at reducing technical debt from a very large C++
+          codebase, showcasing understanding of software system health and
+          ability to influence organisational priorities.
+        </p>
+        <p>
+          I played a role in ensuring the global software organisation achieved
+          fluency in the Qt C++ development framework, including initiating
+          training and mentoring sessions.
+        </p>
+        <p>
+          I participated in the development of several handset features,
+          including the FM transmitter. This required building consensus and
+          effective collaboration among marketing, UI, hardware, system, and
+          application teams to ensure timely delivery within the product
+          schedule. This cross-functional collaboration demonstrates ability to
+          navigate complex organisational structures
+        </p>
 
+        <p>
+          I was responsible for the architecture of product specific software
+          for some product programs. Released products include
+          <a href="http://en.wikipedia.org/wiki/Nokia_N80">N80</a>
+          and
+          <a href="http://en.wikipedia.org/wiki/Nokia_N78">N78</a>.
+          Contributions were also made to the
+          <a href="http://en.wikipedia.org/wiki/Nokia_N79">N79</a>,
+          <a href="http://en.wikipedia.org/wiki/Nokia_E72">E72</a>
+          and
+          <a href="http://en.wikipedia.org/wiki/Nokia_E6">E6</a>
+          among others.
+        </p>
       </section>
       <section>
         <figure>
           <img src="static/shortcat.png" loading="lazy" />
         </figure>
-        <h3> Senior Consultant / Team Leader</h3>
-        <h4>Mobile Innovation
-          |
-          London, UK
-          |
-          Feb 2003 &dash; Feb 2005
-        </h4>
+        <h3>Senior Consultant / Team Leader</h3>
+        <h4>Mobile Innovation | London, UK | Feb 2003 &dash; Feb 2005</h4>
         <p>
           Mobile Innovation was a leading user interface designer, product
           integrator and software developer for smartphones.
-
         </p>
-        <ul>
-          <li>
-            Built and led a team that developed the C++ UI framework for
-            Nokia's first touch phones, the <a
-              href="http://en.wikipedia.org/wiki/Nokia_Series_90">Series 90</a>
-            and <a href="http://en.wikipedia.org/wiki/Nokia_Series_80">Series 80</a>
-            Symbian platforms (Symbian C++).
-            I was instrumental in convincing Nokia to subcontract further work
-            to us.
-          </li>
-          <li>
-            Designed and developed UI unit testing and continuous integration
-            systems for Symbian development (in Java and Python). Built an
-            innovative parallel build system for Symbian that reduced builds
-            from 24h to 4h.
-          </li>
-          <li>
-            Line management of a team
-          </li>
-          <li>
-            Acted as a 'bridge' between the engineering and UI teams to keep
-            communication working.
-          </li>
-        </ul>
+        <p>
+          I built and led a team that developed the C++ UI framework for Nokia's
+          first touch phones, the
+          <a href="http://en.wikipedia.org/wiki/Nokia_Series_90">Series 90</a>
+          and
+          <a href="http://en.wikipedia.org/wiki/Nokia_Series_80">Series 80</a>
+          Symbian platforms (Symbian C++). I was instrumental in convincing
+          Nokia to subcontract further work to us.
+        </p>
+        <p>
+          I designed and developed UI unit testing and continuous integration
+          systems for Symbian development (in Java and Python), and built an
+          innovative parallel build system for Symbian that reduced builds from
+          24h to 4h.
+        </p>
+        <p>
+          My responsibilities included line management of a team and acting as a
+          crucial communication link between the engineering and UI teams.
+        </p>
       </section>
       <section>
         <figure>
           <img src="static/FSecure_Logo.png" loading="lazy" />
         </figure>
 
-        <h3> Senior Software Engineer/Researcher</h3>
+        <h3>Senior Software Engineer/Researcher</h3>
         <h4>
           <a href="https://www.f-secure.com">F-Secure Corporation</a>
-          |
-          Helsinki, Finland
-          |
-          Feb 2000 &dash; Feb 2003
+          | Helsinki, Finland | Feb 2000 &dash; Feb 2003
         </h4>
         <p>
-          F-Secure is a publicly listed software company based in Helsinki.
-          Founding member of the Usability Working Group & research project
-          manager leading usability related research, future UI design and
-          best practise usability within the company. (Java, JavaScript,
-          XUL)
+          I was a founding member of the Usability Working Group and served as a
+          research project manager, leading usability-related research, future
+          UI design, and the implementation of best practices within the company
+          (Java/JavaScript/XUL).
         </p>
         <p>
-          Java Competence Team Manager. Built and maintained the company's
-          Java expertise. Architect and Team Leader for a large-scale server
-          implemented in Java.
+          As Java Competence Team Manager I built and maintained the company’s
+          Java expertise.
+        </p>
+        <p>
+          I was Architect and Team Leader for a large-scale server implemented
+          in Java.
         </p>
       </section>
       <section>
         <figure>
           <img src="static/USydLogo.svg" loading="lazy" />
         </figure>
-        <h3> Software Development Manager</h3>
+        <h3>Software Development Manager</h3>
         <h4>
           <a href="http://www.usyd.edu.au">University of Sydney</a>
-          |
-          Sydney, Australia
-          |
-          May 1994 &dash; Sep 1999
+          | Sydney, Australia | May 1994 &dash; Sep 1999
         </h4>
         <p>
-          I was the initial hire in this project, and responsible for the
-          planning and implementation of the entire technology stack, from
-          specifying, installing and running servers (web, sybase, mail,
-          news, proxy, smb, etc) to developing the custom software that
-          made the course possible.
-
+          I was Architect and lead developer of a large-scale, world-leading
+          e-learning platform within the Faculty of Medicine, utilising both
+          client and server-side Internet technologies such as Java, Python,
+          JavaScript, and SQL.
         </p>
         <p>
-          Architect and lead developer of a large-scale, world-leading
-          e-learning platform within the Faculty of Medicine using both
-          client and server side Internet technologies. (Java, Python,
-          JavaScript, SQL)
-
-        </p>
-        <p>
-          I invented AJAX in 2000, except it was Java instead of
-          JavaScript (1px applet) and LiveConnect to talk to the
-          JavaScript side 😂. Turns out marketing and having a cool name
-          for the thing is useful!
-
+          the initial hire for this project, I was responsible for the complete
+          planning and implementation of the technology stack. This encompassed
+          specifying, installing, and running servers (Netscape web
+          stack/Sybase/mail/news/proxy/SMB/etc.) and developing custom software.
         </p>
       </section>
 
       <section>
-        <h2> Key Skills</h2>
+        <h2>Key Skills</h2>
         <p>
-          Software development, strategy, architecture & management. Ability to
-          influence and coordinate across expertise boundaries. Development
-          methods,
-          including scrum/agile. Coding. UI & visualisation design. Product
-          prototyping
-          and iteration. Team leadership. A variety of programming languages
-          ranging
-          from object-oriented to functional, and proven ability to rapidly
-          become
-          productive in new technologies. Recently used languages include
-          <a href="http://xkcd.com/353/">Python</a>, Java, Scala, Clojure, C++,
-          TypeScript,
-          JavaScript, Rust, F# and C#, and they have been used in a range of
-          environments. I have contributed to and initiated open source
-          projects. Also
-          lots of infrastructure and DevOps (Kubernetes, Terraform, etc.)
+          Software development, strategy, architecture &amp; management; ability
+          to influence and coordinate across expertise boundaries; development
+          methods, including scrum/agile; UI &amp; visualisation design; product
+          prototyping and iteration; team leadership; proven ability to rapidly
+          become productive in new technologies; contributed to and initiated
+          open source projects.
+        </p>
+        <p>
+          Languages used range across object-oriented to functional, dynamic to
+          static. Recently used languages include Python, and Typescript, with
+          experience in Java, Scala, Clojure, C++, JavaScript, Rust, Go, F# and
+          C#. I also have significant experience in infrastructure and DevOps
+          (AWS/Azure/GCP, Kubernetes, Terraform, etc.)
         </p>
       </section>
-      
-      <section>
 
+      <section>
         <h2>Education</h2>
-        <h3> School of life</h3>
+        <h3>Professional Education</h3>
         <ul>
+          <li>Green Software for Practitioners (2024, 25)</li>
           <li>
-            Certified in the Dynamic Systems Development Method (DSDM)
-            Agile Project Management methodology
+            Certified in the Dynamic Systems Development Method (DSDM) Agile
+            Project Management methodology
           </li>
-          <li>
-            Certified Sun Systems Administrator (1995)
-          </li>
+          <li>Certified Sun Systems Administrator (1995)</li>
         </ul>
-        <h3><a href="http://www.usyd.edu.au">University of Sydney</a></h3>
+        <h3>
+          <a href="http://www.usyd.edu.au">University of Sydney</a>
+        </h3>
 
         <ul>
           <li>
-
             <b>PhD</b> Computer Science - 1993 &dash; 2001<br />
             <b>Thesis</b>: On the Visualisation of Large User Models in Web
-            Based
-            Systems
+            Based Systems
             <a
-              href="https://www.academia.edu/1426517/On_the_visualisation_of_large_user_models_in_web_based_systems">link</a>
-            <br>
+              href="https://www.academia.edu/1426517/On_the_visualisation_of_large_user_models_in_web_based_systems"
+              >link</a
+            >
+            <br />
             <b>Activities and Societies</b>: Academic Board. Postgraduate
-            Student
-            Representative Association. Director, Student Housing Cooperative (<a
-              href="https://www.stucco.org.au">STUCCO</a>. <a
-              href="https://honisoit.com/2021/10/30-years-and-still-standing-the-university-of-sydneys-stucco-housing-cooperative/">history</a>)
+            Student Representative Association. Director, Student Housing
+            Cooperative (<a href="https://www.stucco.org.au">STUCCO</a>.
+            <a
+              href="https://honisoit.com/2021/10/30-years-and-still-standing-the-university-of-sydneys-stucco-housing-cooperative/"
+              >history</a
+            >)
           </li>
           <li>
             <b>MSc</b> Computer Science - 1991 &dash; 1993 <br />
             Research in architecture and user interfaces for educational
             software.
-          </li><li>
+          </li>
+          <li>
             <b> BSc (Hons)</b> Computer Science, Mathematics - 1988 &dash; 1991
             <br />
             Hons thesis in Digital Signal Processing
-          </li></ul>
-        <h3> Prehistoric</h3>
-
-        <ul>
-          <li>
-            Gold Duke of Edinburgh award. Also became an assessor.
-
-          </li>
-          <li>
-            School captain of 'Adventure Training' (risk sports), and
-            'O.P. Wood Science Librarian'
-
           </li>
         </ul>
       </section>
       <section>
-        <h2> Publications</h2>
-          <h3><a href="https://uther.uk">Blog/sundry</a></h3>
-        
-          <h3>Academic work (see also <a href="https://scholar.google.com/citations?user=AquEEvUAAAAJ">Google
-            Scholar</a>)</h3>
-            
-            <p><b>Uther J.</b> (2024). <i>Putting Green Software Principles into Practice.</i>
+        <h2>Publications</h2>
+        <h3><a href="https://uther.uk">Blog/sundry</a></h3>
+
+        <h3>
+          Academic work (see also
+          <a href="https://scholar.google.com/citations?user=AquEEvUAAAAJ"
+            >Google Scholar</a
+          >)
+        </h3>
+
+        <p>
+          <b>Uther J.</b> (2024).
+          <i>Putting Green Software Principles into Practice.</i>
           LOCO2024: 1st International Workshop on Low Carbon Computing, December
           2024.
-              <a href="https://easychair.org/publications/preprint/tqx7">link</a>
-            </p>
-        <p>
-          Uther M, Zipitria I, <b>Uther J</b> & Singh P. (2005). <i>Mobile
-            Adaptive CALL (MAC): A case-study in developing a mobile
-            learning application for speech/audio language training.</i> IEEE
-          Workshop on Mobile Technologies in Education, November 2005.
-          <a href="https://ieeexplore.ieee.org/abstract/document/1579262">link</a>
+          <a href="https://easychair.org/publications/preprint/tqx7">link</a>
         </p>
         <p>
-          Uther M, Singh P, Zipitria I & <b>Uther J</b>. <i>MAC: An adaptive,
-            perception-based speech remediation s/w for mobile devices.</i>
+          Uther M, Zipitria I, <b>Uther J</b> &amp; Singh P. (2005).
+          <i
+            >Mobile Adaptive CALL (MAC): A case-study in developing a mobile
+            learning application for speech/audio language training.</i
+          >
+          IEEE Workshop on Mobile Technologies in Education, November 2005.
+          <a href="https://ieeexplore.ieee.org/abstract/document/1579262"
+            >link</a
+          >
+        </p>
+        <p>
+          Uther M, Singh P, Zipitria I &amp; <b>Uther J</b>.
+          <i
+            >MAC: An adaptive, perception-based speech remediation s/w for
+            mobile devices.</i
+          >
           Artificial Intelligence in Education (AIED) workshop on language
           tutoring, July 2005.
         </p>
         <p>
-          Uther M, Singht P & <b>Uther J</b>. <i>Mobile adaptive CALL (MAC): an
-            adaptive s/w for computer assisted language learning.</i> IEEE
-          Pervasive services in computing, July 2005.
-          <a href="https://ieeexplore.ieee.org/abstract/document/1506556">link</a>
+          Uther M, Singht P &amp; <b>Uther J</b>.
+          <i
+            >Mobile adaptive CALL (MAC): an adaptive s/w for computer assisted
+            language learning.</i
+          >
+          IEEE Pervasive services in computing, July 2005.
+          <a href="https://ieeexplore.ieee.org/abstract/document/1506556"
+            >link</a
+          >
         </p>
         <p>
-          Apted T, Kay J, Lum A & <b>Uther J</b>. (2003). <i>Visualisation of
-            ontological inferences for user control of personal web agents.</i>
-          E Banissi, K Borner, C Chen, G Clapworthy, C Maple, A Lobben, C
-          Moore, J Roberts, A Ursyn, Jian Zhang (eds), Proceedings of
-          IV03-VSW, Information Visualisation - Semantic Web
-          Visualisation, IEEE, 2003, 306 -- 311. IEEE
+          Apted T, Kay J, Lum A &amp; <b>Uther J</b>. (2003).
+          <i
+            >Visualisation of ontological inferences for user control of
+            personal web agents.</i
+          >
+          E Banissi, K Borner, C Chen, G Clapworthy, C Maple, A Lobben, C Moore,
+          J Roberts, A Ursyn, Jian Zhang (eds), Proceedings of IV03-VSW,
+          Information Visualisation - Semantic Web Visualisation, IEEE, 2003,
+          306 -- 311. IEEE
           <a href="https://ieeexplore.ieee.org/document/1217995">link</a>
         </p>
         <p>
-          Uther M, <b>Uther J</b> & Kay J. (2003). <i>Visualising cohort
-            comparisons with VlUM,</i> Proceedings of CSCL, Computer Supported
-          Co-operative Learning Conference, 114--116.
+          Uther M, <b>Uther J</b> &amp; Kay J. (2003).
+          <i>Visualising cohort comparisons with VlUM,</i> Proceedings of CSCL,
+          Computer Supported Co-operative Learning Conference, 114--116.
         </p>
         <p>
-          Lum A, Kay J, Apted T & <b>Uther J</b>. (2003). <i>Visualisation of
-            learning ontologies.</i> Poster at AIED03.
+          Lum A, Kay J, Apted T &amp; <b>Uther J</b>. (2003).
+          <i>Visualisation of learning ontologies.</i> Poster at AIED03.
         </p>
         <p>
-          <b>Uther J</b> & Kay J. (2003). <i>VlUM, a Web-Based Visualion of
-            Large
-            User Models.</i> Proceedings User Modeling, in Brusilovsky, P, A
-          Corbett and F de Rosis (eds), Springer-Verlag in Lecture Notes
-          in Artificial Intelligence (LNAI/LNCS), 198--202.
+          <b>Uther J</b> &amp; Kay J. (2003).
+          <i>VlUM, a Web-Based Visualion of Large User Models.</i>
+          Proceedings User Modeling, in Brusilovsky, P, A Corbett and F de Rosis
+          (eds), Springer-Verlag in Lecture Notes in Artificial Intelligence
+          (LNAI/LNCS), 198--202.
         </p>
         <p>
-          <b>Uther J.</b> (2001). <i>On the visualisation of large user models
-            in
-            web based systems.</i> Ph.D. Thesis.
+          <b>Uther J.</b> (2001).
+          <i>On the visualisation of large user models in web based systems.</i>
+          Ph.D. Thesis.
           <a
-            href="https://www.academia.edu/1426517/On_the_visualisation_of_large_user_models_in_web_based_systems">link</a>
+            href="https://www.academia.edu/1426517/On_the_visualisation_of_large_user_models_in_web_based_systems"
+            >link</a
+          >
         </p>
         <p>
-          <b>Uther J</b> & Kay J. (1999). <i>Describing and Viewing Large User
-            Models.</i> In D. Hawking and R. Wilkinson, Editors. Australian
-          Document Computing Symposium, 1999, p 81-84.
+          <b>Uther J</b> &amp; Kay J. (1999).
+          <i>Describing and Viewing Large User Models.</i> In D. Hawking and R.
+          Wilkinson, Editors. Australian Document Computing Symposium, 1999, p
+          81-84.
         </p>
         <p>
-          <b>Uther J</b> & Kay J. (1998). <i>Compact Display of Large User
-            Models.</i>
-          Paper presented at the Sydney Visual Information Processing
-          Meeting.
+          <b>Uther J</b> &amp; Kay J. (1998).
+          <i>Compact Display of Large User Models.</i>
+          Paper presented at the Sydney Visual Information Processing Meeting.
           <a
-            href="https://www.researchgate.net/publication/241678476_Compact_Display_of_Large_User_Models">link</a>
+            href="https://www.researchgate.net/publication/241678476_Compact_Display_of_Large_User_Models"
+            >link</a
+          >
         </p>
         <p>
-          <b>Uther J</b> & Taylor V. (1998). <i>Fusing Dynamic and Static Web
-            Sites.</i> Paper presented at the Sydney Document Computing
-          Symposium.
+          <b>Uther J</b> &amp; Taylor V. (1998).
+          <i>Fusing Dynamic and Static Web Sites.</i> Paper presented at the
+          Sydney Document Computing Symposium.
           <a
-            href="https://www.academia.edu/840602/Horses_for_Courses._Fusing_Dynamic_and_Static_Web_Sites">link</a>
+            href="https://www.academia.edu/840602/Horses_for_Courses._Fusing_Dynamic_and_Static_Web_Sites"
+            >link</a
+          >
         </p>
         <p>
-          Carlile S, Barnet S, Sefton A, <b>Uther J</b>. (1998). <i>Medical
-            problem based learning supported by intranet technology: a
-            natural student centred approach.</i> International Journal of
-          Medical Informatics 50 (1998) 225-233.
+          Carlile S, Barnet S, Sefton A, <b>Uther J</b>. (1998).
+          <i
+            >Medical problem based learning supported by intranet technology: a
+            natural student centred approach.</i
+          >
+          International Journal of Medical Informatics 50 (1998) 225-233.
           <a
-            href="https://www.sciencedirect.com/science/article/pii/S1386505698000732">link</a>
+            href="https://www.sciencedirect.com/science/article/pii/S1386505698000732"
+            >link</a
+          >
         </p>
         <p>
           <b>Uther, J</b> (1997). <i>It's Just A Web Site.</i> Presentation
-          given at
-          the WWW7 Satellite Conference on Medical Education, University
-          of Sydney.
+          given at the WWW7 Satellite Conference on Medical Education,
+          University of Sydney.
         </p>
         <p>
-          Carlile S, Sefton A, <b>Uther J</b>, Barnet S. (1997). <i>MedEdNet: A
-            Faculty wide intranet to support an integrated medical
-            curriculum at the University of Sydney.</i> AusWeb97.
+          Carlile S, Sefton A, <b>Uther J</b>, Barnet S. (1997).
+          <i
+            >MedEdNet: A Faculty wide intranet to support an integrated medical
+            curriculum at the University of Sydney.</i
+          >
+          AusWeb97.
         </p>
         <p>
           <b>Uther, J</b> (1994). <i>A Useable Boxer Editor.</i> Proceedings of
-          OZCHI
-          94. p 53-58.
+          OZCHI 94. p 53-58.
         </p>
         <p>
-          <b>Uther, J (1993)</b>. <i>An Editor for the BOXER Computing
-            Environment.</i> Proceedings of the Fifth International Conference
-          on Human-Computer Interaction. Abridged Proceedings 1993 v.3
-          p.210
+          <b>Uther, J (1993)</b>.
+          <i>An Editor for the BOXER Computing Environment.</i>
+          Proceedings of the Fifth International Conference on Human-Computer
+          Interaction. Abridged Proceedings 1993 v.3 p.210
         </p>
         <p>
-          <b>Uther, J</b> (1993). <i>A Boxer Architecture and Interface.</i>
-          Masters
-          thesis.
+          <b>Uther, J</b> (1993).
+          <i>A Boxer Architecture and Interface.</i>
+          Masters thesis.
         </p>
       </section>
       <section>
@@ -588,3 +513,4 @@
       </section>
     </article>
   </body>
+</html>
