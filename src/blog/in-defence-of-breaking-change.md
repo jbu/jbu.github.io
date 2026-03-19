@@ -4,7 +4,7 @@ date: 2020-10-02
 authors: James Uther
 ---
 
-> Is nuance absolutely awesome, or simply rubbish?\\
+> Is nuance absolutely awesome, or simply rubbish?
 >
 > - The news quiz, 103:2
 
