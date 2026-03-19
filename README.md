@@ -1,5 +1,9 @@
 # Some technical notes
 
+I vibe coded an html->md converter, and then an md->html converter. So authoring is now markdown and I build before push (prek).
+Github actions are identical - the html is static at push.
+
+# The old list
 Some things I like about how this web site is built:
 
 * It builds instantly
