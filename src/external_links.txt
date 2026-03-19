@@ -1,0 +1,5 @@
+# External links shown in the Scribbles section.
+# Format: date | title | url
+
+2024-11-07 | Putting Green Software Principles into Practice. | https://easychair.org/publications/preprint/tqx7
+2022-12-24 | Technical notes on this web site. | https://github.com/jbu/jbu.github.io/blob/main/README.md

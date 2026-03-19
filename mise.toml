@@ -1,7 +1,12 @@
 [tools]
 python = "3.14.3"
 uv = "latest"
+pre-commit = "latest"
+prek = "latest"
+
+[tasks.build]
+run = "uv run python build.py"
+description = "Build the site from Markdown sources"
 
 [settings]
 python.uv_venv_auto = "create|source"
-

@@ -1,0 +1,24 @@
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "build"
+name = "build site"
+language = "system"
+entry = "uv run python build.py"
+files = '\.(md|txt)$'
+pass_filenames = false
+
+[[repos.hooks]]
+id = "markdownlint"
+name = "lint markdown"
+language = "system"
+entry = "uv run pymarkdown scan"
+files = '\.md$'
+
+[[repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v6.0.0"
+hooks = [
+  { id = "end-of-file-fixer" },
+]

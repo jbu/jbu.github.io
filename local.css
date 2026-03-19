@@ -1,3 +1,33 @@
+img.profile {
+  float: right;
+  width: 120px !important; /* override tufte.css mobile img { width: 100% } */
+  margin: 0 0 0.5rem 1.5rem;
+  shape-outside: margin-box;
+}
+
+.accent {
+  color: rgb(251, 12, 184);
+  display: inline;
+}
+
 body {
   background: url("static/short-climate-stripes.png") no-repeat top left/87.5%, url("static/short-climate-stripes.png") no-repeat bottom left/87.5%;
+}
+
+@media (max-width: 760px) {
+  /* Override tufte.css's awkward float-left positioning for expanded sidenotes.
+     !important needed because local.css loads before tufte.css in blog posts. */
+  .margin-toggle:checked + .sidenote,
+  .margin-toggle:checked + .marginnote {
+    display: block !important;
+    float: none !important;
+    left: auto !important;
+    width: auto !important;
+    margin: 0.6rem 0 !important;
+    padding: 0.5rem 0.75rem !important;
+    border-left: 3px solid #aaa !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    clear: both !important;
+  }
 }
