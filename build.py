@@ -14,6 +14,7 @@ Usage: uv run build.py
 import re
 from pathlib import Path
 
+from jinja2 import Environment, FileSystemLoader
 from mistletoe import Document
 from mistletoe.html_renderer import HtmlRenderer
 from mistletoe.span_token import SpanToken
@@ -102,92 +103,13 @@ class TufteRenderer(HtmlRenderer):
 
 
 # ---------------------------------------------------------------------------
-# HTML templates
+# Jinja2 environment
 # ---------------------------------------------------------------------------
 
-def blog_post_html(meta, body_html):
-    mathjax = ""
-    if meta.get("mathjax", "").lower() == "true":
-        mathjax = (
-            '    <script id="MathJax-script" async'
-            ' src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">'
-            "</script>\n"
-        )
-    title = meta.get("title", "Untitled")
-    date = meta.get("date", "")
-    authors = meta.get("authors", "James Uther")
-    return f"""<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="../local.css" />
-    <link rel="stylesheet" href="../tufte.css" />
-{mathjax}    <link rel="icon" href="/static/favicon.png">
-  </head>
-  <body>
-    <article>
-      <h1>{title}</h1>
-      <section>
-        <p class="author"><a href="../index.html">{authors}</a><br>{date}</p>
-      </section>
-      <section>
-{body_html}      </section>
-    </article>
-  </body>
-</html>
-"""
-
-
-def cv_html(body_html):
-    return f"""<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="local.css" />
-    <link rel="stylesheet" href="tufte.css" />
-    <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
-    <link rel="icon" href="/static/favicon.png">
-  </head>
-  <body>
-    <article>
-{body_html}
-      <section>
-        <div id="wcb" class="carbonbadge wcb-d"></div>
-      </section>
-    </article>
-  </body>
-</html>
-"""
-
-
-def index_html(body_html, scribbles_items_html):
-    return f"""<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="local.css" />
-    <link rel="stylesheet" href="tufte.css" />
-    <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
-    <link rel="icon" href="/static/favicon.png">
-  </head>
-  <body class="libertinus latex-dark-auto">
-    <article>
-{body_html}
-      <section>
-        <h2>Scribbles</h2>
-        <ul>
-{scribbles_items_html}
-        </ul>
-      </section>
-
-      <figure>
-        <div id="wcb" class="carbonbadge wcb-d"></div>
-      </figure>
-      <p>h/t <a href="https://edwardtufte.github.io/tufte-css/">tufte-css</a></p>
-    </article>
-  </body>
-</html>
-"""
+_jinja_env = Environment(
+    loader=FileSystemLoader(Path(__file__).parent / "templates"),
+    autoescape=False,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -258,14 +180,22 @@ def build_scribbles_html(blog_posts, external_links):
 
 def build_post(src_path, out_path, renderer):
     meta, body_html = render_md(src_path, renderer)
-    html = blog_post_html(meta, body_html)
+    tmpl = _jinja_env.get_template("blog_post.html")
+    html = tmpl.render(
+        title=meta.get("title", "Untitled"),
+        date=meta.get("date", ""),
+        authors=meta.get("authors", "James Uther"),
+        mathjax=meta.get("mathjax", "").lower() == "true",
+        body_html=body_html,
+    )
     out_path.write_text(html, encoding="utf-8")
     print(f"  {src_path.name} -> {out_path.relative_to(out_path.parent.parent)}")
 
 
 def build_cv(src_cv_path, renderer):
     _meta, body_html = render_md(src_cv_path, renderer)
-    html = cv_html(body_html)
+    tmpl = _jinja_env.get_template("cv.html")
+    html = tmpl.render(body_html=body_html)
     out_path = src_cv_path.parent.parent / "cv.html"
     out_path.write_text(html, encoding="utf-8")
     print(f"  cv.md -> cv.html")
@@ -273,7 +203,8 @@ def build_cv(src_cv_path, renderer):
 
 def build_index(src_index_path, scribbles_html, renderer):
     _meta, body_html = render_md(src_index_path, renderer)
-    html = index_html(body_html, scribbles_html)
+    tmpl = _jinja_env.get_template("index.html")
+    html = tmpl.render(body_html=body_html, scribbles_items_html=scribbles_html)
     out_path = src_index_path.parent.parent / "index.html"
     out_path.write_text(html, encoding="utf-8")
     print(f"  index.md -> index.html")
