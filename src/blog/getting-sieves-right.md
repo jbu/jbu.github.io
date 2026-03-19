@@ -5,23 +5,36 @@ authors: James Uther
 mathjax: true
 ---
 
-The great thing about being wrong is that you get to learn something. In a previous post I went on at length about the the sieve of eratosthenes. Now that I have been enlightened by [Melissa O\'Neill](https://www.cs.hmc.edu/~oneill/papers/Sieve-JFP.pdf) I must make corrections.
+The great thing about being wrong is that you get to learn something. In a previous post I went on at length about the
+the sieve of eratosthenes. Now that I have been enlightened by [Melissa
+O\'Neill](https://www.cs.hmc.edu/~oneill/papers/Sieve-JFP.pdf) I must make corrections.
 
-The problem is that Erastosthenes posited a fixed array from which we \'cross off\' non-primes, the classic algorithm being:
+The problem is that Erastosthenes posited a fixed array from which we \'cross off\' non-primes, the classic algorithm
+being:
 
 - Write a list of all integers \> 1 up to whatever your maximum n is
-- Declare the first non-eliminated integer as a prime p, and eliminate all multiples of this (staring at \\(p\^2\\) as an optimisation). Note that multiples may be found by incrementing by p. A further optimisation is to stop eliminating at \\(sqrt(n)\\).
+- Declare the first non-eliminated integer as a prime p, and eliminate all multiples of this (staring at \\(p\^2\\) as
+  an optimisation). Note that multiples may be found by incrementing by p. A further optimisation is to stop eliminating
+  at \\(sqrt(n)\\).
 - Repeat for the next non-eliminated integer.
 
-The problem is that fixed list at the start, which rules out generators. The usual implementation for generating infinite sequences of primes stores each p and tests future candidates against them. But this is not what Erastosthenes was talking about. O\'Neill calls it the \'unfaithful sieve\' and notes that
+The problem is that fixed list at the start, which rules out generators. The usual implementation for generating
+infinite sequences of primes stores each p and tests future candidates against them. But this is not what Erastosthenes
+was talking about. O\'Neill calls it the \'unfaithful sieve\' and notes that
 
-> In general, the speed of the unfaithful sieve depends on the number of primes it tries that are not factors of each number it examines, whereas the speed of Eratosthenes\'s algorithm depends on the number of (unique) primes that are
+> In general, the speed of the unfaithful sieve depends on the number of primes it tries that are not factors of each
+> number it examines, whereas the speed of Eratosthenes\'s algorithm depends on the number of (unique) primes that are
 
-As an example (from the paper). If we are looking for primes below 541 (the first 100 primes), and find that 17 is a prime, we start crossing of multiples of 17 at 289 \\((17\^2)\\), crossing off 15 times in total. In contrast, the unfaithful sieve will check all numbers not divisible by 2,3,5,7,11 or 13 for divisibility by 17. This is a total of 99 checks.
+As an example (from the paper). If we are looking for primes below 541 (the first 100 primes), and find that 17 is a
+prime, we start crossing of multiples of 17 at 289 \\((17\^2)\\), crossing off 15 times in total. In contrast, the
+unfaithful sieve will check all numbers not divisible by 2,3,5,7,11 or 13 for divisibility by 17. This is a total of 99
+checks.
 
-In the end, the correct Erastosthenes sieve is \\(ϴ(n \\text{ } log \\text{ } log \\text{ } n)\\) to find all primes up to n, whereas the unfaithful sieve is \\(ϴ(n\^2/(log \\text{ } n)\^2)\\).
+In the end, the correct Erastosthenes sieve is \\(ϴ(n \\text{ } log \\text{ } log \\text{ } n)\\) to find all primes up
+to n, whereas the unfaithful sieve is \\(ϴ(n\^2/(log \\text{ } n)\^2)\\).
 
-O\'Neill goes and explores Haskell implementations, but what would a good sieve look like in Clojure? Remember that Clojure, the unfaithful sieve looks like this:
+O\'Neill goes and explores Haskell implementations, but what would a good sieve look like in Clojure? Remember that
+Clojure, the unfaithful sieve looks like this:
 
 ``` clojure
 (defn lazy-sieve [s]
@@ -35,9 +48,17 @@ O\'Neill goes and explores Haskell implementations, but what would a good sieve 
 ;= (2 3 5 7)
 ```
 
-It stores the list of eliminated primes in nested calls to lazy-sieve. To turn this into a lazy, infinite Erastosthenes sieve, we need to rather store a map of the next \'crossings off\', along with their prime factors. Another example from O\'Neill: When we discover 17 as a prime, we insert the first \'crossing off\' (\\(17\^2\\) = 289) in the map of upcoming composites along with it\'s prime factors (17 in this case). When we come to consider 289, we discover it is a known multiple of 17, remove 289 from the map, and insert \\(17+289 = 306\\). In essence we are building a map of iterators keyed by their current value. As it happens, 306 has prime factors 2, 3 and 17, so when 306 is considered, it is removed and entries inserted for \\(306 + 2, 306 + 3\\) and \\(306 + 17\\). Each of the iterators at that value is incremented appropriately.
+It stores the list of eliminated primes in nested calls to lazy-sieve. To turn this into a lazy, infinite Erastosthenes
+sieve, we need to rather store a map of the next \'crossings off\', along with their prime factors. Another example from
+O\'Neill: When we discover 17 as a prime, we insert the first \'crossing off\' (\\(17\^2\\) = 289) in the map of
+upcoming composites along with it\'s prime factors (17 in this case). When we come to consider 289, we discover it is a
+known multiple of 17, remove 289 from the map, and insert \\(17+289 = 306\\). In essence we are building a map of
+iterators keyed by their current value. As it happens, 306 has prime factors 2, 3 and 17, so when 306 is considered, it
+is removed and entries inserted for \\(306 + 2, 306 + 3\\) and \\(306 + 17\\). Each of the iterators at that value is
+incremented appropriately.
 
-Let\'s quickly hack it together. We\'re going to store the table of iterators in a plain hash-map, with the \'crossed off\' values as the key, and a vector of prime factors as value.
+Let\'s quickly hack it together. We\'re going to store the table of iterators in a plain hash-map, with the \'crossed
+off\' values as the key, and a vector of prime factors as value.
 
 ``` clojure
 ;; Given a seq of iterators and a prime, generate a key-value list of
@@ -67,6 +88,11 @@ Let\'s quickly hack it together. We\'re going to store the table of iterators in
 (2 3 5 7 11 13 17 19 23 29)
 ```
 
-Performance? Well, the old version had lower constant factors, so the better algorithm only starts to show through at about \\(N=550\\). As we get to larger numbers, the improvement is clear. For one, it isn\'t prone to stack overflows like the original (and the canonical lazy-seq example)! In fact I won\'t give graphs here (see the O\'Neill paper for some) because I\'m the stack overflows are limiting what I can do, but by about \\(N=4000\\) we\'re looking at about an order of magnitude improvement.
+Performance? Well, the old version had lower constant factors, so the better algorithm only starts to show through at
+about \\(N=550\\). As we get to larger numbers, the improvement is clear. For one, it isn\'t prone to stack overflows
+like the original (and the canonical lazy-seq example)! In fact I won\'t give graphs here (see the O\'Neill paper for
+some) because I\'m the stack overflows are limiting what I can do, but by about \\(N=4000\\) we\'re looking at about an
+order of magnitude improvement.
 
-(Originally [here](https://web.archive.org/web/20161006154447/http://www.lshift.net/blog/2013/12/31/getting-sieves-right/))
+(Originally
+[here](https://web.archive.org/web/20161006154447/http://www.lshift.net/blog/2013/12/31/getting-sieves-right/))

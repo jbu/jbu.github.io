@@ -13,15 +13,31 @@
         <p class="author"><a href="../index.html">James Uther</a><br>2015-02-27</p>
       </section>
       <section>
-<p>Who else likes visiting science museums? All those old apparatus ‐ bits of the radio telescope that first saw pulsars, longitude prize clocks, jury-rigged ingenious devices that captured the first glimpse of something new and exciting. One day the LHC will be dismantled, carved up and shipped to museums around the world. For a lunchtime hack I'm going to go and have a look at something along those lines, but software.</p>
-<p>Climate records have been collected in one form or another for hundreds of years (<a href="http://www.realclimate.org/index.php/data-sources/#Climate_data_raw">here are some</a>) and we can get proxies going back <a href="http://www.ncdc.noaa.gov/data-access/paleoclimatology-data/datasets">way further</a>. Collecting this data has been the sort of heroic grunt-work of real science.</p>
-<p>But if you thought the sales data you're trying to analize is a mess, you lead a sheltered life! One of the apparatus that has really made a scientific and social impact over the last few decades has been methods, implemented in code, for pulling these data sets into something that can show whether or not the earth's temperature is changing, and with a bit more work, why. So let's go and visit one of these devices and take it for a spin.</p>
-<p>There are a few of these things to choose from. <a href="http://berkeleyearth.org/land-and-ocean-data">Berkeley Earth</a> is a recent one but it's all in matlab which I don't have installed, so move on. <a href="http://data.giss.nasa.gov/gistemp/">GISTEMP</a> from NASA is another major look at surface temperature. Ahh, it has downloadable code and data that looks mostly python and a bit of fortran. Let's see what we can get running.</p>
-<p>I'm expecting (and found) bitrot. Docker seems like it would be a useful way of preserving these sorts of projects, because it can manage the runtime dependencies, so I'm going to build a docker image of my work (and a <code>run.sh</code>) as I go. You can get it <a href="https://github.com/jbu/gistemp-docker">here</a> with <code>./build.sh</code>. Then run <code>./gistemp.sh</code>. You'll need `docker` and <code>docker-machine</code>.</p>
-<p>So, the readmees are pretty clear. Some data needs to be fetched and some of the URLs have changed slightly but it's easy enough to track down. It takes in data from GHCNv3 (Global Historical Climate Network from NOAA) and Antarctic SCAR (Scientific Committee on Antarctic Research) data.</p>
+<p>Who else likes visiting science museums? All those old apparatus ‐ bits of the radio telescope that first saw pulsars,
+longitude prize clocks, jury-rigged ingenious devices that captured the first glimpse of something new and exciting. One
+day the LHC will be dismantled, carved up and shipped to museums around the world. For a lunchtime hack I'm going to go
+and have a look at something along those lines, but software.</p>
+<p>Climate records have been collected in one form or another for hundreds of years (<a href="http://www.realclimate.org/index.php/data-sources/#Climate_data_raw">here are
+some</a>) and we can get proxies going back <a href="http://www.ncdc.noaa.gov/data-access/paleoclimatology-data/datasets">way
+further</a>. Collecting this data has been the sort of
+heroic grunt-work of real science.</p>
+<p>But if you thought the sales data you're trying to analize is a mess, you lead a sheltered life! One of the apparatus
+that has really made a scientific and social impact over the last few decades has been methods, implemented in code, for
+pulling these data sets into something that can show whether or not the earth's temperature is changing, and with a bit
+more work, why. So let's go and visit one of these devices and take it for a spin.</p>
+<p>There are a few of these things to choose from. <a href="http://berkeleyearth.org/land-and-ocean-data">Berkeley Earth</a> is a
+recent one but it's all in matlab which I don't have installed, so move on.
+<a href="http://data.giss.nasa.gov/gistemp/">GISTEMP</a> from NASA is another major look at surface temperature. Ahh, it has
+downloadable code and data that looks mostly python and a bit of fortran. Let's see what we can get running.</p>
+<p>I'm expecting (and found) bitrot. Docker seems like it would be a useful way of preserving these sorts of projects,
+because it can manage the runtime dependencies, so I'm going to build a docker image of my work (and a <code>run.sh</code>) as I
+go. You can get it <a href="https://github.com/jbu/gistemp-docker">here</a> with <code>./build.sh</code>. Then run <code>./gistemp.sh</code>. You'll
+need `docker` and <code>docker-machine</code>.</p>
+<p>So, the readmees are pretty clear. Some data needs to be fetched and some of the URLs have changed slightly but it's
+easy enough to track down. It takes in data from GHCNv3 (Global Historical Climate Network from NOAA) and Antarctic SCAR
+(Scientific Committee on Antarctic Research) data.</p>
 <p>Step 0, which merges the sources:</p>
-<pre><code>   
-$ do_comb_step0.sh
+<pre><code>$ do_comb_step0.sh
 reformatting to v2 format
 Bringing Antarctic tables closer to v2.mean format
 collecting surface station data
@@ -42,9 +58,9 @@ move files from temp_files/. to ../STEP1/temp_files/.
 and execute in the STEP1 directory the command:
    do_comb_step1.sh v3.mean_comb
 </code></pre>
-<p>Now, Step 1 'eliminates some dubious records'. It has some python extensions that need to be compiled ‐ In fact I end up patching it slightly and moving to <code>setup.py</code>. But then</p>
-<pre><code>   
-Creating v3.mean_comb.bdb
+<p>Now, Step 1 'eliminates some dubious records'. It has some python extensions that need to be compiled ‐ In fact I end
+up patching it slightly and moving to <code>setup.py</code>. But then</p>
+<pre><code>Creating v3.mean_comb.bdb
 reading v3.mean_comb
 reading v3.inv
 writing v3.mean_comb.bdb
@@ -62,9 +78,9 @@ move this file from STEP1/temp_files to STEP2/temp_files
 and execute in the STEP2 directory the command:
    do_comb_step2.sh last_year_with_data
 </code></pre>
-<p>Step 2: Splitting into zonal sections and homogenization. This compares rural and urban stations to remove any effect of the urban environment.</p>
-<pre><code>   
-converting text to binary file
+<p>Step 2: Splitting into zonal sections and homogenization. This compares rural and urban stations to remove any effect of
+the urban environment.</p>
+<pre><code>converting text to binary file
  last year with data:        2013  LightGl=           1
         1000 processed so far
         2000 processed so far
@@ -81,12 +97,19 @@ and execute in STEP3 do_comb_step3.sh
 </code></pre>
 <p>and then</p>
 <p>Step 3 : Gridding and computation of zonal means ...</p>
-<p>gives us a file <code>SBBX1880.Ts.GHCN.CL.PA.1200</code> which is a nasty fortran blob that apparently contains the grid of surface temperature anomalies. Great! Let's plot that! There are some files at nasa (linked in the build/run scripts here) that can convert this <code>SBBX</code> file to a <code>NetCDF</code> file that can be viewed. Problem is, the programs supplied take some memory. In fact, a few random checks suggest 10s of Gigs, which is beyond my macbook. So let's leave it here... But what we were shooting for was</p>
+<p>gives us a file <code>SBBX1880.Ts.GHCN.CL.PA.1200</code> which is a nasty fortran blob that apparently contains the grid of surface
+temperature anomalies. Great! Let's plot that! There are some files at nasa (linked in the build/run scripts here) that
+can convert this <code>SBBX</code> file to a <code>NetCDF</code> file that can be viewed. Problem is, the programs supplied take some memory.
+In fact, a few random checks suggest 10s of Gigs, which is beyond my macbook. So let's leave it here... But what we
+were shooting for was</p>
 <p><img src="../static/lets-run-science.gif" alt="Temperature anomaly 1951-1980" /></p>
-<p>So there you are. Just like repeating a cloud-chamber experiment in school physics we haven't actually learned anything that hasn't already been published and pored over. We haven't actually looked at the code to really see what it's doing.</p>
+<p>So there you are. Just like repeating a cloud-chamber experiment in school physics we haven't actually learned anything
+that hasn't already been published and pored over. We haven't actually looked at the code to really see what it's
+doing.</p>
 <p>But, I now have a major bit of science history (from NASA!) running (mostly) on my laptop. That's at least a bit cool.</p>
 <p>Also, docker has more uses than you think.</p>
-<p>(Originally <a href="http://web.archive.org/web/20161006160845/http://www.lshift.net/blog/2015/02/27/lunchtime-hack-lets-run-science/">here</a>)</p>
+<p>(Originally
+<a href="http://web.archive.org/web/20161006160845/http://www.lshift.net/blog/2015/02/27/lunchtime-hack-lets-run-science/">here</a>)</p>
       </section>
     </article>
   </body>

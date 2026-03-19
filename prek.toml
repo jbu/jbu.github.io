@@ -13,7 +13,7 @@ pass_filenames = false
 id = "markdownlint"
 name = "lint markdown"
 language = "system"
-entry = "uv run pymarkdown scan"
+entry = "uv run pymarkdown --config .pymarkdown scan"
 files = '\.md$'
 
 [[repos]]

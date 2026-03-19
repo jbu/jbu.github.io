@@ -84,6 +84,26 @@ def extract_post_info(html_text):
 
 
 # ---------------------------------------------------------------------------
+# Pre-process HTML before pandoc
+# ---------------------------------------------------------------------------
+
+def preprocess_html(html):
+    """Normalize HTML attributes that would produce broken markdown."""
+    soup = BeautifulSoup(html, "html.parser")
+    # Collapse whitespace in img title/alt attributes — multiline titles
+    # cause pymarkdown to crash on the resulting markdown image syntax.
+    for img in soup.find_all("img"):
+        for attr in ("title", "alt"):
+            if img.get(attr):
+                img[attr] = re.sub(r'\s+', ' ', img[attr].strip())
+    # Same for link title attributes
+    for a in soup.find_all("a"):
+        if a.get("title"):
+            a["title"] = re.sub(r'\s+', ' ', a["title"].strip())
+    return str(soup)
+
+
+# ---------------------------------------------------------------------------
 # Pre-process sidenotes/marginnotes before pandoc
 # ---------------------------------------------------------------------------
 
@@ -108,7 +128,6 @@ def preprocess_notes(html):
     # Find all margin-toggle labels
     for label in soup.find_all("label", class_="margin-toggle"):
         is_sidenote = "sidenote-number" in label.get("class", [])
-        is_marginnote = "margin-number" in label.get("class", [])
 
         # Find the associated input and span
         input_tag = label.find_next_sibling("input", class_="margin-toggle")
@@ -175,8 +194,12 @@ def html_to_markdown(html):
             # -native_spans: don't produce native span syntax
             # -fenced_divs: disable fenced div (:::) blocks
             # +fenced_code_blocks: always use ``` for code, not indentation
+            # -link_attributes/-fenced_code_attributes/-inline_code_attributes:
+            #   strip {attr} syntax that mistletoe/pymarkdown don't understand
             "--to=markdown-raw_html-native_divs-native_spans-fenced_divs+fenced_code_blocks-link_attributes-fenced_code_attributes-inline_code_attributes",
-            "--wrap=none",
+            "--wrap=auto",
+            "--columns=120",
+            "--markdown-headings=atx",
         ],
         input=html,
         capture_output=True,
@@ -189,6 +212,130 @@ def html_to_markdown(html):
 
 
 # ---------------------------------------------------------------------------
+# Post-process markdown for lint compliance
+# ---------------------------------------------------------------------------
+
+def clean_markdown(md):
+    """Strip trailing whitespace, fix list spacing, collapse multiple blank lines,
+    convert indented code blocks to fenced, and ensure blank lines around fences."""
+    lines = md.split('\n')
+
+    # Pass 1: strip trailing whitespace and fix list marker spacing
+    cleaned = []
+    for line in lines:
+        line = line.rstrip()
+        # Fix extra spaces after list markers: "*   text" -> "* text" (MD030)
+        line = re.sub(r'^(\s*[-*+])\s{2,}', r'\1 ', line)
+        line = re.sub(r'^(\s*\d+\.)\s{2,}', r'\1 ', line)
+        cleaned.append(line)
+
+    # Pass 2: collapse consecutive blank lines to one (MD012)
+    collapsed = []
+    prev_blank = False
+    for line in cleaned:
+        is_blank = (line == '')
+        if is_blank and prev_blank:
+            continue
+        collapsed.append(line)
+        prev_blank = is_blank
+
+    # Pass 3: convert 4-space indented code blocks to fenced (MD046)
+    # Only convert outside existing fenced blocks to avoid corrupting their content.
+    fenced = []
+    i = 0
+    in_fence = False
+    lines = collapsed
+    while i < len(lines):
+        line = lines[i]
+        # Track fence state: opening fence starts with ``` (+ optional lang), closing is exactly ```
+        if line.startswith('```') and not in_fence:
+            in_fence = True
+            fenced.append(line)
+            i += 1
+            continue
+        if line == '```' and in_fence:
+            in_fence = False
+            fenced.append(line)
+            i += 1
+            continue
+        if in_fence:
+            fenced.append(line)
+            i += 1
+            continue
+        # Outside a fence: convert 4-space indented code blocks
+        prev_blank = not fenced or fenced[-1] == ''
+        if prev_blank and line.startswith('    ') and not line.startswith('\t'):
+            block = []
+            j = i
+            while j < len(lines):
+                if lines[j].startswith('    '):
+                    block.append(lines[j])
+                    j += 1
+                elif lines[j] == '' and j + 1 < len(lines) and lines[j + 1].startswith('    '):
+                    block.append('')
+                    j += 1
+                else:
+                    break
+            while block and block[-1] == '':
+                block.pop()
+            fenced.append('```')
+            for bl in block:
+                fenced.append(bl[4:] if bl.startswith('    ') else bl)
+            fenced.append('```')
+            i = j
+        else:
+            fenced.append(line)
+            i += 1
+
+    # Pass 4: merge split code blocks — closing ``` + indented-continuation + opening ```
+    # (pandoc splits wide pandas/tabular output across multiple fenced blocks)
+    merged = []
+    i = 0
+    in_fence = False
+    lines = fenced
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith('```') and not in_fence:
+            in_fence = True
+        elif line == '```' and in_fence:
+            in_fence = False
+            # Look ahead: closing ``` followed by 4-space-indented lines then another ```
+            # means this is a split code block — merge by skipping both fence markers
+            if i + 1 < len(lines) and lines[i + 1].startswith('    '):
+                j = i + 1
+                cont = []
+                while j < len(lines) and lines[j].startswith('    '):
+                    cont.append(lines[j][4:])
+                    j += 1
+                if j < len(lines) and lines[j] == '```':
+                    # Don't close this block — add continuation and skip opening ```
+                    merged.extend(cont)
+                    in_fence = True  # We're still inside the merged block
+                    i = j + 1
+                    continue
+        merged.append(line)
+        i += 1
+
+    # Pass 5: ensure blank lines after closing fence markers (MD031)
+    result = []
+    in_fence = False
+    for i, line in enumerate(merged):
+        if line.startswith('```'):
+            if not in_fence:
+                in_fence = True
+            else:
+                in_fence = False
+                result.append(line)
+                # Add blank line after closing fence if next line is non-blank
+                if i + 1 < len(merged) and merged[i + 1] != '':
+                    result.append('')
+                continue
+        result.append(line)
+
+    return '\n'.join(result)
+
+
+# ---------------------------------------------------------------------------
 # Main conversion
 # ---------------------------------------------------------------------------
 
@@ -196,6 +343,9 @@ def convert_post(html_path, out_path):
     html_text = html_path.read_text(encoding="utf-8")
 
     title, date, authors, body_html, has_mathjax = extract_post_info(html_text)
+
+    # Normalize HTML attributes before pandoc
+    body_html = preprocess_html(body_html)
 
     # Pre-process Tufte note HTML into markers
     body_html, markers = preprocess_notes(body_html)
@@ -206,11 +356,19 @@ def convert_post(html_path, out_path):
     # Restore note markers as {side:}/{margin:} syntax
     md = postprocess_notes(md, markers)
 
-    # Build YAML frontmatter
-    fm_lines = ["---", f"title: {title}"]
+    # Clean up whitespace and formatting for lint compliance
+    md = clean_markdown(md)
+
+    # Build YAML frontmatter — quote values that contain YAML-special characters
+    def yaml_str(s):
+        if any(c in s for c in ':#&*?|<>{}[]!\'"%@`'):
+            return '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"'
+        return s
+
+    fm_lines = ["---", f"title: {yaml_str(title)}"]
     if date:
         fm_lines.append(f"date: {date}")
-    fm_lines.append(f"authors: {authors}")
+    fm_lines.append(f"authors: {yaml_str(authors)}")
     if has_mathjax:
         fm_lines.append("mathjax: true")
     fm_lines.append("---")

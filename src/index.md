@@ -42,7 +42,13 @@ james.uther at gmail
 
 <section>
 <div>
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="1a3660bf-68c3-4f40-b737-8ae812f9ba68" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
-<div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="c1de0a15-9011-4ca1-ba4f-04fd5f647cbf" data-share-badge-host="https://www.credly.com"></div><script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+<div data-iframe-width="150" data-iframe-height="270"
+  data-share-badge-id="1a3660bf-68c3-4f40-b737-8ae812f9ba68"
+  data-share-badge-host="https://www.credly.com"></div>
+<script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+<div data-iframe-width="150" data-iframe-height="270"
+  data-share-badge-id="c1de0a15-9011-4ca1-ba4f-04fd5f647cbf"
+  data-share-badge-host="https://www.credly.com"></div>
+<script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 </div>
 </section>
