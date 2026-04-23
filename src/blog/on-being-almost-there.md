@@ -9,7 +9,7 @@ personal data (thing location tracking, fitness trackers, etc) in a way that lea
 same time allows us to give permission to useful services to process that data for us. A canonical example would be
 something like:
 
-![](../static/on-being-almost-there.png)
+![](/static/on-being-almost-there.png)
 
 In which location and activity data are co-located somewhere which gives us ownership of that data and the ability to
 repurpose it. In this case location (track.er) and movement (pedomet.er) services are feeding data into personis, and

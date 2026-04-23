@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../local.css" />
-    <link rel="stylesheet" href="../tufte.css" />
-
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+    <link rel="stylesheet" href="/local.css" />
+    <link rel="stylesheet" href="/tufte.css" />
     <link rel="icon" href="/static/favicon.png">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
     <article>
       <h1>LocationHistory visualisation part 3</h1>
       <section>
-        <p class="author"><a href="../index.html">James Uther</a><br>2014-10-31</p>
+        <p class="author"><a href="/index.html">James Uther</a><br>2014-10-31</p>
       </section>
       <section>
 <p>I'm a bit like a dog with a bone about this LocationHistory thing (or a dog returning to his vomit?). Previously I had
@@ -92,7 +90,7 @@ function svgLoaded(xml) {
 <p>So quite nice, but we note that if two points are quite a distance apart the joining line doesn't contain much
 information about the path actually travelled between those points. We thus start to cull lines that are long (playing
 with the <code>(dst &lt; xxx)</code> value in the code above). Shorter lines do seem to give more 'shape' to the routes.</p>
-<p><img src="../static/bikeroutes1.png" alt="" /> <img src="../static/bikeroutes2.png" alt="" /></p>
+<p><img src="/static/bikeroutes1.png" alt="" /> <img src="/static/bikeroutes2.png" alt="" /></p>
 <p>And the limit of short lines is a point. How about we just plot the points, instead of trying to join them? After all,
 we have lots of data, so it might tell us something now that we've filtered it to only the activity we're looking for.
 Replace the line drawing code above with circles (and add a small random 'wiggle' factor so that drawing the same
@@ -105,7 +103,7 @@ c.append('circle')
   .attr('r', 2).attr('fill', 'yellow').attr('opacity',1)
   .transition().style("opacity", "0.2");
 </code></pre>
-<p><a href="../static/"><img src="../static/bikeroutes3.png" alt="" /></a></p>
+<p><a href="/static/"><img src="/static/bikeroutes3.png" alt="" /></a></p>
 <p>This actually makes me quite happy. You can see the most commonly travelled routes pretty well. You can also see where
 I've generally stopped at traffic lights and the like (yes, I do actually stop). Itch just about scratched I think.</p>
 <p>There's a <a href="http://codepen.io/jbu/pen/BmnKH/">Codepen</a>, but I've removed my location data so you'll need to plug in
@@ -150,8 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
             function(xml) {svgLoaded(xml);})});
 </code></pre>
 <p>(Originally
-<a href="https://web.archive.org/web/20161006162715/http://www.lshift.net/blog/2014/10/31/locationhistory-visualisation-part-3/">here</a>)</p>
-      </section>
+<a href="https://web.archive.org/web/20161006162715/http://www.lshift.net/blog/2014/10/31/locationhistory-visualisation-part-3/">here</a>)</p>      </section>
     </article>
   </body>
 </html>

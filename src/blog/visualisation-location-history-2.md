@@ -160,7 +160,7 @@ In [10]: df.plot('longitudeE7','latitudeE7',kind='scatter', figsize=(6, 4))
 Out[10]:
 ```
 
-[![](../static/maplatlng.png)](../static/maplatlng.png)
+[![](/static/maplatlng.png)](/static/maplatlng.png)
 
 I\'m still interested in those timestamp differences. Let\'s plot them, against the actual timestamp.
 
@@ -172,7 +172,7 @@ In [14]: pldfi.plot()
 Out[14]:
 ```
 
-[![](../static/timeplot1.png)](../static/timeplot1.png)
+[![](/static/timeplot1.png)](/static/timeplot1.png)
 
 Outliers. Cut them off and try again.
 
@@ -182,7 +182,7 @@ In [16]: pldfi.plot()
 Out[16]:
 ```
 
-[![](../static/timeplot2.png)](../static/timeplot2.png)
+[![](/static/timeplot2.png)](/static/timeplot2.png)
 
 A little more informative, but only in as much as I can\'t see a pattern so I\'ll probably ignore them. Let\'s check
 with a histogram.
@@ -192,7 +192,7 @@ In [17]: pldfi.hist()
 Out[17]: array([[Axes(0.125,0.125;0.775x0.775)]], dtype=object)
 ```
 
-[![](../static/timehist.png)](../static/timehist.png)
+[![](/static/timehist.png)](/static/timehist.png)
 
 Ok. So mostly small. Well, let\'s cut the dataset down to a box bounded by slightly outside the two ends of my cycle
 route. And then save all activities that are onBicycle to a some sort of json thing.

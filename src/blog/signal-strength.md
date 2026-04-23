@@ -7,11 +7,11 @@ authors: James Uther
 Another thumb-twiddling commute into the city, with only another listicle to entertain, and once again, no mobile
 signal. I tweet in frustration:
 
-[![](../static/signal-strength-tweet-1.png "A signal, a signal! My kingdom for a signal! @SW_Trains @ThreeUK")](https://twitter.com/hemul/status/615421869223747589)
+[![](/static/signal-strength-tweet-1.png "A signal, a signal! My kingdom for a signal! @SW_Trains @ThreeUK")](https://twitter.com/hemul/status/615421869223747589)
 
 Which received an actual reply!
 
-[![](../static/signal-strength-tweet-2.png "Hi James, if you send over a full postcode for the area you're having signal issues in we can find out what's happening for you.>LR")](https://twitter.com/ThreeUKSupport/status/615445034624811008)
+[![](/static/signal-strength-tweet-2.png "Hi James, if you send over a full postcode for the area you're having signal issues in we can find out what's happening for you.>LR")](https://twitter.com/ThreeUKSupport/status/615445034624811008)
 
 Challenge accepted.
 
@@ -23,11 +23,11 @@ logs these along with the GPS location, but surely someone has already done this
 My return journey duely tracked (with extra power supplied by a laptop ‐ gods this thing chews batteries!) it turns out
 that the signal tracker can generate a few kinds of files, including some funky KML which would show this:
 
-![](../static/signal-strength-map-1.png "Map showing signal strength")
+![](/static/signal-strength-map-1.png "Map showing signal strength")
 
 Including blue wedge things that I don\'t understand
 
-![](../static/signal-strength-map-2.png "Map showing signal strength")
+![](/static/signal-strength-map-2.png "Map showing signal strength")
 
 Anyway, it\'ll also give good old CSVs, which look like:
 
@@ -76,7 +76,7 @@ trip['rssi'].plot(figsize=(15, 3))
 rssigraph
 ```
 
-![](../static/signal-strength-plot-1.png "plot of signal strength over time")
+![](/static/signal-strength-plot-1.png "plot of signal strength over time")
 
 So we have some areas of significantly bad signal strength. Let\'s focus in on rssi \< -70, which in the iPhone at least
 triggers searching for a new cell tower.
@@ -91,7 +91,7 @@ bad_signal.plot(kind='scatter', x='longitude', y='latitude', c='rssi', cmap=cmap
 rssimap
 ```
 
-![](../static/signal-strength-plot-2.png "plot of signal strength over time")
+![](/static/signal-strength-plot-2.png "plot of signal strength over time")
 
 We know have a map of points on my trip with bad signal. But they want postcodes. I have the lat/lng position of these,
 and could just go for a reverse geocoder, but that\'d be 400ish requests and probably get my blacklisted, so instead,

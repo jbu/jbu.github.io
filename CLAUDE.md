@@ -1,35 +1,43 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code working in this repo.
 
 ## What this is
 
-A personal website and blog hosted on GitHub Pages. It is intentionally minimal: raw HTML files with no build system, no static site generator, and no framework. The only dependency is `mistletoe` (a Markdown-to-HTML Python library), managed via `uv`.
+A personal website and blog on GitHub Pages. Markdown sources in `src/`, rendered HTML committed in the repo root and `blog/`. GitHub Pages serves the built HTML directly — no CI, no deploy step.
+
+Deps: `mistletoe`, `jinja2`, `pymarkdownlnt`. Managed via `uv`, Python pinned via `mise` (3.14).
 
 ## Setup
 
-Uses `mise` to manage Python 3.14 and `uv`. The venv is created and sourced automatically by mise.
-
 ```sh
-mise install   # installs Python + uv, creates .venv
-uv sync        # installs mistletoe into .venv
+mise install   # Python + uv + prek; .venv auto-created
+uv sync
+mise run build # rebuild all pages
+mise run serve # preview at localhost:8000
 ```
+
+`prek` runs `build.py` on every `.md`/`.txt` change and lints Markdown with `pymarkdown`.
 
 ## Architecture
 
-- **`index.html`** — homepage
-- **`cv.html`** — CV/resume page
-- **`blog/`** — individual blog post HTML files, hand-authored
-- **`static/`** — images, favicon, and other assets
-- **`tufte.css`** — Tufte-style CSS (main stylesheet)
-- **`local.css`** — small local overrides
-- **`et-book/`** — ET Book font files used by tufte.css
+- `src/index.md`, `src/cv.md`, `src/blog/*.md` — Markdown sources with YAML-ish frontmatter.
+- `src/external_links.txt` — one `date | title | url` per line; merged with blog post frontmatter to build the Scribbles list.
+- `build.py` — converts Markdown to HTML via `mistletoe`, wraps in Jinja templates.
+- `templates/base.html` — shared `<head>`/`<body>` shell; `index.html`, `cv.html`, `blog_post.html` extend it via `{% block %}`.
+- `tufte.css`, `local.css`, `et-book/`, `static/` — styling and assets.
+- Built output lives alongside sources: `index.html`, `cv.html`, `blog/*.html`.
 
-There is no build step. Pages are served directly from the repo root via GitHub Pages. Deployment happens automatically on push via GitHub Pages (no workflow file — uses the default GitHub Pages branch deploy).
+## Build behaviour
+
+- The Scribbles list is injected at `<!-- SCRIBBLES -->` in `src/index.md`, merging blog frontmatter + `external_links.txt`, sorted newest-first.
+- Posts with `draft: true` in frontmatter are skipped: no HTML output, no Scribbles entry.
+- Custom Markdown extensions for Tufte notes: `{side: ...}` → numbered sidenote, `{margin: ...}` → ⊕ margin note.
+- Frontmatter is parsed by a tiny hand-rolled reader; it strips surrounding YAML quotes but does not support nested structures.
 
 ## Conventions
 
-- Blog posts live in `blog/` as plain `.html` files.
-- Blog posts link back to `../index.html` and reference `../local.css` / `../tufte.css`.
-- `mistletoe` is available if you need to convert Markdown to HTML snippets programmatically, but posts are typically written directly in HTML.
-- CSS uses the Tufte style (`tufte.css`); avoid adding heavy frameworks.
+- Markdown first; use HTML only when attributes require it (classes, `rel=me`, data attributes). Mistletoe passes inline HTML through.
+- CSS paths are absolute (`/local.css`, `/tufte.css`) so templates work at any depth.
+- No frameworks or client-side JS beyond the Tufte CSS toggles and (optional) MathJax per post.
+- Don't add CI/deploy workflows — GitHub Pages serves the committed HTML directly by design.

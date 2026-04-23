@@ -201,7 +201,7 @@ grid = list(itertools.zip_longest(*[iter(images)]*6))
 print_index(grid)
 ```
 
-![](../static/photolibrary1.png)
+![](/static/photolibrary1.png)
 
 And now collect the results into a hash table with buckets of (hopefully) similar images.
 
@@ -213,7 +213,7 @@ for f in images:
     print_index(indx.values())
 ```
 
-![](../static/photolibrary2.png)
+![](/static/photolibrary2.png)
 
 Well that\'s not too bad! Notice that the multiple slightly different shots of the iguana are sorted out pretty well
 (look at the filenames). I\'m happy.

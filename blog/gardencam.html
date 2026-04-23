@@ -2,16 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../local.css" />
-    <link rel="stylesheet" href="../tufte.css" />
-
+    <link rel="stylesheet" href="/local.css" />
+    <link rel="stylesheet" href="/tufte.css" />
     <link rel="icon" href="/static/favicon.png">
   </head>
   <body>
     <article>
       <h1>Gardencam</h1>
       <section>
-        <p class="author"><a href="../index.html">James Uther</a><br>2020-01-06</p>
+        <p class="author"><a href="/index.html">James Uther</a><br>2020-01-06</p>
       </section>
       <section>
 <p>Some time ago I had the idea to stick a camera out a window, take a photo every few minutes, and stitch them together as
@@ -41,7 +40,7 @@ gsutil -m rsync images gs://gardencam/images &amp;&amp; rm images/*
 <pre><code>*/5 * * * * /capture.sh
 </code></pre>
 <p>And then leave it going for months, slowly forgetting it's there.</p>
-<p><img src="../static/gardencam_insitu.jpg" alt="Temperature anomaly 1951-1980" /></p>
+<p><img src="/static/gardencam_insitu.jpg" alt="Temperature anomaly 1951-1980" /></p>
 <p>So months later, what do we have? Well, lots of images, but what do they look like as the intended matrix visualisation?</p>
 <p>I could download all the images to the laptop and do it there, but it's holidays so time to shuck fit up and try
 something new. Google now runs Jupiter notebooks for you, with a nice docs-like interface (colab.research.google.com).
@@ -158,14 +157,13 @@ def resize(request):
 google-cloud-storage
 </code></pre>
 <p>I just used the web gui to set all that up. A little more speedy:</p>
-<p><img src="../static/gardencam-invocations.png" alt="Temperature anomaly 1951-1980" /></p>
-<p><img src="../static/gardencam-instances.png" alt="Temperature anomaly 1951-1980" /></p>
+<p><img src="/static/gardencam-invocations.png" alt="Temperature anomaly 1951-1980" /></p>
+<p><img src="/static/gardencam-instances.png" alt="Temperature anomaly 1951-1980" /></p>
 <p>And it worked!</p>
-<p><img src="../static/gardencam-results.png" alt="Temperature anomaly 1951-1980" /></p>
+<p><img src="/static/gardencam-results.png" alt="Temperature anomaly 1951-1980" /></p>
 <p>Kind of. Obviously I could have checked things a little before, and an unwatched pi plugged into a random powerboard is
 not completely reliable. Also, my garden could use some colours other than green, and we can work on something other
-than auto exposure perhaps. Anyway, onwards!</p>
-      </section>
+than auto exposure perhaps. Anyway, onwards!</p>      </section>
     </article>
   </body>
 </html>

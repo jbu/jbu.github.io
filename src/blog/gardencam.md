@@ -40,7 +40,7 @@ Edit the crontab:
 
 And then leave it going for months, slowly forgetting it\'s there.
 
-![Temperature anomaly 1951-1980](../static/gardencam_insitu.jpg)
+![Temperature anomaly 1951-1980](/static/gardencam_insitu.jpg)
 
 So months later, what do we have? Well, lots of images, but what do they look like as the intended matrix visualisation?
 
@@ -181,13 +181,13 @@ google-cloud-storage
 
 I just used the web gui to set all that up. A little more speedy:
 
-![Temperature anomaly 1951-1980](../static/gardencam-invocations.png)
+![Temperature anomaly 1951-1980](/static/gardencam-invocations.png)
 
-![Temperature anomaly 1951-1980](../static/gardencam-instances.png)
+![Temperature anomaly 1951-1980](/static/gardencam-instances.png)
 
 And it worked!
 
-![Temperature anomaly 1951-1980](../static/gardencam-results.png)
+![Temperature anomaly 1951-1980](/static/gardencam-results.png)
 
 Kind of. Obviously I could have checked things a little before, and an unwatched pi plugged into a random powerboard is
 not completely reliable. Also, my garden could use some colours other than green, and we can work on something other

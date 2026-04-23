@@ -8,5 +8,9 @@ prek = "latest"
 run = "uv run python build.py"
 description = "Build the site from Markdown sources"
 
+[tasks.serve]
+run = "python -m http.server 8000"
+description = "Serve the built site locally at http://localhost:8000"
+
 [settings]
 python.uv_venv_auto = "create|source"

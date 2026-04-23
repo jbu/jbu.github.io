@@ -10,27 +10,28 @@ than a <s>tweet</s> toot (skeet?).
 </section>
 
 <section>
-<p>
-<img src="static/profiledesat.png" class="profile" loading="lazy" width="120" height="120">
-Climate + Tech. Experienced software engineer. Been through Nokia,
+
+<img src="/static/profiledesat.png" class="profile" loading="lazy" width="120" height="120"> Climate + Tech. Experienced software engineer. Been through Nokia,
 F-Secure, LShift, OliverWyman, universities. Have built large
 backend systems, frontends, mobile frameworks, done DevOps, and a
 few tours of academia, have sorted out teams, done data science etc,
 etc. Have committed architecture, but like to keep at least one foot
 on the ground.
-</p>
-<p>
+
+I am a [symmathecist](https://jessitron.com/2018/10/25/symmathecist-n/), in the medium of software.
+
 Working on convincing companies to build more efficient systems
-&rightarrow; lower power &rightarrow; cheaper to run &rightarrow; lower CO2.
-<br>🇦🇺→🇫🇮→🇬🇧.
-</p>
-<p>
-Details in the <a href="cv.html">CV</a>.
-</p>
+→ lower power → cheaper to run → lower CO2.  
+🇦🇺→🇫🇮→🇬🇧.
+
+Details in the [CV](cv.html).
+
 </section>
 
 <section>
-<h2>Elsewhere</h2>
+
+## Elsewhere
+
 <p>
 <a rel="me" href="https://github.com/jbu" target="_blank">@jbu</a> |
 <a rel="me" href="https://www.linkedin.com/in/jamesuther/" target="_blank">@jamesuther</a> |
@@ -38,6 +39,7 @@ Details in the <a href="cv.html">CV</a>.
 <a rel="me" href="https://fosstodon.org/@jbu" target="_blank">@jbu</a> |
 james.uther at gmail
 </p>
+
 </section>
 
 <section>
@@ -51,4 +53,12 @@ james.uther at gmail
   data-share-badge-host="https://www.credly.com"></div>
 <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
 </div>
+</section>
+
+<section>
+
+## Scribbles
+
+<!-- SCRIBBLES -->
+
 </section>

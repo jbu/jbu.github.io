@@ -92,7 +92,7 @@ So quite nice, but we note that if two points are quite a distance apart the joi
 information about the path actually travelled between those points. We thus start to cull lines that are long (playing
 with the `(dst < xxx)` value in the code above). Shorter lines do seem to give more \'shape\' to the routes.
 
-![](../static/bikeroutes1.png) ![](../static/bikeroutes2.png)
+![](/static/bikeroutes1.png) ![](/static/bikeroutes2.png)
 
 And the limit of short lines is a point. How about we just plot the points, instead of trying to join them? After all,
 we have lots of data, so it might tell us something now that we\'ve filtered it to only the activity we\'re looking for.
@@ -109,7 +109,7 @@ c.append('circle')
   .transition().style("opacity", "0.2");
 ```
 
-[![](../static/bikeroutes3.png)](../static/)
+[![](/static/bikeroutes3.png)](/static/)
 
 This actually makes me quite happy. You can see the most commonly travelled routes pretty well. You can also see where
 I\'ve generally stopped at traffic lights and the like (yes, I do actually stop). Itch just about scratched I think.

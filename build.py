@@ -2,11 +2,17 @@
 """
 Build script for jbu.github.io.
 
-Converts src/blog/*.md -> blog/*.html and src/index.md -> index.html.
-Copies src/cv.html -> cv.html.
+Renders src/blog/*.md -> blog/*.html, src/index.md -> index.html,
+and src/cv.md -> cv.html.
 
-External scribbles (non-blog links) live in src/external_links.txt,
-one entry per line: date | title | url
+Blog posts with `draft: true` in frontmatter are skipped.
+
+The Scribbles list on the index page is assembled from two sources,
+merged and sorted newest-first:
+  - src/blog/*.md frontmatter (date, title) — one entry per non-draft post
+  - src/external_links.txt                  — `date | title | url` per line
+
+It is injected at the `<!-- SCRIBBLES -->` marker in src/index.md.
 
 Usage: uv run build.py
 """
@@ -36,8 +42,16 @@ def parse_frontmatter(text):
     for line in fm_block.strip().splitlines():
         if ":" in line:
             k, _, v = line.partition(":")
-            meta[k.strip()] = v.strip()
+            v = v.strip()
+            # Strip surrounding YAML quotes if present
+            if len(v) >= 2 and v[0] == v[-1] and v[0] in ('"', "'"):
+                v = v[1:-1]
+            meta[k.strip()] = v
     return meta, body.strip()
+
+
+def is_draft(meta):
+    return meta.get("draft", "").lower() == "true"
 
 
 # ---------------------------------------------------------------------------
@@ -109,42 +123,37 @@ class TufteRenderer(HtmlRenderer):
 _jinja_env = Environment(
     loader=FileSystemLoader(Path(__file__).parent / "templates"),
     autoescape=False,
+    trim_blocks=True,
+    lstrip_blocks=True,
 )
 
 
 # ---------------------------------------------------------------------------
-# Build helpers
+# Scribbles list
 # ---------------------------------------------------------------------------
-
-def render_md(path, renderer):
-    """Read .md file, parse frontmatter, render body HTML. Returns (meta, html)."""
-    text = path.read_text(encoding="utf-8")
-    meta, body = parse_frontmatter(text)
-    renderer.reset_counters()
-    html = renderer.render(Document(body))
-    return meta, html
-
 
 def collect_blog_posts(src_blog_dir):
     """
     Scan src/blog/*.md for frontmatter.
-    Returns list of (date_str, title, slug) sorted newest-first.
+    Returns list of (date, title, slug) for non-draft posts.
     """
     posts = []
     for md_file in Path(src_blog_dir).glob("*.md"):
-        text = md_file.read_text(encoding="utf-8")
-        meta, _ = parse_frontmatter(text)
-        date = meta.get("date", "0000-00-00")
-        title = meta.get("title", md_file.stem)
-        posts.append((date, title, md_file.stem))
-    return sorted(posts, key=lambda x: x[0], reverse=True)
+        meta, _ = parse_frontmatter(md_file.read_text(encoding="utf-8"))
+        if is_draft(meta):
+            continue
+        posts.append((
+            meta.get("date", "0000-00-00"),
+            meta.get("title", md_file.stem),
+            md_file.stem,
+        ))
+    return posts
 
 
 def collect_external_links(external_links_path):
     """
-    Read src/external_links.txt.
-    Each line: date | title | url
-    Returns list of (date_str, title, url).
+    Read src/external_links.txt. Each line: `date | title | url`.
+    Lines starting with # are comments.
     """
     path = Path(external_links_path)
     if not path.exists():
@@ -161,25 +170,33 @@ def collect_external_links(external_links_path):
 
 
 def build_scribbles_html(blog_posts, external_links):
-    """
-    Merge blog posts + external links, sort by date descending,
-    render as <li> lines.
-    """
-    items = []
-    for date, title, slug in blog_posts:
-        items.append((date, title, f"blog/{slug}.html", False))
-    for date, title, url in external_links:
-        items.append((date, title, url, True))
+    """Merge blog posts + external links, sort by date descending, render <li>s."""
+    items = [(date, title, f"blog/{slug}.html") for date, title, slug in blog_posts]
+    items += list(external_links)
     items.sort(key=lambda x: x[0], reverse=True)
+    return "\n".join(
+        f'<li>{date} &mdash; <a href="{url}">{title}</a></li>'
+        for date, title, url in items
+    )
 
-    lines = []
-    for date, title, url, _external in items:
-        lines.append(f'          <li>{date} &dash; <a href="{url}">{title}</a></li>')
-    return "\n".join(lines)
+
+# ---------------------------------------------------------------------------
+# Build helpers
+# ---------------------------------------------------------------------------
+
+def render_md(path, renderer):
+    """Read .md file, parse frontmatter, render body HTML. Returns (meta, html)."""
+    text = path.read_text(encoding="utf-8")
+    meta, body = parse_frontmatter(text)
+    renderer.reset_counters()
+    html = renderer.render(Document(body)).strip()
+    return meta, html
 
 
 def build_post(src_path, out_path, renderer):
     meta, body_html = render_md(src_path, renderer)
+    if is_draft(meta):
+        return False
     tmpl = _jinja_env.get_template("blog_post.html")
     html = tmpl.render(
         title=meta.get("title", "Untitled"),
@@ -190,6 +207,7 @@ def build_post(src_path, out_path, renderer):
     )
     out_path.write_text(html, encoding="utf-8")
     print(f"  {src_path.name} -> {out_path.relative_to(out_path.parent.parent)}")
+    return True
 
 
 def build_cv(src_cv_path, renderer):
@@ -203,8 +221,12 @@ def build_cv(src_cv_path, renderer):
 
 def build_index(src_index_path, scribbles_html, renderer):
     _meta, body_html = render_md(src_index_path, renderer)
+    body_html = body_html.replace(
+        '<!-- SCRIBBLES -->',
+        f'<ul>\n{scribbles_html}\n</ul>',
+    )
     tmpl = _jinja_env.get_template("index.html")
-    html = tmpl.render(body_html=body_html, scribbles_items_html=scribbles_html)
+    html = tmpl.render(body_html=body_html)
     out_path = src_index_path.parent.parent / "index.html"
     out_path.write_text(html, encoding="utf-8")
     print(f"  index.md -> index.html")
@@ -227,19 +249,16 @@ def main():
     scribbles_html = build_scribbles_html(blog_posts, external_links)
 
     with TufteRenderer() as renderer:
-        # Build blog posts
-        for date, title, slug in blog_posts:
-            src_path = src_blog / f"{slug}.md"
-            out_path = blog_out / f"{slug}.html"
-            build_post(src_path, out_path, renderer)
+        built = 0
+        for md_file in sorted(src_blog.glob("*.md")):
+            out = blog_out / f"{md_file.stem}.html"
+            if build_post(md_file, out, renderer):
+                built += 1
 
-        # Build index
         build_index(src / "index.md", scribbles_html, renderer)
-
-        # Build cv
         build_cv(src / "cv.md", renderer)
 
-    print(f"Done. {len(blog_posts)} posts built.")
+    print(f"Done. {built} posts built.")
 
 
 if __name__ == "__main__":

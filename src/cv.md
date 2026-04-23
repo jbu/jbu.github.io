@@ -30,7 +30,7 @@ Agile/Scrum, DSDM, .*Ops, CI/CD
 
 ## Experience
 
-<figure><img src="static/owlogowide.png" loading="lazy"></figure>
+<figure><img src="/static/owlogowide.png" loading="lazy"></figure>
 
 ### Staff Engineer
 
@@ -59,7 +59,7 @@ evangelised cloud carbon trackers and right‑sized infrastructure.
 Initiated a 'tech talk' series. Initiated a sustainability talk
 series. Frequent contributor to both.
 
-<figure><img src="static/lshiftlogoblack.png" loading="lazy"></figure>
+<figure><img src="/static/lshiftlogoblack.png" loading="lazy"></figure>
 
 ### Senior Developer
 
@@ -83,7 +83,7 @@ provided a foundational understanding of reliably delivering complex
 projects, a crucial skill honed through practical application across
 diverse technical landscapes.
 
-<figure><img src="static/USydLogo.svg" loading="lazy"></figure>
+<figure><img src="/static/USydLogo.svg" loading="lazy"></figure>
 
 ### Research Fellow
 
@@ -100,7 +100,7 @@ intelligently manage and utilise their online profiles, supporting
 In this period I implemented an OAuth integration with various 3rd
 party data sources, and mentored PhD students.
 
-<figure><img src="static/Nokia_wordmark.png" loading="lazy"></figure>
+<figure><img src="/static/Nokia_wordmark.png" loading="lazy"></figure>
 
 ### Staff Engineer
 
@@ -135,7 +135,7 @@ Contributions were also made to the
 [E72](http://en.wikipedia.org/wiki/Nokia_E72) and
 [E6](http://en.wikipedia.org/wiki/Nokia_E6) among others.
 
-<figure><img src="static/shortcat.png" loading="lazy"></figure>
+<figure><img src="/static/shortcat.png" loading="lazy"></figure>
 
 ### Senior Consultant / Team Leader
 
@@ -159,7 +159,7 @@ innovative parallel build system for Symbian that reduced builds from
 My responsibilities included line management of a team and acting as a
 crucial communication link between the engineering and UI teams.
 
-<figure><img src="static/FSecure_Logo.png" loading="lazy"></figure>
+<figure><img src="/static/FSecure_Logo.png" loading="lazy"></figure>
 
 ### Senior Software Engineer/Researcher
 
@@ -176,7 +176,7 @@ Java expertise.
 I was Architect and Team Leader for a large-scale server implemented
 in Java.
 
-<figure><img src="static/USydLogo.svg" loading="lazy"></figure>
+<figure><img src="/static/USydLogo.svg" loading="lazy"></figure>
 
 ### Software Development Manager
 

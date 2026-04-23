@@ -18,17 +18,17 @@ A really quick way of seeing what we have is to simply drag the .kml file into G
 range selection widget, and a kind of fading effect where points outside the selected time are dimmed but not hidden
 altogether. So here\'s a relatively nice overview of my various cycle routes between Waterloo and LShift:
 
-[![](../static/Screenshot_082614_102701_AM.jpg)](../static/)
+[![](/static/Screenshot_082614_102701_AM.jpg)](/static/)
 
 If we do select the entire time range it gets a bit messy, and that\'s about all we can do with Google Earth:
 
-[![](../static/Screenshot_082614_102756_AM.jpg)](../static/Screenshot_082614_102756_AM.jpg)
+[![](/static/Screenshot_082614_102756_AM.jpg)](/static/Screenshot_082614_102756_AM.jpg)
 
 In the drive to replace Earth with Maps, it turns out that Google have added similar capabilities to Maps ([a good
 overview here](http://gis.stackexchange.com/questions/235/display-a-local-file-in-google-maps)). Again, it\'s limited.
 We can style the map a bit more, but we can\'t style the location data in any meaningful way.
 
-[![](../static/Screenshot_082614_103618_AM.jpg)](../static/Screenshot_082614_102756_AM.jpg)
+[![](/static/Screenshot_082614_103618_AM.jpg)](/static/Screenshot_082614_102756_AM.jpg)
 
 Where else can we go?
 
@@ -44,7 +44,7 @@ be consumed by the heatmap layer, and um, nothing much. BUT then you realise tha
 perhaps the intensity is being scaled depending on frequency which is leaving the less-travelled places too dim, so you
 set maxIntensity to 1: TaDa!
 
-![](../static/Screenshot_082714_011252_PM.jpg)
+![](/static/Screenshot_082714_011252_PM.jpg)
 
 Here\'s the code. And no, this won\'t work because I\'ve removed my location history for obvious reasons. But try
 substituting your own (edit in [jsfiddle](https://jsfiddle.net/zwc5qLna/))
@@ -136,7 +136,7 @@ $(document).ready(function () {
 
 Aaand: A right mess.
 
-![](../static/Screenshot_082814_124101_PM.jpg)
+![](/static/Screenshot_082814_124101_PM.jpg)
 
 So, too much data to be useful now. We could go and start filtering by these \'activities\' (or \'activitys\' depending
 on which googler wrote which part of the json marshaller it seems) and finding the cycling ones. Or there is a way of

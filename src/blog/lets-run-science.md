@@ -111,7 +111,7 @@ can convert this `SBBX` file to a `NetCDF` file that can be viewed. Problem is, 
 In fact, a few random checks suggest 10s of Gigs, which is beyond my macbook. So let\'s leave it here\... But what we
 were shooting for was
 
-![Temperature anomaly 1951-1980](../static/lets-run-science.gif)
+![Temperature anomaly 1951-1980](/static/lets-run-science.gif)
 
 So there you are. Just like repeating a cloud-chamber experiment in school physics we haven\'t actually learned anything
 that hasn\'t already been published and pored over. We haven\'t actually looked at the code to really see what it\'s

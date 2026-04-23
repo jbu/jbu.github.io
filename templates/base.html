@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/local.css" />
+    <link rel="stylesheet" href="/tufte.css" />
+    <link rel="icon" href="/static/favicon.png">
+{% block head_extra %}{% endblock %}
+  </head>
+  <body{% block body_attrs %}{% endblock %}>
+    <article>
+{% block content %}{% endblock %}
+    </article>
+  </body>
+</html>

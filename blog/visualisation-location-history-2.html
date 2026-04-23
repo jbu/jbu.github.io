@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../local.css" />
-    <link rel="stylesheet" href="../tufte.css" />
-
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+    <link rel="stylesheet" href="/local.css" />
+    <link rel="stylesheet" href="/tufte.css" />
     <link rel="icon" href="/static/favicon.png">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
     <article>
-      <h1>"Lunchtime Hack: Decoding LocationHistory"</h1>
+      <h1>Lunchtime Hack: Decoding LocationHistory</h1>
       <section>
-        <p class="author"><a href="../index.html">James Uther</a><br>2014-09-30</p>
+        <p class="author"><a href="/index.html">James Uther</a><br>2014-09-30</p>
       </section>
       <section>
 <p>Last month we took a look at how we might get our location history from Google and show it on a map. We found that the
@@ -139,7 +137,7 @@ positions in a scatter plot. Here's where I've been -- minimalist style!</p>
 <pre><code class="language-python">In [10]: df.plot('longitudeE7','latitudeE7',kind='scatter', figsize=(6, 4))
 Out[10]:
 </code></pre>
-<p><a href="../static/maplatlng.png"><img src="../static/maplatlng.png" alt="" /></a></p>
+<p><a href="/static/maplatlng.png"><img src="/static/maplatlng.png" alt="" /></a></p>
 <p>I'm still interested in those timestamp differences. Let's plot them, against the actual timestamp.</p>
 <pre><code class="language-python">In [11]: df['time'] = pd.to_datetime(df['timestampMs'], unit='ms')
 In [12]: pldf = df[['timestampDiff', 'time' ]]
@@ -147,19 +145,19 @@ In [13]: pldfi = pldf.set_index('time')
 In [14]: pldfi.plot()
 Out[14]:
 </code></pre>
-<p><a href="../static/timeplot1.png"><img src="../static/timeplot1.png" alt="" /></a></p>
+<p><a href="/static/timeplot1.png"><img src="/static/timeplot1.png" alt="" /></a></p>
 <p>Outliers. Cut them off and try again.</p>
 <pre><code class="language-python">In [15]: pldfi = pldfi[pldfi.timestampDiff &lt; 150000]
 In [16]: pldfi.plot()
 Out[16]:
 </code></pre>
-<p><a href="../static/timeplot2.png"><img src="../static/timeplot2.png" alt="" /></a></p>
+<p><a href="/static/timeplot2.png"><img src="/static/timeplot2.png" alt="" /></a></p>
 <p>A little more informative, but only in as much as I can't see a pattern so I'll probably ignore them. Let's check
 with a histogram.</p>
 <pre><code class="language-python">In [17]: pldfi.hist()
 Out[17]: array([[Axes(0.125,0.125;0.775x0.775)]], dtype=object)
 </code></pre>
-<p><a href="../static/timehist.png"><img src="../static/timehist.png" alt="" /></a></p>
+<p><a href="/static/timehist.png"><img src="/static/timehist.png" alt="" /></a></p>
 <p>Ok. So mostly small. Well, let's cut the dataset down to a box bounded by slightly outside the two ends of my cycle
 route. And then save all activities that are onBicycle to a some sort of json thing.</p>
 <pre><code class="language-python">In [18]: lshiftLoc = {'tl':(51.527530, -0.082466), 'br':(51.526702, -0.079849)}
@@ -187,8 +185,7 @@ motivated Microsoft to produce .docx. But if someone on the inside could throw u
 that'd be really nice.</p>
 <p>&lt;/rant&gt;</p>
 <p>(Originally
-<a href="https://web.archive.org/web/20160304131015/http://www.lshift.net/blog/2014/09/30/lunchtime-hack-decoding-locationhistory/">here</a>)</p>
-      </section>
+<a href="https://web.archive.org/web/20160304131015/http://www.lshift.net/blog/2014/09/30/lunchtime-hack-decoding-locationhistory/">here</a>)</p>      </section>
     </article>
   </body>
 </html>
