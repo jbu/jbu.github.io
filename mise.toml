@@ -1,16 +1,14 @@
 [tools]
-python = "3.14.3"
-uv = "latest"
-pre-commit = "latest"
-prek = "latest"
+zola = "latest"
 
 [tasks.build]
-run = "uv run python build.py"
-description = "Build the site from Markdown sources"
+run = "zola build"
+description = "Build the site into docs/"
 
 [tasks.serve]
-run = "python -m http.server 8000"
-description = "Serve the built site locally at http://localhost:8000"
+run = "zola serve"
+description = "Preview at http://127.0.0.1:1111 with live reload"
 
-[settings]
-python.uv_venv_auto = "create|source"
+[tasks.check]
+run = "zola check"
+description = "Validate internal links"

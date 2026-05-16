@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/local.css" />
+    <link rel="stylesheet" href="/tufte.css" />
+    <link rel="icon" href="/static/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml">
+
+  </head>
+  <body>
+    <article>
+
+      <h1>Signal Strength</h1>
+      <section>
+        <p class="author"><a href="/index.html">James Uther</a><br>2015-07-09</p>
+      </section>
+      <section>
+<p>Another thumb-twiddling commute into the city, with only another listicle to entertain, and once again, no mobile
+signal. I tweet in frustration:</p>
+<p><a rel="external" href="https://twitter.com/hemul/status/615421869223747589"><img src="/static/signal-strength-tweet-1.png" alt="" title="A signal, a signal! My kingdom for a signal! @SW_Trains @ThreeUK" /></a></p>
+<p>Which received an actual reply!</p>
+<p><a rel="external" href="https://twitter.com/ThreeUKSupport/status/615445034624811008"><img src="/static/signal-strength-tweet-2.png" alt="" title="Hi James, if you send over a full postcode for the area you&#39;re having signal issues in we can find out what&#39;s happening for you.&gt;LR" /></a></p>
+<p>Challenge accepted.</p>
+<p>So, I have an android phone, and android can allow access to all sorts of link status information. You can add handlers
+to an Activity to listen to signal strength changes, cell changes, and so on. Now, I could write something myself that
+logs these along with the GPS location, but surely someone has already done this?
+<a rel="external" href="https://sites.google.com/site/androiddevelopmentproject/home/rf-signal-tracker">Yes!</a></p>
+<p>My return journey duely tracked (with extra power supplied by a laptop ‐ gods this thing chews batteries!) it turns out
+that the signal tracker can generate a few kinds of files, including some funky KML which would show this:</p>
+<p><img src="/static/signal-strength-map-1.png" alt="" title="Map showing signal strength" /></p>
+<p>Including blue wedge things that I don't understand</p>
+<p><img src="/static/signal-strength-map-2.png" alt="" title="Map showing signal strength" /></p>
+<p>Anyway, it'll also give good old CSVs, which look like:</p>
+<pre><code>_id,latitude,longitude,rssi,logdate,mcc,mnc,lac,cellid,site_lat,site_lng,tech,ber,callstate,roaming,datastate,dataactivity,make,model,mobilerxbytes,mobiletxbytes,totalrxbytes,totaltxbytes,snr,notes,cellname
+1,51495581,-115382,-65,3 Jul 2015 17:22:55,234,20,99,16756,0,0,HSPA+,0,IDLE,No,CONNECTED,INOUT,LGE,Nexus 4,54273,13992,54273,13992,-1,,
+2,51495479,-115432,-81,3 Jul 2015 17:22:59,234,20,99,16756,0,0,HSPA+,0,IDLE,No,CONNECTED,INOUT,LGE,Nexus 4,18893,39644,18893,39644,-1,,
+</code></pre>
+<p>Break out ipython notebook</p>
+<pre><code>%matplotlib inline
+import math
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+</code></pre>
+<p>Let's pull in the csv file, and in particular the latitude, longitude and rssi columns, where
+<a rel="external" href="https://en.wikipedia.org/wiki/Received_signal_strength_indication">RSSI</a> is a measure of signal strength.</p>
+<pre><code>pd.set_option(&#39;display.mpl_style&#39;, &#39;default&#39;)
+plt.rcParams[&#39;figure.figsize&#39;] = (15, 3)
+plt.rcParams[&#39;font.family&#39;] = &#39;sans-serif&#39;
+trip = pd.read_csv(&#39;export_150703175551.csv&#39;, usecols=[&#39;rssi&#39;,&#39;logdate&#39;,&#39;latitude&#39;,&#39;longitude&#39;])
+trip[&#39;longitude&#39;] = trip[&#39;longitude&#39;]/1000000
+trip[&#39;latitude&#39;] = trip[&#39;latitude&#39;]/1000000
+trip[:2]
+</code></pre>
+<p>‐ returns</p>
+<pre><code>  latitude  longitude rssi logdate
+0 51.495581 -0.115382 -65  3 Jul 2015 17:22:55
+1 51.495479 -0.115432 -81  3 Jul 2015 17:22:59
+</code></pre>
+<p>Then:</p>
+<pre><code>trip[&#39;rssi&#39;].plot(figsize=(15, 3))
+rssigraph
+</code></pre>
+<p><img src="/static/signal-strength-plot-1.png" alt="" title="plot of signal strength over time" /></p>
+<p>So we have some areas of significantly bad signal strength. Let's focus in on rssi &lt; -70, which in the iPhone at least
+triggers searching for a new cell tower.</p>
+<pre><code>bad_signal = trip[trip[&#39;rssi&#39;] &lt; -70]
+bad_signal = bad_signal.drop(&#39;logdate&#39;, 1)
+r_g = (matplotlib.colors.colorConverter.colors[&#39;r&#39;],
+matplotlib.colors.colorConverter.colors[&#39;g&#39;])
+cmap = matplotlib.colors.LinearSegmentedColormap.from_list(&#39;clist&#39;, r_g)
+bad_signal.plot(kind=&#39;scatter&#39;, x=&#39;longitude&#39;, y=&#39;latitude&#39;, c=&#39;rssi&#39;, cmap=cmap)
+rssimap
+</code></pre>
+<p><img src="/static/signal-strength-plot-2.png" alt="" title="plot of signal strength over time" /></p>
+<p>We know have a map of points on my trip with bad signal. But they want postcodes. I have the lat/lng position of these,
+and could just go for a reverse geocoder, but that'd be 400ish requests and probably get my blacklisted, so instead,
+i'll just get <a rel="external" href="https://geoportal.statistics.gov.uk/Docs/PostCodes/ONSPD_MAY_2015_csv_V2.zip">ALL THE POSTCODZ!</a></p>
+<pre><code>postcodes = pd.read_csv(&#39;ONSPD_MAY_2015_UK.csv&#39;, header=0, usecols=[&#39;pcd&#39;,&#39;lat&#39;,&#39;long&#39;])
+postcodes[:2]
+</code></pre>
+<p>‐ returns</p>
+<pre><code>  pcd     lat       long
+0 AB1 0AA 57.101474 -2.242851
+1 AB1 0AB 57.102554 -2.246308
+</code></pre>
+<p>So we have something like a million postcodes and their central lat/lng. I could do something fancy, but 'when in
+doubt, use brute force' so for each of my points i'll grab the postcodes from the list that are within a delta of that
+point, then from that subset find the closest to that point, and consider that to be the postcode for that point. And
+then we want a set of all those postcodes:</p>
+<pre><code>def get_near_pcodes(lat, lng, p):
+  &#39;&#39;&#39;Whittle down full list to those within factor of lat,lng&#39;&#39;&#39;
+  d = 0.01
+  return p[(p[&#39;lat&#39;] &gt; lat-d) &amp; (p[&#39;lat&#39;] &lt; lat+d) &amp; (p[&#39;long&#39;] &gt; lng-d) &amp; (p[&#39;long&#39;] &lt; lng+d)].copy()
+
+def dist(x1, y1, x2, y2):
+  &#39;&#39;&#39;dist from x1,y1 to x2,y2&#39;&#39;&#39;
+  x = abs(x2-x1)
+  x = x*x
+  y = abs(y2-y1)
+  y = y*y
+  return math.sqrt(x + y)
+
+def dodist(s):
+  &#39;&#39;&#39;Return the nearest postcode to the given lat,lng&#39;&#39;&#39;
+  y = s[&#39;longitude&#39;]
+  x = s[&#39;latitude&#39;]
+  np = get_near_pcodes(x, y, postcodes)
+  # add a &#39;d&#39; column, the distance between x,y and the postcode
+  withd = np.apply(lambda l: pd.Series([l[&#39;pcd&#39;],dist(l[&#39;lat&#39;], l[&#39;long&#39;], x, y)],index=[&#39;pcd&#39;,&#39;d&#39;]),axis=1)
+  # and find the minimum one.
+  p = withd[withd[&#39;d&#39;] == withd[&#39;d&#39;].min()].iloc[0,0]
+  return p
+
+pcds = bad_signal.apply(dodist,axis=1)
+set(pcds.values)
+</code></pre>
+<p>‐ returns</p>
+<pre><code>{&#39;KT100AE&#39;, &#39;KT108AL&#39;, &#39;KT108BL&#39;, &#39;KT108DT&#39;, &#39;KT108DX&#39;, &#39;KT108HD&#39;, &#39;KT108HE&#39;, &#39;KT109AL&#39;, &#39;KT109AN&#39;, &#39;KT109AT&#39;, &#39;KT109AW&#39;, &#39;KT123ED&#39;, &#39;KT123PB&#39;, &#39;KT123PS&#39;, &#39;KT123RW&#39;, &#39;KT3 3AB&#39;, &#39;KT3 3GA&#39;, &#39;KT3 3HB&#39;, &#39;KT3 3HQ&#39;, &#39;KT3 3PH&#39;, &#39;KT3 3QT&#39;, &#39;KT3 3QU&#39;, &#39;KT3 3RH&#39;, &#39;KT3 3RR&#39;, &#39;KT3 3TF&#39;, &#39;KT3 4AZ&#39;, &#39;KT3 4DF&#39;, &#39;KT3 4EJ&#39;, &#39;KT3 4HG&#39;, &#39;KT3 4HL&#39;, &#39;KT3 4HN&#39;, &#39;KT3 4HP&#39;, &#39;KT3 4HR&#39;, &#39;KT3 4JD&#39;, &#39;KT3 4JG&#39;, &#39;KT3 5AQ&#39;, &#39;KT3 5DA&#39;, &#39;KT3 5DE&#39;, &#39;KT5 8AA&#39;, &#39;KT5 8DF&#39;, &#39;KT5 8DT&#39;, &#39;KT5 8DY&#39;, &#39;KT5 8EG&#39;, &#39;KT5 8EH&#39;, &#39;KT5 8EJ&#39;, &#39;KT5 8EL&#39;, &#39;KT5 8EQ&#39;, &#39;KT5 8ER&#39;, &#39;KT5 8ES&#39;, &#39;KT5 8ET&#39;, &#39;KT5 8EU&#39;, &#39;KT5 8HQ&#39;, &#39;KT5 8HR&#39;, &#39;KT5 8LS&#39;, &#39;KT5 8LT&#39;, &#39;KT5 8NS&#39;, &#39;KT5 8NX&#39;, &#39;KT6 4JN&#39;, &#39;KT6 4NH&#39;, &#39;KT6 4NY&#39;, &#39;KT6 4PB&#39;, &#39;KT6 4PE&#39;, &#39;KT6 4PF&#39;, &#39;KT6 4PN&#39;, &#39;KT6 4PX&#39;, &#39;KT6 4PY&#39;, &#39;KT6 5BA&#39;, &#39;KT6 5DL&#39;, &#39;KT6 5DN&#39;, &#39;KT6 5ED&#39;, &#39;KT6 5JN&#39;, &#39;KT6 5JT&#39;, &#39;KT6 5JX&#39;, &#39;KT6 5LF&#39;, &#39;KT6 5LJ&#39;, &#39;KT6 5LQ&#39;, &#39;KT6 5NU&#39;, &#39;KT6 6AB&#39;, &#39;KT6 6BY&#39;, &#39;KT6 6DA&#39;, &#39;KT6 6HT&#39;, &#39;KT6 6JS&#39;, &#39;KT6 6RP&#39;, &#39;KT6 6RY&#39;, &#39;KT6 6SH&#39;, &#39;KT7 0AF&#39;, &#39;KT7 0AN&#39;, &#39;KT7 0AZ&#39;, &#39;KT7 0BG&#39;, &#39;KT7 0DS&#39;, &#39;KT7 0DZ&#39;, &#39;KT7 0EF&#39;, &#39;KT7 0ET&#39;, &#39;KT7 0EY&#39;, &#39;KT7 0FA&#39;, &#39;KT7 0HL&#39;, &#39;KT7 0UZ&#39;, &#39;KT7 0WB&#39;, &#39;SE115AW&#39;, &#39;SE115HZ&#39;, &#39;SE116NF&#39;, &#39;SE116NG&#39;, &#39;SE116NQ&#39;, &#39;SW111DE&#39;, &#39;SW111RG&#39;, &#39;SW111RZ&#39;, &#39;SW111UA&#39;, &#39;SW111UP&#39;, &#39;SW111UW&#39;, &#39;SW111UZ&#39;, &#39;SW112DN&#39;, &#39;SW112HA&#39;, &#39;SW112HT&#39;, &#39;SW112JL&#39;, &#39;SW112JQ&#39;, &#39;SW112PA&#39;, &#39;SW112TH&#39;, &#39;SW112TJ&#39;, &#39;SW115AY&#39;, &#39;SW115BY&#39;, &#39;SW115DZ&#39;, &#39;SW115EU&#39;, &#39;SW115EX&#39;, &#39;SW115EZ&#39;, &#39;SW115HA&#39;, &#39;SW115HL&#39;, &#39;SW115HQ&#39;, &#39;SW115UX&#39;, &#39;SW115UY&#39;, &#39;SW182SQ&#39;, &#39;SW182SS&#39;, &#39;SW182SY&#39;, &#39;SW182SZ&#39;, &#39;SW182TA&#39;, &#39;SW182TF&#39;, &#39;SW182TQ&#39;, &#39;SW182ZZ&#39;, &#39;SW183DA&#39;, &#39;SW183DD&#39;, &#39;SW183DE&#39;, &#39;SW183DF&#39;, &#39;SW183DG&#39;, &#39;SW183DJ&#39;, &#39;SW183DR&#39;, &#39;SW183DU&#39;, &#39;SW183HP&#39;, &#39;SW183JA&#39;, &#39;SW183LW&#39;, &#39;SW183NY&#39;, &#39;SW183SA&#39;, &#39;SW184ES&#39;, &#39;SW184ET&#39;, &#39;SW184EU&#39;, &#39;SW184HD&#39;, &#39;SW184RL&#39;, &#39;SW184SP&#39;, &#39;SW193RL&#39;, &#39;SW194BZ&#39;, &#39;SW194DL&#39;, &#39;SW194EN&#39;, &#39;SW194ET&#39;, &#39;SW194EX&#39;, &#39;SW194HA&#39;, &#39;SW194HL&#39;, &#39;SW194JP&#39;, &#39;SW197JP&#39;, &#39;SW197JY&#39;, &#39;SW197LE&#39;, &#39;SW197LH&#39;, &#39;SW197LJ&#39;, &#39;SW197NH&#39;, &#39;SW198DR&#39;, &#39;SW198EG&#39;, &#39;SW198EX&#39;, &#39;SW198HP&#39;, &#39;SW198HR&#39;, &#39;SW198HW&#39;, &#39;SW198JA&#39;, &#39;SW198JN&#39;, &#39;SW198LG&#39;, &#39;SW198LJ&#39;, &#39;SW198NN&#39;, &#39;SW198UL&#39;, &#39;SW198YA&#39;, &#39;SW198ZB&#39;, &#39;SW200AL&#39;, &#39;SW200AN&#39;, &#39;SW200BH&#39;, &#39;SW200JZ&#39;, &#39;SW200TT&#39;, &#39;SW200UL&#39;, &#39;SW200UN&#39;, &#39;SW200UW&#39;, &#39;SW208DN&#39;, &#39;SW208DW&#39;, &#39;SW208FB&#39;, &#39;SW208PT&#39;, &#39;SW208PX&#39;, &#39;SW208RN&#39;, &#39;SW208RP&#39;, &#39;SW208RW&#39;, &#39;SW208RX&#39;, &#39;SW208SA&#39;, &#39;SW208SH&#39;, &#39;SW208SJ&#39;, &#39;SW208SQ&#39;, &#39;SW8 1RP&#39;, &#39;SW8 1RQ&#39;, &#39;SW8 1RR&#39;, &#39;SW8 1SA&#39;, &#39;SW8 1SR&#39;, &#39;SW8 2LF&#39;, &#39;SW8 2LT&#39;, &#39;SW8 3NP&#39;, &#39;SW8 3QG&#39;, &#39;SW8 4JX&#39;, &#39;SW8 4JY&#39;, &#39;SW8 4LS&#39;, &#39;SW8 5AA&#39;, &#39;SW8 5BL&#39;, &#39;SW8 5BS&#39;, &#39;SW8 5EE&#39;, &#39;SW8 5EF&#39;, &#39;SW8 5JB&#39;, &#39;SW8 5PA&#39;, &#39;SW8 5PP&#39;}
+</code></pre>
+<p>You're welcome!</p>
+<p>(Originally <a rel="external" href="http://web.archive.org/web/20161006223611/http://www.lshift.net/blog/2015/07/09/signal-strength/">here</a>)</p>
+      </section>
+
+    </article>
+  </body>
+</html>

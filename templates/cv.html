@@ -4,7 +4,7 @@
 {% endblock %}
 {% block content %}
       <section>
-{{ body_html }}
+{{ page.content | safe }}
       </section>
       <section>
         <div id="wcb" class="carbonbadge wcb-d"></div>

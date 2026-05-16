@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block head_extra %}{% if page.extra.mathjax %}
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endif %}{% endblock %}
+{% block content %}
+      <h1>{{ page.title }}</h1>
+      <section>
+        <p class="author"><a href="/index.html">{{ page.extra.authors | default(value="James Uther") }}</a><br>{{ page.date | date(format="%Y-%m-%d") }}</p>
+      </section>
+      <section>
+{{ page.content | safe }}      </section>
+{% endblock %}

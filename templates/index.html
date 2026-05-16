@@ -4,7 +4,23 @@
 {% endblock %}
 {% block body_attrs %} class="libertinus latex-dark-auto"{% endblock %}
 {% block content %}
-{{ body_html }}
+{{ section.content | safe }}
+
+{% set blog_section = get_section(path="blog/_index.md") %}
+{% set links_section = get_section(path="links/_index.md") %}
+{% set all_items = blog_section.pages | concat(with=links_section.pages) | sort(attribute="date") | reverse %}
+<section>
+<h2>Scribbles</h2>
+<ul>
+{% for item in all_items %}
+  {% if item.extra.url %}
+    <li>{{ item.date | date(format="%Y-%m-%d") }} &mdash; <a href="{{ item.extra.url | safe }}">{{ item.title }}</a></li>
+  {% else %}
+    <li>{{ item.date | date(format="%Y-%m-%d") }} &mdash; <a href="{{ item.path | safe }}">{{ item.title }}</a></li>
+  {% endif %}
+{% endfor %}
+</ul>
+</section>
       <figure>
         <div id="wcb" class="carbonbadge wcb-d"></div>
       </figure>
