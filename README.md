@@ -66,6 +66,7 @@ date = 2026-04-23
 
 [extra]
 url = "https://example.com/"
+description = "One or two sentence teaser shown under the title."  # optional
 +++
 ```
 
