@@ -14,6 +14,13 @@ body {
   background: url("static/short-climate-stripes.png") no-repeat top left/87.5%, url("static/short-climate-stripes.png") no-repeat bottom left/87.5%;
 }
 
+.teaser {
+  font-size: 0.85em;
+  color: #555;
+  margin: 0.1em 0 0.5em 0;
+  line-height: 1.4;
+}
+
 @media (max-width: 760px) {
   /* Override tufte.css's awkward float-left positioning for expanded sidenotes.
      !important needed because local.css loads before tufte.css in blog posts. */

@@ -16,7 +16,8 @@
   {% if item.extra.url %}
     <li>{{ item.date | date(format="%Y-%m-%d") }} &mdash; <a href="{{ item.extra.url | safe }}">{{ item.title }}</a></li>
   {% else %}
-    <li>{{ item.date | date(format="%Y-%m-%d") }} &mdash; <a href="{{ item.path | safe }}">{{ item.title }}</a></li>
+    <li>{{ item.date | date(format="%Y-%m-%d") }} &mdash; <a href="{{ item.path | safe }}">{{ item.title }}</a>
+    <p class="teaser">{{ item.content | striptags | truncate(length=200) }}</p></li>
   {% endif %}
 {% endfor %}
 </ul>
