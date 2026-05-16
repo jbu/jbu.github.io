@@ -83,12 +83,11 @@ Both use the `tufte.css` class structure (`label.margin-toggle` + checkbox + `sp
 ## Deploying
 
 ```sh
-mise run build
-jj commit -m "build"
+jj commit -m "your message"
 jj git push
 ```
 
-GitHub Pages is configured to serve from the `docs/` folder on the main branch.
+GitHub Actions builds and deploys on every push to `main` (`.github/workflows/deploy.yml`). No need to run `zola build` locally before pushing.
 
 ## RSS
 
