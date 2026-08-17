@@ -7,8 +7,13 @@
     <link rel="icon" href="/static/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss.xml">
 
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
   </head>
   <body>
+    <div class="climate-banner">
+      <!--<img src="/static/short-climate-stripes.png"/>-->
+    </div>
     <article>
 
       <h1>UK Parking Areas</h1>
@@ -24,9 +29,9 @@ but just go and watch his talks and read everything he's written).</p>
 300TWh of renewables. For the sake of argument let's do it all in solar (yes, i know, but ignore clouds and nights for
 now. It's a <a rel="external" href="https://en.wikipedia.org/wiki/Spherical_cow">spherical cow</a>).</p>
 <p>Now according to <a rel="external" href="https://www.cat.org.uk/info-resources/free-information-service/energy/solar-photovoltaic/">CAT</a> to
-generate 800kWh (per year) we'd need ~1kW of panels, which might be 8m², or 125kWh/m². so 300TWh / 125kWh = 24*10⁸
+generate 800kWh (per year) we'd need ~1kW of panels, which might be \(8m^2\), or \(125kWh/m^2\). so \(300TWh / 125kWh = 24 \times 10^8\)
 m², or 2400 km²</p>
-<p>Right. Does the UK have 2400 km² of parking?</p>
+<p>Right. Does the UK have \(2400 km^2\) of parking?</p>
 <p>Turns out that openstreetmap can give a (probably wrong) answer. Below I present a cleaned up route I hacked out to get
 there. The following politely elides the many, many detours and dead ends along the way.</p>
 <pre><code>python3 -m venv e

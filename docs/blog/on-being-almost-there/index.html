@@ -9,6 +9,9 @@
 
   </head>
   <body>
+    <div class="climate-banner">
+      <!--<img src="/static/short-climate-stripes.png"/>-->
+    </div>
     <article>
 
       <h1>On Being Almost There</h1>
@@ -23,7 +26,10 @@ something like:</p>
 <p><img src="/static/on-being-almost-there.png" alt="" /></p>
 <p>In which location and activity data are co-located somewhere which gives us ownership of that data and the ability to
 repurpose it. In this case location (track.er) and movement (pedomet.er) services are feeding data into personis, and
-HipsterFitnessVisualisat.ion (H25n). {margin: I don't know if .er, .ce, .cha or .ion are valid gTLDs but given that ICANN seem to be just feeding a scrabble dictionary into the root servers, they will be soon.} Google is using the data to show groovy
+HipsterFitnessVisualisat.ion (H25n). <label for="mn-1" class="margin-toggle margin-number">&#8853;</label>
+<input type="checkbox" id="mn-1" class="margin-toggle"/>
+<span class="marginnote">I don't know if .er, .ce, .cha or .ion are valid gTLDs but given that ICANN seem to be just feeding a scrabble dictionary into the root servers, they will be soon.</span>
+ Google is using the data to show groovy
 single-origin-latte-splattered D3 animations of my lack of health.</p>
 <p>Research themes might be around is Personis a data store or broker? What are the implications for me when I allow H25n
 into my data? What are useful ways of presenting these implications so I can make an informed choice? What APIs work
@@ -69,7 +75,7 @@ of Oauth on Android and iOS):</p>
 <li>At google, you set up a project, and in that get an Oauth client id for your web service, and another for your android
 app.</li>
 <li>The app uses GoogleAuthUtil to get an ID token from google using it's client id, but the token has a wrinkle in that
-the it asks for an `audience:server:client_id:` scope as well, and thus includes your web service as a scope, and
+the it asks for an <code>audience:server:client_id:</code> scope as well, and thus includes your web service as a scope, and
 the 'azp' (authorised party I suppose) is the client ID of your app. This means that google has signed something
 saying that it thinks that the person to which the ID token relates has authorised correctly to google via the said
 app, and that they are happy for the app to access the web service.</li>

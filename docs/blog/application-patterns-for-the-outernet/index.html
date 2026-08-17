@@ -11,6 +11,9 @@
 
   </head>
   <body>
+    <div class="climate-banner">
+      <!--<img src="/static/short-climate-stripes.png"/>-->
+    </div>
     <article>
 
       <h1>Application Patterns for the Outernet</h1>
@@ -33,7 +36,7 @@ something).</p>
 <li>The speed of stepping between worlds is limited. The first novel has stepping of about 2 steps/sec. The second gets to
 about 50 steps/sec.</li>
 <li>Humans start to spread out in pioneer fashion, and soon there are routes established along the long earth. Within a
-generation, there are settlements up to 1.5\*10^6 steps out, and exploration up to 20\*10^6 steps. And being
+generation, there are settlements up to \(1.5 \times 10^6\) steps out, and exploration up to \(20 \times 10^6\) steps. And being
 contemporaneous with us, they want data so the Outernet develops.</li>
 </ul>
 <p>Which is my bone to gnaw today. I want to have a look at how some applications might be implemented on the Outernet.
@@ -58,13 +61,13 @@ time t). We will assume for the sake of argument that an SSD carrier dock/sync/w
 hardware is about 10 sec (call time c). The carrier must be sentient so it can step, but that's not important to this
 calculation. So the simplest mechanism would be a carrier that contains a bunch of SSD drives, and automated docking
 points at the local internets. The carrier steps along the Earths, exchanging data when it finds a dock. So from
-Valhalla (West 1,400,013) to Datum, it would be about \(t*1.4*10^6 / 3600\) or 7.7 hours with no stops. That's
+Valhalla (West 1,400,013) to Datum, it would be about \(t \times 1.4 \times 10^6 / 3600\) or 7.7 hours with no stops. That's
 actually better than I thought (and better than the feel you get from the books). If we assume that the carrier stops at
-sufficiently populated Earths (perhaps 1%, or 10,000) then it becomes \(7.7 + c*10,000/3600 = 35.5\) hours. This
+sufficiently populated Earths (perhaps 1%, or 10,000) then it becomes \(7.7 + c \times 10,000/3600 = 35.5\) hours. This
 would seem to rule out any session-based protocols between arbitrary Earths.</p>
 <p>However, locally we could get this down. So let's say that Valhalla spreads its footprint over a few adjacent Earths,
 and really exists between about West 1,400,000 and 1,400,025 . Across that distance our round trip time (the Long Ping)
-would be \(t*25 = 0.5 sec + c = 10.5\) sec. We could even assume that less data needs to be synced in a cycle, so c
+would be \(t \times 25 = 0.5 sec + c = 10.5\) sec. We could even assume that less data needs to be synced in a cycle, so c
 could reduce to pretty much whatever the mechanical docking time of the carrier is (0.5 sec?). That'd give a round trip
 of 1.5 seconds (load in En, step, unload in En+25 and route to local host for ping, load response, return to En, unload
 and route to originator). Which is just about within the realm of current session based protocols, although papers from

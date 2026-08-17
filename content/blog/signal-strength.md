@@ -29,11 +29,11 @@ that the signal tracker can generate a few kinds of files, including some funky 
 
 ![](/static/signal-strength-map-1.png "Map showing signal strength")
 
-Including blue wedge things that I don\'t understand
+Including blue wedge things that I don't understand
 
 ![](/static/signal-strength-map-2.png "Map showing signal strength")
 
-Anyway, it\'ll also give good old CSVs, which look like:
+Anyway, it'll also give good old CSVs, which look like:
 
 ```
 _id,latitude,longitude,rssi,logdate,mcc,mnc,lac,cellid,site_lat,site_lng,tech,ber,callstate,roaming,datastate,dataactivity,make,model,mobilerxbytes,mobiletxbytes,totalrxbytes,totaltxbytes,snr,notes,cellname
@@ -52,7 +52,7 @@ import matplotlib
 import numpy as np
 ```
 
-Let\'s pull in the csv file, and in particular the latitude, longitude and rssi columns, where
+Let's pull in the csv file, and in particular the latitude, longitude and rssi columns, where
 [RSSI](https://en.wikipedia.org/wiki/Received_signal_strength_indication) is a measure of signal strength.
 
 ```
@@ -82,7 +82,7 @@ rssigraph
 
 ![](/static/signal-strength-plot-1.png "plot of signal strength over time")
 
-So we have some areas of significantly bad signal strength. Let\'s focus in on rssi \< -70, which in the iPhone at least
+So we have some areas of significantly bad signal strength. Let's focus in on rssi < -70, which in the iPhone at least
 triggers searching for a new cell tower.
 
 ```
@@ -98,8 +98,8 @@ rssimap
 ![](/static/signal-strength-plot-2.png "plot of signal strength over time")
 
 We know have a map of points on my trip with bad signal. But they want postcodes. I have the lat/lng position of these,
-and could just go for a reverse geocoder, but that\'d be 400ish requests and probably get my blacklisted, so instead,
-i\'ll just get [ALL THE POSTCODZ!](https://geoportal.statistics.gov.uk/Docs/PostCodes/ONSPD_MAY_2015_csv_V2.zip)
+and could just go for a reverse geocoder, but that'd be 400ish requests and probably get my blacklisted, so instead,
+i'll just get [ALL THE POSTCODZ!](https://geoportal.statistics.gov.uk/Docs/PostCodes/ONSPD_MAY_2015_csv_V2.zip)
 
 ```
 postcodes = pd.read_csv('ONSPD_MAY_2015_UK.csv', header=0, usecols=['pcd','lat','long'])
@@ -114,8 +114,8 @@ postcodes[:2]
 1 AB1 0AB 57.102554 -2.246308
 ```
 
-So we have something like a million postcodes and their central lat/lng. I could do something fancy, but \'when in
-doubt, use brute force\' so for each of my points i\'ll grab the postcodes from the list that are within a delta of that
+So we have something like a million postcodes and their central lat/lng. I could do something fancy, but 'when in
+doubt, use brute force' so for each of my points i'll grab the postcodes from the list that are within a delta of that
 point, then from that subset find the closest to that point, and consider that to be the postcode for that point. And
 then we want a set of all those postcodes:
 
@@ -154,6 +154,6 @@ set(pcds.values)
 {'KT100AE', 'KT108AL', 'KT108BL', 'KT108DT', 'KT108DX', 'KT108HD', 'KT108HE', 'KT109AL', 'KT109AN', 'KT109AT', 'KT109AW', 'KT123ED', 'KT123PB', 'KT123PS', 'KT123RW', 'KT3 3AB', 'KT3 3GA', 'KT3 3HB', 'KT3 3HQ', 'KT3 3PH', 'KT3 3QT', 'KT3 3QU', 'KT3 3RH', 'KT3 3RR', 'KT3 3TF', 'KT3 4AZ', 'KT3 4DF', 'KT3 4EJ', 'KT3 4HG', 'KT3 4HL', 'KT3 4HN', 'KT3 4HP', 'KT3 4HR', 'KT3 4JD', 'KT3 4JG', 'KT3 5AQ', 'KT3 5DA', 'KT3 5DE', 'KT5 8AA', 'KT5 8DF', 'KT5 8DT', 'KT5 8DY', 'KT5 8EG', 'KT5 8EH', 'KT5 8EJ', 'KT5 8EL', 'KT5 8EQ', 'KT5 8ER', 'KT5 8ES', 'KT5 8ET', 'KT5 8EU', 'KT5 8HQ', 'KT5 8HR', 'KT5 8LS', 'KT5 8LT', 'KT5 8NS', 'KT5 8NX', 'KT6 4JN', 'KT6 4NH', 'KT6 4NY', 'KT6 4PB', 'KT6 4PE', 'KT6 4PF', 'KT6 4PN', 'KT6 4PX', 'KT6 4PY', 'KT6 5BA', 'KT6 5DL', 'KT6 5DN', 'KT6 5ED', 'KT6 5JN', 'KT6 5JT', 'KT6 5JX', 'KT6 5LF', 'KT6 5LJ', 'KT6 5LQ', 'KT6 5NU', 'KT6 6AB', 'KT6 6BY', 'KT6 6DA', 'KT6 6HT', 'KT6 6JS', 'KT6 6RP', 'KT6 6RY', 'KT6 6SH', 'KT7 0AF', 'KT7 0AN', 'KT7 0AZ', 'KT7 0BG', 'KT7 0DS', 'KT7 0DZ', 'KT7 0EF', 'KT7 0ET', 'KT7 0EY', 'KT7 0FA', 'KT7 0HL', 'KT7 0UZ', 'KT7 0WB', 'SE115AW', 'SE115HZ', 'SE116NF', 'SE116NG', 'SE116NQ', 'SW111DE', 'SW111RG', 'SW111RZ', 'SW111UA', 'SW111UP', 'SW111UW', 'SW111UZ', 'SW112DN', 'SW112HA', 'SW112HT', 'SW112JL', 'SW112JQ', 'SW112PA', 'SW112TH', 'SW112TJ', 'SW115AY', 'SW115BY', 'SW115DZ', 'SW115EU', 'SW115EX', 'SW115EZ', 'SW115HA', 'SW115HL', 'SW115HQ', 'SW115UX', 'SW115UY', 'SW182SQ', 'SW182SS', 'SW182SY', 'SW182SZ', 'SW182TA', 'SW182TF', 'SW182TQ', 'SW182ZZ', 'SW183DA', 'SW183DD', 'SW183DE', 'SW183DF', 'SW183DG', 'SW183DJ', 'SW183DR', 'SW183DU', 'SW183HP', 'SW183JA', 'SW183LW', 'SW183NY', 'SW183SA', 'SW184ES', 'SW184ET', 'SW184EU', 'SW184HD', 'SW184RL', 'SW184SP', 'SW193RL', 'SW194BZ', 'SW194DL', 'SW194EN', 'SW194ET', 'SW194EX', 'SW194HA', 'SW194HL', 'SW194JP', 'SW197JP', 'SW197JY', 'SW197LE', 'SW197LH', 'SW197LJ', 'SW197NH', 'SW198DR', 'SW198EG', 'SW198EX', 'SW198HP', 'SW198HR', 'SW198HW', 'SW198JA', 'SW198JN', 'SW198LG', 'SW198LJ', 'SW198NN', 'SW198UL', 'SW198YA', 'SW198ZB', 'SW200AL', 'SW200AN', 'SW200BH', 'SW200JZ', 'SW200TT', 'SW200UL', 'SW200UN', 'SW200UW', 'SW208DN', 'SW208DW', 'SW208FB', 'SW208PT', 'SW208PX', 'SW208RN', 'SW208RP', 'SW208RW', 'SW208RX', 'SW208SA', 'SW208SH', 'SW208SJ', 'SW208SQ', 'SW8 1RP', 'SW8 1RQ', 'SW8 1RR', 'SW8 1SA', 'SW8 1SR', 'SW8 2LF', 'SW8 2LT', 'SW8 3NP', 'SW8 3QG', 'SW8 4JX', 'SW8 4JY', 'SW8 4LS', 'SW8 5AA', 'SW8 5BL', 'SW8 5BS', 'SW8 5EE', 'SW8 5EF', 'SW8 5JB', 'SW8 5PA', 'SW8 5PP'}
 ```
 
-You\'re welcome!
+You're welcome!
 
 (Originally [here](http://web.archive.org/web/20161006223611/http://www.lshift.net/blog/2015/07/09/signal-strength/))

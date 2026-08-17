@@ -9,13 +9,13 @@ authors = "James Uther"
 mathjax = true
 +++
 
-I\'m a bit like a dog with a bone about this LocationHistory thing (or a dog returning to his vomit?). Previously I had
+I'm a bit like a dog with a bone about this LocationHistory thing (or a dog returning to his vomit?). Previously I had
 a bash at [mapping my movements around London](visualisation-location-history-1.html), then spent a bit of time trying
-to find out [what the file format really was](visualisation-location-history-2.html). This time, I\'d like to tidy up
+to find out [what the file format really was](visualisation-location-history-2.html). This time, I'd like to tidy up
 and do something reasonable.
 
 So, at least we can now say that LocationHistory.json can be used to generate time/latitude/longitude triples at which
-my phone had reason to suspect I was on a bicycle. Fine. Let\'s go and get those.
+my phone had reason to suspect I was on a bicycle. Fine. Let's go and get those.
 
 ```
 import pandas as pd
@@ -33,8 +33,8 @@ df = pd.DataFrame(d)
 df.to_csv('bicyclesFull.csv')
 ```
 
-Now I want this to look a bit designer-y, this being in Hoxton and all. How about a nice dark theme, with \'process
-yellow\' (aka \'yellow\') markings? Google maps are now quite themeable, but I\'m going to try something new this time
+Now I want this to look a bit designer-y, this being in Hoxton and all. How about a nice dark theme, with 'process
+yellow' (aka 'yellow') markings? Google maps are now quite themeable, but I'm going to try something new this time
 \-- Fire up [maperitive](http://maperitive.net/) and get an SVG image of the area drawn with openstreetmap data using a
 slightly modified version of their wireframe rules. Great. And remember to record the bounding box for matching up the
 coordinates when we go and draw all over it.
@@ -43,7 +43,7 @@ We then use d3.js to grab the time/latitude/longitude triples. We want to draw l
 time, so we sort the data accordingly. Now we could iterate through and add the lines in one bash, but it would be nice
 to visualise the movement a bit, so we need to break each addition with a setTimeout() to let the rendering loop have a
 look-in. We draw each line at full strength but fading to a low opacity so that high traffic areas will build up and be
-more visible. The data set has all my cycling data, but I won\'t bother to cull them here \-- they just won\'t be
+more visible. The data set has all my cycling data, but I won't bother to cull them here \-- they just won't be
 visible.
 
 The result is a rather pleasing zoomy sort of effect
@@ -92,15 +92,15 @@ function svgLoaded(xml) {
             function(xml) {svgLoaded(xml);})});
 ```
 
-So quite nice, but we note that if two points are quite a distance apart the joining line doesn\'t contain much
+So quite nice, but we note that if two points are quite a distance apart the joining line doesn't contain much
 information about the path actually travelled between those points. We thus start to cull lines that are long (playing
-with the `(dst < xxx)` value in the code above). Shorter lines do seem to give more \'shape\' to the routes.
+with the `(dst < xxx)` value in the code above). Shorter lines do seem to give more 'shape' to the routes.
 
 ![](/static/bikeroutes1.png) ![](/static/bikeroutes2.png)
 
 And the limit of short lines is a point. How about we just plot the points, instead of trying to join them? After all,
-we have lots of data, so it might tell us something now that we\'ve filtered it to only the activity we\'re looking for.
-Replace the line drawing code above with circles (and add a small random \'wiggle\' factor so that drawing the same
+we have lots of data, so it might tell us something now that we've filtered it to only the activity we're looking for.
+Replace the line drawing code above with circles (and add a small random 'wiggle' factor so that drawing the same
 point multiple times gives a kind of heatmap effect):
 
 ``` javascript
@@ -116,9 +116,9 @@ c.append('circle')
 [![](/static/bikeroutes3.png)](/static/)
 
 This actually makes me quite happy. You can see the most commonly travelled routes pretty well. You can also see where
-I\'ve generally stopped at traffic lights and the like (yes, I do actually stop). Itch just about scratched I think.
+I've generally stopped at traffic lights and the like (yes, I do actually stop). Itch just about scratched I think.
 
-There\'s a [Codepen](http://codepen.io/jbu/pen/BmnKH/), but I\'ve removed my location data so you\'ll need to plug in
+There's a [Codepen](http://codepen.io/jbu/pen/BmnKH/), but I've removed my location data so you'll need to plug in
 your own.
 
 ``` javascript

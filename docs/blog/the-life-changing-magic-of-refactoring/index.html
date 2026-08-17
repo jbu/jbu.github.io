@@ -9,6 +9,9 @@
 
   </head>
   <body>
+    <div class="climate-banner">
+      <!--<img src="/static/short-climate-stripes.png"/>-->
+    </div>
     <article>
 
       <h1>The Life Changing Magic of Refactoring</h1>
@@ -36,7 +39,10 @@ assumption into the new system, and then seamlessly migrating data, and operatio
 than you think. At the same time, whenever there is a lean time it's the new hotness that's for the chopper, because
 the old and busted is what's actually running the company. So chances are you're never going to get to finish your new
 hotness, and you're stuck supporting the old and busted indefinitely. Welcome to a special circle of hell.
-{margin: There are special circumstances where this may not apply. But it usually goes this way.} The harder but less risky option is to face the old and busted, like Hercules faced the Aegean
+<label for="mn-1" class="margin-toggle margin-number">&#8853;</label>
+<input type="checkbox" id="mn-1" class="margin-toggle"/>
+<span class="marginnote">There are special circumstances where this may not apply. But it usually goes this way.</span>
+ The harder but less risky option is to face the old and busted, like Hercules faced the Aegean
 Stables, and start cleaning. But how? Where to start? There are many books on refactoring and removing technical debt.
 And my new favourite is 'The Life-Changing Magic of Tidying: A simple, effective way to banish clutter forever' by
 <a rel="external" href="https://konmari.com">Marie Kondo</a></p>
@@ -69,7 +75,7 @@ are just not used. Get rid of it!</p>
 <p><strong>UI</strong>: Log every time a form opens (yay the ELK stack!). If after a month or so you find that there are forms that are
 not used, you know what to do!</p>
 <p><strong>Integrations</strong>: Sometimes links to other systems are not over a well defined bridge, but through random API calls
-thorough your system. Build a bridge. Centralise the integration. Refactor *all* the code to use the bridge. This
+thorough your system. Build a bridge. Centralise the integration. Refactor <em>all</em> the code to use the bridge. This
 might allow you to, say, use a queue in the bridge to solve a performance problem, or do something helpful with a
 network where you couldn't before.</p>
 <p><strong>Business crown jewels</strong>: Is there a process, reporting system, large calculation, that is business critical but not in

@@ -6,23 +6,24 @@ aliases = ["blog/uk_parking.html"]
 
 [extra]
 authors = "James Uther"
+mathjax = true
 +++
 
 I heard [Saul Griffith](https://medium.com/@saulgriffith) say recently that if you covered all the car parks in the USA
-with solar panels you would supply way more than the national energy requirements (I can\'t find the actual reference,
-but just go and watch his talks and read everything he\'s written).
+with solar panels you would supply way more than the national energy requirements (I can't find the actual reference,
+but just go and watch his talks and read everything he's written).
 
 I claimed this might translate to the UK. *But does it?*
 
 The solar part is easy enough. If we electrify everything and want to remove carbon based generation, we need to build
-300TWh of renewables. For the sake of argument let\'s do it all in solar (yes, i know, but ignore clouds and nights for
-now. It\'s a [spherical cow](https://en.wikipedia.org/wiki/Spherical_cow)).
+300TWh of renewables. For the sake of argument let's do it all in solar (yes, i know, but ignore clouds and nights for
+now. It's a [spherical cow](https://en.wikipedia.org/wiki/Spherical_cow)).
 
 Now according to [CAT](https://www.cat.org.uk/info-resources/free-information-service/energy/solar-photovoltaic/) to
-generate 800kWh (per year) we\'d need \~1kW of panels, which might be 8m², or 125kWh/m². so 300TWh / 125kWh = 24\*10⁸
+generate 800kWh (per year) we'd need \~1kW of panels, which might be \\(8m^2\\), or \\(125kWh/m^2\\). so \\(300TWh / 125kWh = 24 \times 10^8\\)
 m², or 2400 km²
 
-Right. Does the UK have 2400 km² of parking?
+Right. Does the UK have \\(2400 km^2\\) of parking?
 
 Turns out that openstreetmap can give a (probably wrong) answer. Below I present a cleaned up route I hacked out to get
 there. The following politely elides the many, many detours and dead ends along the way.
@@ -64,9 +65,9 @@ Now, check we have something. This should draw all the parking areas in the UK.
 _ = p.plot(figsize=(4, 8))
 ```
 
-\[there should be an image here but it didn\'t survive a move. will try and reproduce one day\]
+[there should be an image here but it didn't survive a move. will try and reproduce one day]
 
-So something, but it\'s a bit hard to see so let\'s try plotting where they are with big blobs
+So something, but it's a bit hard to see so let's try plotting where they are with big blobs
 
 ```
 p = p.rename(columns={'geometry': 'borders'}).set_geometry('borders')
@@ -76,9 +77,9 @@ p.plot(figsize=(8,16))
 p = p.set_geometry('borders') # reset geometry
 ```
 
-\[ditto about the image\]
+[ditto about the image]
 
-Now the geometry we have doesn\'t give us the correct units (we want m²) so change to something else, then add all the
+Now the geometry we have doesn't give us the correct units (we want m²) so change to something else, then add all the
 areas up and convert to km²
 
 ```
@@ -92,4 +93,4 @@ gives
 679.3396674106002
 ```
 
-Tada! 🎉. So apparently no! At least from the crowdsourced OSM data. We\'d have to use more than just car parks 😢.
+Tada! 🎉. So apparently no! At least from the crowdsourced OSM data. We'd have to use more than just car parks 😢.

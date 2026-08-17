@@ -10,3 +10,8 @@ dependencies = [
     "mistletoe",
     "pymarkdownlnt>=0.9.36",
 ]
+
+[dependency-groups]
+dev = [
+    "playwright>=1.60.0",
+]

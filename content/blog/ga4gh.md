@@ -10,11 +10,11 @@ authors = "James Uther"
 
 Gene sequencing has been diving in cost:
 
-{margin: Fall of genome sequencing cost} ![Genome sequencing
+{% marginnote() %}Fall of genome sequencing cost{% end %} ![Genome sequencing
 costs](http://web.archive.org/web/20140124114906im_/http://cdni.wired.co.uk/1920x1280/a_c/cost_per_genome_apr.jpg)
 
-It\'s no longer in the wild ride of 2008, but still the cost is now low enough that genome data is piling up in research
-centres the world over. It\'s been realised that a lot of the really interesting research questions can only be answered
+It's no longer in the wild ride of 2008, but still the cost is now low enough that genome data is piling up in research
+centres the world over. It's been realised that a lot of the really interesting research questions can only be answered
 by sampling a wide range of data from a wide range of research centres. Unfortunately, they all store the data in custom
 formats, with individual access policies, processes, procedures and protocols, so some of the most promising medical
 research is being slowed or prevented by an inability to share data.

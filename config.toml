@@ -3,5 +3,6 @@ title = "James Uther"
 output_dir = "docs"
 compile_sass = false
 generate_feeds = false
+feed_filenames = ["rss.xml"]
 
 [markdown]

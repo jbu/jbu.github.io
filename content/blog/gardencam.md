@@ -42,13 +42,13 @@ Edit the crontab:
 */5 * * * * /capture.sh
 ```
 
-And then leave it going for months, slowly forgetting it\'s there.
+And then leave it going for months, slowly forgetting it's there.
 
 ![Temperature anomaly 1951-1980](/static/gardencam_insitu.jpg)
 
 So months later, what do we have? Well, lots of images, but what do they look like as the intended matrix visualisation?
 
-I could download all the images to the laptop and do it there, but it\'s holidays so time to shuck fit up and try
+I could download all the images to the laptop and do it there, but it's holidays so time to shuck fit up and try
 something new. Google now runs Jupiter notebooks for you, with a nice docs-like interface (colab.research.google.com).
 So imagine this is in a notebook:
 
@@ -64,7 +64,7 @@ all_names = [(b, *map(int, b.name[:-4].split('-')[-2:]))
 ```
 
 So now we have all the names, with day and time for column and row. We then want to cut this down to something
-reasonable, so let\'s gather all the day and time values, decide how many rows and columns we want, and adjust things to
+reasonable, so let's gather all the day and time values, decide how many rows and columns we want, and adjust things to
 suit that.
 
 ```
@@ -85,7 +85,7 @@ xstride = w//len(cols)
 ystride = h//len(rows)
 ```
 
-Now let\'s draw something.
+Now let's draw something.
 
 ```
 import io
@@ -108,11 +108,11 @@ for n in names[:5]:
 canvas
 ```
 
-Notice the \[:5\] there. What we find is that this takes a loooong time to iteratively download and resize hundreds of
+Notice the [:5] there. What we find is that this takes a loooong time to iteratively download and resize hundreds of
 images. Remember, python is inherently single threaded. Honestly, I got bored and decided to try some shiny new things.
 Remember, shucking fit up here.
 
-We\'re going to do this with a 2 stage fix. First, we offload the image loading and resizing to a cloud function. Then
+We're going to do this with a 2 stage fix. First, we offload the image loading and resizing to a cloud function. Then
 we use asyncio to multiplex calling that function. This should give us reasonable scalability.
 
 Rewrite the image drawing loop thusly:

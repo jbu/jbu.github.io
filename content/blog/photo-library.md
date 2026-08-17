@@ -9,9 +9,9 @@ authors = "James Uther"
 mathjax = true
 +++
 
-Imagine if you will that I take quite a few photos, but don\'t manage them well.
+Imagine if you will that I take quite a few photos, but don't manage them well.
 
-Mistakes may have been made. Like, I\'ve discovered that when you ask apple photos *\"don\'t import duplicates\"* it\'s
+Mistakes may have been made. Like, I've discovered that when you ask apple photos *"don't import duplicates"* it's
 not completely foolproof. And if, in a fit of stupidity, you tried to recombine a google photos (re-compressed) library
 with your main library you end up with a bunch of duplicates.
 
@@ -20,12 +20,12 @@ with your main library you end up with a bunch of duplicates.
 And I may have had various processing workflows over the years which stored the masters in different ways, and I might,
 without a lot of thought, have just thrown all the libraries together into a big mess.
 
-Anyway, I need to group a smallish (\\(\\text{\~}10\^4\\)) photo library into groups of *identical* photos where
+Anyway, I need to group a smallish (\\(\text{~}10^4\\)) photo library into groups of *identical* photos where
 identical means that they look the same. Step 2 (not done yet) is to then choose the best and delete the rest.
 
 We start with some functions for a processing chain:
 
-Let\'s pull apart the file path \-- we might want this as metadata later on
+Let's pull apart the file path -- we might want this as metadata later on
 
 ``` python
 file_info(p):r = {}
@@ -37,9 +37,9 @@ r['file nameparts'] = p.name.split('-')
 return r
 ```
 
-Then we want to be able to read an image. Any type of image, so let\'s go for PIL (or rather
+Then we want to be able to read an image. Any type of image, so let's go for PIL (or rather
 [Pillow](https://python-pillow.org). *Except* that we discover that my RAW images have more pixels than I realised and I
-end up with a letterbox image if we don\'t crop them using the available metadata. It turns out that
+end up with a letterbox image if we don't crop them using the available metadata. It turns out that
 [rawkit](https://github.com/photoshell/rawkit) is the better way to do this, so fall back to that for non-jpgs, and then
 go through a dance to convert them into PIL Images.
 
@@ -63,7 +63,7 @@ i['size'] = i['image'].size
 return i
 ```
 
-And let\'s generate a thumbnail for display purposes
+And let's generate a thumbnail for display purposes
 
 ``` python
 def thumb(i):
@@ -128,20 +128,20 @@ def print_index(grid):
     plt.show()
 ```
 
-Now we get to the nub: how do we find similar images? Well, that\'s a research topic. I got really sidetracked here,
-because there\'s a lot of research on finding photos of the same thing from different viewpoints (also useful for object
-tracking). There\'s some fun work out there (like [google image
+Now we get to the nub: how do we find similar images? Well, that's a research topic. I got really sidetracked here,
+because there's a lot of research on finding photos of the same thing from different viewpoints (also useful for object
+tracking). There's some fun work out there (like [google image
 search](https://www.quora.com/What-is-the-algorithm-used-by-Googles-reverse-image-search-i-e-search-by-image)) that does
-magic, but I\'m after something simpler because this is not supposed to take all day. Now, we could do a big \\(n\*n\\)
+magic, but I'm after something simpler because this is not supposed to take all day. Now, we could do a big \\(n \times n\\)
 similarity matrix of all the images and search that. Again, lots of ideas about how to measure similarity between images
-([here\'s a start](http://stackoverflow.com/questions/189943/how-can-i-quantify-difference-between-two-images), or
+([here's a start](http://stackoverflow.com/questions/189943/how-can-i-quantify-difference-between-two-images), or
 [here](http://stackoverflow.com/questions/596262/image-fingerprint-to-compare-similarity-of-many-images),
 [here](http://stackoverflow.com/questions/1034900/near-duplicate-image-detection/))
 
-But it seems overkill because I\'m actually after \~exact matches (although possibly resized or recompressed, or even
-\'auto-adjusted\').
+But it seems overkill because I'm actually after ~exact matches (although possibly resized or recompressed, or even
+'auto-adjusted').
 
-What we really want is a hash of an image. Pick a set of attributes that don\'t change through some transformations, and
+What we really want is a hash of an image. Pick a set of attributes that don't change through some transformations, and
 use that as an index. This is [not a new
 idea](http://qanda.digipres.org/58/what-techniques-there-detecting-similar-images-large-scale)
 
@@ -152,11 +152,11 @@ turns out that
 - This is great for finding how 2 images may relate to each other, but is not so great for searching a large corpus for
   similar images. ([see
   here](http://stackoverflow.com/questions/2146542/opencv-surf-how-to-generate-a-image-hash-fingerprint-signature-out-of-the))
-- it\'s not necessary
+- it's not necessary
 
 A simpler way is to run the image through a bunch of transformations that reduce the information while maintaining some
 idea of the perceptual similarity. Often people will try things like converting to greyscale, normalising, downsizing,
-taking some histograms, and somehow hashing them. There\'s a bunch of methods, and luckily for me there\'s a python
+taking some histograms, and somehow hashing them. There's a bunch of methods, and luckily for me there's a python
 library of them called [imagehash](https://github.com/JohannesBuchner/imagehash).
 
 ``` python
@@ -167,7 +167,7 @@ def image_hash(hfunc, i):
     return i
 ```
 
-Now let\'s go and get the files.
+Now let's go and get the files.
 
 ``` python
 import os, itertools, random
@@ -198,7 +198,7 @@ images = list(images)
 
 \...\...\...\...\...\...
 
-Let\'s see what we\'ve got
+Let's see what we've got
 
 ``` python
 grid = list(itertools.zip_longest(*[iter(images)]*6))
@@ -219,8 +219,8 @@ for f in images:
 
 ![](/static/photolibrary2.png)
 
-Well that\'s not too bad! Notice that the multiple slightly different shots of the iguana are sorted out pretty well
-(look at the filenames). I\'m happy.
+Well that's not too bad! Notice that the multiple slightly different shots of the iguana are sorted out pretty well
+(look at the filenames). I'm happy.
 
 Still to do:
 

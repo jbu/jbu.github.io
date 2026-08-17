@@ -17,17 +17,17 @@ something like:
 
 In which location and activity data are co-located somewhere which gives us ownership of that data and the ability to
 repurpose it. In this case location (track.er) and movement (pedomet.er) services are feeding data into personis, and
-HipsterFitnessVisualisat.ion (H25n). {margin: I don't know if .er, .ce, .cha or .ion are valid gTLDs but given that ICANN seem to be just feeding a scrabble dictionary into the root servers, they will be soon.} Google is using the data to show groovy
+HipsterFitnessVisualisat.ion (H25n). {% marginnote() %}I don't know if .er, .ce, .cha or .ion are valid gTLDs but given that ICANN seem to be just feeding a scrabble dictionary into the root servers, they will be soon.{% end %} Google is using the data to show groovy
 single-origin-latte-splattered D3 animations of my lack of health.
 
 Research themes might be around is Personis a data store or broker? What are the implications for me when I allow H25n
 into my data? What are useful ways of presenting these implications so I can make an informed choice? What APIs work
 best?
 
-Anyhoo, this isn\'t a story about that. But I once added Oauth2 support to the personis server. It was an unusual
+Anyhoo, this isn't a story about that. But I once added Oauth2 support to the personis server. It was an unusual
 configuration in that the server was both an Oauth client and server. See, in the setup above, the personis server could
 obviously be an Oauth server, in that H25n registers as a client and needs to authenticate against it with credentials
-for the user (as could the location and activity feeders). However, we don\'t want to handle passwords, so the personis
+for the user (as could the location and activity feeders). However, we don't want to handle passwords, so the personis
 server wants to delegate that to someone (E.G. Google), and so becomes an Oauth client as well. The user agent dance is
 similar to a normal Oauth login, but extended as H25n pass the user on to the personis server for authentication, who
 then passes them onto google as another layer of delegation. User provisioning was similarly extended. So when a new
@@ -47,7 +47,7 @@ user goes to H25n, the flow might go:
 
 Simple
 
-So that\'s where it stood. But now we have [OpenID Connect](http://openid.net/connect/), with it\'s fancy [JWT
+So that's where it stood. But now we have [OpenID Connect](http://openid.net/connect/), with it's fancy [JWT
 tokens](https://www.tbray.org/ongoing/When/201x/2013/04/04/ID-Tokens) which can contain signed claims about the user,
 and apparently:
 
@@ -57,21 +57,21 @@ and apparently:
 
 So my question of the day is, can the new OpenID Connect tricks help clean up the above flow?
 
-Well, in the Android world, there is a common pattern that looks a bit like this. You\'d have an app that talks to a web
-service, that talks to google. So the Kombu.cha, the social app for hand-made sandal enthusiasts, will talk to it\'s
+Well, in the Android world, there is a common pattern that looks a bit like this. You'd have an app that talks to a web
+service, that talks to google. So the Kombu.cha, the social app for hand-made sandal enthusiasts, will talk to it's
 associated web site, but might use Google for auth again.
-[Here\'s](http://android-developers.blogspot.co.uk/2013/01/verifying-back-end-calls-from-android.html) how the kombu.cha
+[Here's](http://android-developers.blogspot.co.uk/2013/01/verifying-back-end-calls-from-android.html) how the kombu.cha
 app and site can use these tricks to access a google API (and incidentally how google solved the horrid user experience
 of Oauth on Android and iOS):
 
 - At google, you set up a project, and in that get an Oauth client id for your web service, and another for your android
   app.
-- The app uses GoogleAuthUtil to get an ID token from google using it\'s client id, but the token has a wrinkle in that
-  the it asks for an \`audience:server:client_id:\` scope as well, and thus includes your web service as a scope, and
-  the \'azp\' (authorised party I suppose) is the client ID of your app. This means that google has signed something
+- The app uses GoogleAuthUtil to get an ID token from google using it's client id, but the token has a wrinkle in that
+  the it asks for an `audience:server:client_id:` scope as well, and thus includes your web service as a scope, and
+  the 'azp' (authorised party I suppose) is the client ID of your app. This means that google has signed something
   saying that it thinks that the person to which the ID token relates has authorised correctly to google via the said
   app, and that they are happy for the app to access the web service.
-- When the app wants to use it\'s associated web service, it sends the token along with the request. The service then
+- When the app wants to use it's associated web service, it sends the token along with the request. The service then
   validates that the token is signed by google, has the correct audience and azp, and can take that as proof that the
   user is all good.
 
@@ -79,16 +79,16 @@ Can we use this to clean up the original Personis flow? It might look something 
 
 1. H25n bounces the browser to google, with a scope that includes the client id for the personis service (which would
     need to be published somewhere).
-2. The user would be asked to OK something like \'I agree that HipsterFitnessVisualisat.ion can access data from
-    PersonisServi.ce\', and then bounces back to H25n with an access token.
+2. The user would be asked to OK something like 'I agree that HipsterFitnessVisualisat.ion can access data from
+    PersonisServi.ce', and then bounces back to H25n with an access token.
 3. H25n can then use the access token to get an ID token, with appropriate audience and azp fields, and signature.
 4. H25n sends a request to personis that includes the ID token. After appropriate checks, personis knows that google
     believes that the user has authorised H25n to access personis (phew!). There is the small matter of how personis
-    knows that it\'s H25n doing the requesting, but perhaps we can rely on them having the ID token in the first place
-    (In fact you can\'t trust this in the android flow above either, because the device might be rooted).
+    knows that it's H25n doing the requesting, but perhaps we can rely on them having the ID token in the first place
+    (In fact you can't trust this in the android flow above either, because the device might be rooted).
 
-And here\'s where we hit the limits of the spec. Although Google has made the Android flow work, extending it to
-arbitrary web services is off-piste. But let\'s give it a quick go at the Oauth2 playground. Create a google project for
+And here's where we hit the limits of the spec. Although Google has made the Android flow work, extending it to
+arbitrary web services is off-piste. But let's give it a quick go at the Oauth2 playground. Create a google project for
 personis and generate appropriate Oauth client IDs. Enter our `audience:server:client_id:<web app id>`
 
 ```

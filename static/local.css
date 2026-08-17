@@ -5,13 +5,105 @@ img.profile {
   shape-outside: margin-box;
 }
 
+.climate-banner {
+  --banner-peek: 15px; /* sliver remaining after slide */
+  --banner-blur: 4px; /* backdrop blur radius */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 87.5%;
+  aspect-ratio: 1500 / 86; /* match stripe image so the box never extends past it */
+  z-index: 999;
+  -webkit-backdrop-filter: blur(var(--banner-blur));
+  backdrop-filter: blur(var(--banner-blur));
+  animation: slide-banner linear;
+  animation-timeline: scroll();
+}
+
+@keyframes slide-banner {
+  0% {
+    transform: translateY(0);
+  }
+  5% {
+    transform: translateY(calc(-100% + var(--banner-peek)));
+  }
+  100% {
+    transform: translateY(calc(-100% + var(--banner-peek)));
+  }
+}
+
+.climate-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/static/short-climate-stripes.png") no-repeat top left / 100%;
+  animation: fade-banner linear;
+  animation-timeline: scroll();
+}
+
+@supports not (animation-timeline: scroll()) {
+  .climate-banner::before {
+    opacity: 0.9;
+  }
+}
+
+@keyframes fade-banner {
+  0% {
+    filter: sepia(0);
+    opacity: 1;
+  }
+  5% {
+    filter: sepia(1);
+    opacity: 0.3;
+  }
+  100% {
+    filter: sepia(1);
+    opacity: 0.3;
+  }
+}
+
 .accent {
   color: rgb(251, 12, 184);
   display: inline;
 }
 
-body {
-  background: url("static/short-climate-stripes.png") no-repeat top left/87.5%, url("static/short-climate-stripes.png") no-repeat bottom left/87.5%;
+/*body {
+  background:
+    url("static/short-climate-stripes.png") no-repeat top left/87.5%,
+    url("static/short-climate-stripes.png") no-repeat bottom left/87.5%;
+}*/
+
+.title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 55%;
+}
+
+@media (max-width: 760px) {
+  .title-row {
+    width: 100%;
+  }
+}
+
+.title-row h1 {
+  margin-bottom: 0;
+}
+
+.elsewhere,
+p.elsewhere a {
+  color: #999;
+  font-size: 1rem;
+  background: unset;
+  text-shadow: unset;
+}
+
+.elsewhere .icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  filter: invert(60%);
 }
 
 .teaser {

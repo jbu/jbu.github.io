@@ -6,7 +6,7 @@ run = "zola build"
 description = "Build the site into docs/"
 
 [tasks.serve]
-run = "zola serve"
+run = "zola serve --drafts"
 description = "Preview at http://127.0.0.1:1111 with live reload"
 
 [tasks.check]

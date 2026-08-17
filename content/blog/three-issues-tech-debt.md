@@ -11,7 +11,13 @@ authors = "James Uther"
 Digital transformation often feels like a frantic race to devise more scalable, flexible, and resilient enterprise IT
 systems that also support innovation and keep customers happy. But when it comes to making software development
 decisions, the constant need to react and respond in the moment can lead to short-term thinking. One of the most common
-pitfalls we see is organizations struggling with \"technical debt.\"
+pitfalls we see is organizations struggling with "technical debt."
 
 [Article continues
 here](https://www.oliverwyman.com/our-expertise/insights/2021/oct/three-issues-that-sum-up-technical-debt.html)
+
+### But It's Been Said Better:
+
+I think this is a much better framing of the 'technical debt' idea:
+
+![](/static/tech-debt-tweet.png)

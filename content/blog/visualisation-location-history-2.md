@@ -10,16 +10,16 @@ mathjax = true
 +++
 
 Last month we took a look at how we might get our location history from Google and show it on a map. We found that the
-real deal is found at Takeout and consists of a file that\'s mostly an array of lat/lng/time entries, but with some sort
-of \'activities\' sub-elements sometimes. After a quick glance I just munged it all together and went on, but recently I
-had another look to check assumptions (radical!). Here\'s what I found:
+real deal is found at Takeout and consists of a file that's mostly an array of lat/lng/time entries, but with some sort
+of 'activities' sub-elements sometimes. After a quick glance I just munged it all together and went on, but recently I
+had another look to check assumptions (radical!). Here's what I found:
 
 1. Sometimes there is also an accuracy, velocity, heading and altitude.
-2. The \'activitys\' element is a bit of a mystery.
+2. The 'activitys' element is a bit of a mystery.
     1. About 1/3 of entries have one or more of them.
 
 ```
-2. Each consisting of a timestamp and then a bunch of \'activities\', where activities are like
+2. Each consisting of a timestamp and then a bunch of 'activities', where activities are like
     `{"type" : “still”, "confidence" : 100}`
 
     which looks similar to
@@ -52,10 +52,10 @@ I investigated a few of these, and they were something like
 
 ```
 
-So the \'activity\' is at the same time, at the same lat/lng location, but the top-level groups have different
-timestamps (in this case about a minute apart). I\'ve no idea whey.
+So the 'activity' is at the same time, at the same lat/lng location, but the top-level groups have different
+timestamps (in this case about a minute apart). I've no idea whey.
 
-Now, let\'s start playing with some new hammers I\'ve found to see what we can find that looks like a nail.
+Now, let's start playing with some new hammers I've found to see what we can find that looks like a nail.
 [jq](http://stedolan.github.io/jq/) is my first hammer of the day.
 
 There are repeated lat/log pairs
@@ -72,7 +72,7 @@ $ jq '.locations[] | [.latitudeE7 , .longitudeE7] | tostring' < LocationHistory.
    57649
 ```
 
-So we don\'t have a particular index. It seems to be just collections of detected activities at a location, at around
+So we don't have a particular index. It seems to be just collections of detected activities at a location, at around
 the same time. And there may be more than one of these clusters for any given location
 
 Time for another hammer! [Pandas](http://pandas.pydata.org/) apparently has a good datatable that we might be able to
@@ -92,7 +92,7 @@ In [3]: j = json.load(urllib2.urlopen("https://dl.dropboxusercontent.com/u/xxxxx
 ```
 
 Then stick it in an array, with some light conversions. But pull out those activities and add them to the array in their
-own right. Keep track of numbers of activities and \'activitys\' to see what we find. Also track that diff between the
+own right. Keep track of numbers of activities and 'activitys' to see what we find. Also track that diff between the
 group timestamp and activity timestamp.
 
 ``` python
@@ -156,8 +156,8 @@ min    1.258022e+12     -1.000000
 max    1.409141e+12     47.000000
 ```
 
-Ok. So we see that the timestampDiff is mostly quite small, with huge outliers. But let\'s start by plotting all the
-positions in a scatter plot. Here\'s where I\'ve been \-- minimalist style!
+Ok. So we see that the timestampDiff is mostly quite small, with huge outliers. But let's start by plotting all the
+positions in a scatter plot. Here's where I've been \-- minimalist style!
 
 ``` python
 In [10]: df.plot('longitudeE7','latitudeE7',kind='scatter', figsize=(6, 4))
@@ -166,7 +166,7 @@ Out[10]:
 
 [![](/static/maplatlng.png)](/static/maplatlng.png)
 
-I\'m still interested in those timestamp differences. Let\'s plot them, against the actual timestamp.
+I'm still interested in those timestamp differences. Let's plot them, against the actual timestamp.
 
 ``` python
 In [11]: df['time'] = pd.to_datetime(df['timestampMs'], unit='ms')
@@ -188,7 +188,7 @@ Out[16]:
 
 [![](/static/timeplot2.png)](/static/timeplot2.png)
 
-A little more informative, but only in as much as I can\'t see a pattern so I\'ll probably ignore them. Let\'s check
+A little more informative, but only in as much as I can't see a pattern so I'll probably ignore them. Let's check
 with a histogram.
 
 ``` python
@@ -198,7 +198,7 @@ Out[17]: array([[Axes(0.125,0.125;0.775x0.775)]], dtype=object)
 
 [![](/static/timehist.png)](/static/timehist.png)
 
-Ok. So mostly small. Well, let\'s cut the dataset down to a box bounded by slightly outside the two ends of my cycle
+Ok. So mostly small. Well, let's cut the dataset down to a box bounded by slightly outside the two ends of my cycle
 route. And then save all activities that are onBicycle to a some sort of json thing.
 
 ``` python
@@ -225,10 +225,10 @@ format.
 
 I think that google takeout is an awesome thing. That sort of openness and non-stickyness from a large company is
 unusual, and to be applauded. And mostly they seem to be sticking with well known file formats that are documented and
-can be re-used in other services, but not with location history. I\'m guessing it\'s just a combination of a lack of
-common file formats to choose from coupled with a developer\'s love of writing documentation, rather than whatever
-motivated Microsoft to produce .docx. But if someone on the inside could throw us a note about what it\'s all about,
-that\'d be really nice.
+can be re-used in other services, but not with location history. I'm guessing it's just a combination of a lack of
+common file formats to choose from coupled with a developer's love of writing documentation, rather than whatever
+motivated Microsoft to produce .docx. But if someone on the inside could throw us a note about what it's all about,
+that'd be really nice.
 
 \</rant\>
 

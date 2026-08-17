@@ -9,48 +9,48 @@ authors = "James Uther"
 mathjax = true
 +++
 
-Like most Android users (because I think it\'s the default) Google tracks my location. Thankfully, they provide a way
+Like most Android users (because I think it's the default) Google tracks my location. Thankfully, they provide a way
 for me to view and edit the data collected (Thus satisfying some major rules of personal data collection - well done!).
-But the interface on location history is clunky as a visualisation, so let\'s spend lunch seeing if we can do better.
+But the interface on location history is clunky as a visualisation, so let's spend lunch seeing if we can do better.
 
 We start at the data - [Location History](https://maps.google.co.uk/locationhistory/ "Location History") and our first
-discovery is that since the closure of Latitude, the API to the data has been removed. We\'re left with a \'download
-KML\' link that will allow you to download a maximum of 30 days data at a time. Grrr. Anyway, let\'s get the data for
+discovery is that since the closure of Latitude, the API to the data has been removed. We're left with a 'download
+KML' link that will allow you to download a maximum of 30 days data at a time. Grrr. Anyway, let's get the data for
 the last month.
 
 A really quick way of seeing what we have is to simply drag the .kml file into Google Earth. It even gives a nice time
 range selection widget, and a kind of fading effect where points outside the selected time are dimmed but not hidden
-altogether. So here\'s a relatively nice overview of my various cycle routes between Waterloo and LShift:
+altogether. So here's a relatively nice overview of my various cycle routes between Waterloo and LShift:
 
 [![](/static/Screenshot_082614_102701_AM.jpg)](/static/)
 
-If we do select the entire time range it gets a bit messy, and that\'s about all we can do with Google Earth:
+If we do select the entire time range it gets a bit messy, and that's about all we can do with Google Earth:
 
 [![](/static/Screenshot_082614_102756_AM.jpg)](/static/Screenshot_082614_102756_AM.jpg)
 
 In the drive to replace Earth with Maps, it turns out that Google have added similar capabilities to Maps ([a good
-overview here](http://gis.stackexchange.com/questions/235/display-a-local-file-in-google-maps)). Again, it\'s limited.
-We can style the map a bit more, but we can\'t style the location data in any meaningful way.
+overview here](http://gis.stackexchange.com/questions/235/display-a-local-file-in-google-maps)). Again, it's limited.
+We can style the map a bit more, but we can't style the location data in any meaningful way.
 
 [![](/static/Screenshot_082614_103618_AM.jpg)](/static/Screenshot_082614_102756_AM.jpg)
 
 Where else can we go?
 
-Fusion tables supposedly has a nice KML layer and heatmaps. But a quick try shows that it doesn\'t understand some new
+Fusion tables supposedly has a nice KML layer and heatmaps. But a quick try shows that it doesn't understand some new
 elements (the [gx:Track](https://developers.google.com/kml/documentation/kmlreference#gxtrack) element) in the KML, so
 no go there.
 
 The javascript maps API has a nice heatmap layer
 ([docs](https://developers.google.com/maps/documentation/javascript/heatmaplayer)) that looks like it will do a good
-job, so let\'s give that a go. Upload the KML to a public dropbox folder, grab the public URL of the file, head over to
-jsfiddle and build a \$.get that retrieves the file, grabs the gx:coord elements, builds up an array of points that can
+job, so let's give that a go. Upload the KML to a public dropbox folder, grab the public URL of the file, head over to
+jsfiddle and build a $.get that retrieves the file, grabs the gx:coord elements, builds up an array of points that can
 be consumed by the heatmap layer, and um, nothing much. BUT then you realise that there is heat around work and home and
 perhaps the intensity is being scaled depending on frequency which is leaving the less-travelled places too dim, so you
 set maxIntensity to 1: TaDa!
 
 ![](/static/Screenshot_082714_011252_PM.jpg)
 
-Here\'s the code. And no, this won\'t work because I\'ve removed my location history for obvious reasons. But try
+Here's the code. And no, this won't work because I've removed my location history for obvious reasons. But try
 substituting your own (edit in [jsfiddle](https://jsfiddle.net/zwc5qLna/))
 
 ```
@@ -84,12 +84,12 @@ $(document).ready(function () {
 ```
 
 Then I realise that [Takeout](https://www.google.com/settings/takeout) allows you to download location history data, so
-kick that off, but it\'s very asynchronous, so back to work and we\'ll have a look tomorrow.
+kick that off, but it's very asynchronous, so back to work and we'll have a look tomorrow.
 
 ## Next lunch:
 
 So Takeout gives you all your data, with more attributes (accuracy and a guess as to activity type) in a big json file.
-Let\'s upload that to dropbox. It\'s a fair size so come back after a cup of tea.
+Let's upload that to dropbox. It's a fair size so come back after a cup of tea.
 
 It mostly boils down to lots of
 
@@ -142,9 +142,9 @@ Aaand: A right mess.
 
 ![](/static/Screenshot_082814_124101_PM.jpg)
 
-So, too much data to be useful now. We could go and start filtering by these \'activities\' (or \'activitys\' depending
+So, too much data to be useful now. We could go and start filtering by these 'activities' (or 'activitys' depending
 on which googler wrote which part of the json marshaller it seems) and finding the cycling ones. Or there is a way of
-weighing data points that we could tie in with the accuracy measure. But it\'s time to eat.
+weighing data points that we could tie in with the accuracy measure. But it's time to eat.
 
 (Originally
 [here](https://web.archive.org/web/20160305010311/http://www.lshift.net/blog/2014/08/28/lunchtime-hack-my-cycling-routes/))

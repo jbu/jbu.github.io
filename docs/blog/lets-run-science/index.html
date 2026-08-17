@@ -9,6 +9,9 @@
 
   </head>
   <body>
+    <div class="climate-banner">
+      <!--<img src="/static/short-climate-stripes.png"/>-->
+    </div>
     <article>
 
       <h1>Lunchtime Hack - Lets Run Science</h1>
@@ -35,7 +38,7 @@ downloadable code and data that looks mostly python and a bit of fortran. Let's 
 <p>I'm expecting (and found) bitrot. Docker seems like it would be a useful way of preserving these sorts of projects,
 because it can manage the runtime dependencies, so I'm going to build a docker image of my work (and a <code>run.sh</code>) as I
 go. You can get it <a rel="external" href="https://github.com/jbu/gistemp-docker">here</a> with <code>./build.sh</code>. Then run <code>./gistemp.sh</code>. You'll
-need `docker` and <code>docker-machine</code>.</p>
+need <code>docker</code> and <code>docker-machine</code>.</p>
 <p>So, the readmees are pretty clear. Some data needs to be fetched and some of the URLs have changed slightly but it's
 easy enough to track down. It takes in data from GHCNv3 (Global Historical Climate Network from NOAA) and Antarctic SCAR
 (Scientific Committee on Antarctic Research) data.</p>

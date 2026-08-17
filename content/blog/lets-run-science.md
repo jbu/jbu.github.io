@@ -10,7 +10,7 @@ authors = "James Uther"
 
 Who else likes visiting science museums? All those old apparatus ‐ bits of the radio telescope that first saw pulsars,
 longitude prize clocks, jury-rigged ingenious devices that captured the first glimpse of something new and exciting. One
-day the LHC will be dismantled, carved up and shipped to museums around the world. For a lunchtime hack I\'m going to go
+day the LHC will be dismantled, carved up and shipped to museums around the world. For a lunchtime hack I'm going to go
 and have a look at something along those lines, but software.
 
 Climate records have been collected in one form or another for hundreds of years ([here are
@@ -18,22 +18,22 @@ some](http://www.realclimate.org/index.php/data-sources/#Climate_data_raw)) and 
 further](http://www.ncdc.noaa.gov/data-access/paleoclimatology-data/datasets). Collecting this data has been the sort of
 heroic grunt-work of real science.
 
-But if you thought the sales data you\'re trying to analize is a mess, you lead a sheltered life! One of the apparatus
+But if you thought the sales data you're trying to analize is a mess, you lead a sheltered life! One of the apparatus
 that has really made a scientific and social impact over the last few decades has been methods, implemented in code, for
-pulling these data sets into something that can show whether or not the earth\'s temperature is changing, and with a bit
-more work, why. So let\'s go and visit one of these devices and take it for a spin.
+pulling these data sets into something that can show whether or not the earth's temperature is changing, and with a bit
+more work, why. So let's go and visit one of these devices and take it for a spin.
 
 There are a few of these things to choose from. [Berkeley Earth](http://berkeleyearth.org/land-and-ocean-data) is a
-recent one but it\'s all in matlab which I don\'t have installed, so move on.
+recent one but it's all in matlab which I don't have installed, so move on.
 [GISTEMP](http://data.giss.nasa.gov/gistemp/) from NASA is another major look at surface temperature. Ahh, it has
-downloadable code and data that looks mostly python and a bit of fortran. Let\'s see what we can get running.
+downloadable code and data that looks mostly python and a bit of fortran. Let's see what we can get running.
 
-I\'m expecting (and found) bitrot. Docker seems like it would be a useful way of preserving these sorts of projects,
-because it can manage the runtime dependencies, so I\'m going to build a docker image of my work (and a `run.sh`) as I
-go. You can get it [here](https://github.com/jbu/gistemp-docker) with `./build.sh`. Then run `./gistemp.sh`. You\'ll
-need \`docker\` and `docker-machine`.
+I'm expecting (and found) bitrot. Docker seems like it would be a useful way of preserving these sorts of projects,
+because it can manage the runtime dependencies, so I'm going to build a docker image of my work (and a `run.sh`) as I
+go. You can get it [here](https://github.com/jbu/gistemp-docker) with `./build.sh`. Then run `./gistemp.sh`. You'll
+need `docker` and `docker-machine`.
 
-So, the readmees are pretty clear. Some data needs to be fetched and some of the URLs have changed slightly but it\'s
+So, the readmees are pretty clear. Some data needs to be fetched and some of the URLs have changed slightly but it's
 easy enough to track down. It takes in data from GHCNv3 (Global Historical Climate Network from NOAA) and Antarctic SCAR
 (Scientific Committee on Antarctic Research) data.
 
@@ -62,7 +62,7 @@ and execute in the STEP1 directory the command:
    do_comb_step1.sh v3.mean_comb
 ```
 
-Now, Step 1 \'eliminates some dubious records\'. It has some python extensions that need to be compiled ‐ In fact I end
+Now, Step 1 'eliminates some dubious records'. It has some python extensions that need to be compiled ‐ In fact I end
 up patching it slightly and moving to `setup.py`. But then
 
 ```
@@ -107,21 +107,21 @@ and execute in STEP3 do_comb_step3.sh
 
 and then
 
-Step 3 : Gridding and computation of zonal means \...
+Step 3 : Gridding and computation of zonal means ...
 
 gives us a file `SBBX1880.Ts.GHCN.CL.PA.1200` which is a nasty fortran blob that apparently contains the grid of surface
-temperature anomalies. Great! Let\'s plot that! There are some files at nasa (linked in the build/run scripts here) that
+temperature anomalies. Great! Let's plot that! There are some files at nasa (linked in the build/run scripts here) that
 can convert this `SBBX` file to a `NetCDF` file that can be viewed. Problem is, the programs supplied take some memory.
-In fact, a few random checks suggest 10s of Gigs, which is beyond my macbook. So let\'s leave it here\... But what we
+In fact, a few random checks suggest 10s of Gigs, which is beyond my macbook. So let's leave it here... But what we
 were shooting for was
 
 ![Temperature anomaly 1951-1980](/static/lets-run-science.gif)
 
-So there you are. Just like repeating a cloud-chamber experiment in school physics we haven\'t actually learned anything
-that hasn\'t already been published and pored over. We haven\'t actually looked at the code to really see what it\'s
+So there you are. Just like repeating a cloud-chamber experiment in school physics we haven't actually learned anything
+that hasn't already been published and pored over. We haven't actually looked at the code to really see what it's
 doing.
 
-But, I now have a major bit of science history (from NASA!) running (mostly) on my laptop. That\'s at least a bit cool.
+But, I now have a major bit of science history (from NASA!) running (mostly) on my laptop. That's at least a bit cool.
 
 Also, docker has more uses than you think.
 
