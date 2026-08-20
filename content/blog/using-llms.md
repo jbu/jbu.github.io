@@ -18,7 +18,7 @@ in the open and collaborate, so I'll air it all here in public. I'll put things 
 
 
 The best time to start this would have been a couple of years ago. The second best time is now, so now it is.
-Here's a catch-up from befuddled memory.
+Here's a catch-up from befuddled memory. 
 
 
 ### Earlier
