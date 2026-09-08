@@ -8,6 +8,9 @@ aliases = ["blog/the-life-changing-magic-of-refactoring.html"]
 authors = "James Uther"
 +++
 
+> [!NOTE]
+> Simon Willison [agrees!](https://simonwillison.net/2026/Sep/6/theres-no-limit-to-how-bad-code-can-get/)
+
 I'm really a unix guy, but I have to admit, the whole .NET/SQLserver stack is hugely empowering. An average employee
 can take it, and with next to no knowledge or experience, but with a lot of determination and time, can write enough
 code to underpin an entire company. You start with a windows form, place a control, it generates an event handler for
